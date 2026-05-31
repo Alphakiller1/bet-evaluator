@@ -1,0 +1,8 @@
+# Scraped market data (regenerated; can grow large)
+data/
+# Secrets
+.env
+*.key
+# Python
+__pycache__/
+*.pyc
