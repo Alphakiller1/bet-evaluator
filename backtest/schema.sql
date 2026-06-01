@@ -399,3 +399,66 @@ create or replace view v_bet_results as
          go.home_runs, go.away_runs
   from bet_logs b
   join game_outcomes go on go.game_pk = b.game_pk;
+
+-- ============================================================================
+-- Phase B — calibration / ROI / CLV / sustainability expressors
+-- (ROI uses the evaluated price recovered as decimal = 1 / market-implied prob,
+--  so no separate odds column is needed.)
+-- ============================================================================
+
+-- Calibration: predicted-probability bucket (5% wide) vs actual win rate.
+create or replace view v_calibration_buckets as
+  select width_bucket(model_probability, 0, 1, 20) as prob_bucket,
+         count(*)                                            as n,
+         round(avg(model_probability)::numeric, 4)          as avg_predicted,
+         round(avg(case when won then 1.0 else 0.0 end), 4)  as actual_win_rate,
+         round((avg(model_probability) - avg(case when won then 1.0 else 0.0 end))::numeric, 4)
+                                                             as overconfidence
+  from model_predictions
+  where settled and won is not null and not coalesce(push, false)
+  group by 1 order by 1;
+
+-- ROI + hit rate by edge bucket (2.5pt) x market, at the evaluated price.
+create or replace view v_roi_by_edge_tier as
+  select market_type,
+         (floor(edge / 0.025) * 0.025)                       as edge_bucket,
+         count(*)                                            as n,
+         sum(case when won then 1 else 0 end)                as wins,
+         round(avg(case when won then 1.0 else 0.0 end), 4)  as win_rate,
+         round(avg(model_probability)::numeric, 4)           as avg_model_prob,
+         round(avg(market_implied_probability)::numeric, 4)  as avg_implied,
+         round(avg(case when won then (1.0/nullif(market_implied_probability,0) - 1.0)
+                        else -1.0 end)::numeric, 4)          as roi_per_unit
+  from model_predictions
+  where settled and won is not null and not coalesce(push, false)
+    and market_implied_probability is not null
+  group by 1, 2 order by 1, 2;
+
+-- CLV beat-rate (leading indicator) by market.
+create or replace view v_clv_beat_rate as
+  select market_type,
+         count(*) filter (where clv is not null)                            as n,
+         round(avg(case when clv > 0 then 1.0 else 0.0 end)
+               filter (where clv is not null), 4)                           as clv_beat_rate,
+         round(avg(clv) filter (where clv is not null)::numeric, 4)         as avg_clv
+  from model_predictions
+  where settled
+  group by market_type order by market_type;
+
+-- Sustainability: per (market, edge bucket) — is the edge repeatable (win_rate,
+-- ROI, CLV positive with adequate sample) or variance? overconfidence drives the
+-- "shade the model" recommendation in the daily report.
+create or replace view v_edge_sustainability as
+  select market_type,
+         (floor(edge / 0.025) * 0.025)                       as edge_bucket,
+         count(*)                                            as n,
+         round(avg(case when won then 1.0 else 0.0 end), 4)  as win_rate,
+         round(avg(model_probability)::numeric, 4)           as avg_model_prob,
+         round((avg(model_probability) - avg(case when won then 1.0 else 0.0 end))::numeric, 4)
+                                                             as overconfidence,
+         round(avg(case when won then (1.0/nullif(market_implied_probability,0) - 1.0)
+                        else -1.0 end)::numeric, 4)          as roi_per_unit,
+         round(avg(clv)::numeric, 4)                         as avg_clv
+  from model_predictions
+  where settled and won is not null and not coalesce(push, false)
+  group by 1, 2 order by 1, 2;
