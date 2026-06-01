@@ -114,6 +114,9 @@ ODDS_SHARP_REGIONS = "us,eu"
 SHARP_BOOKS = {"pinnacle", "betonlineag", "lowvig", "bookmaker", "circasports"}
 # Divergence (de-vig sharp consensus minus soft consensus) to flag a sharp lean.
 SHARP_DIVERGENCE_MIN = 0.02
+# Above this, the gap is almost always a stale/mismatched line (esp. runline across
+# books at different numbers), not real sharp money — treat as an artifact and skip.
+SHARP_DIVERGENCE_MAX = 0.12
 # Books moving the same way between snapshots to flag a steam move.
 STEAM_BOOK_MIN = 3
 

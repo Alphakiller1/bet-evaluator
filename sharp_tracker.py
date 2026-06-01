@@ -117,8 +117,10 @@ def sharp_signals_for_game(gpk: int, rows: list[dict]) -> list[dict]:
         # the side sharps favor most relative to soft consensus
         best = max(sides, key=lambda s: s["sharp"] - s["soft"])
         div = best["sharp"] - best["soft"]
-        if div < config.SHARP_DIVERGENCE_MIN:
-            continue
+        if div < config.SHARP_DIVERGENCE_MIN or div >= config.SHARP_DIVERGENCE_MAX:
+            continue   # below noise, or implausibly large = stale/mismatched line
+        if best["n_sharp"] < 2 and div >= 0.06:
+            continue   # big gap from a single sharp book = likely a stale outlier
         mv = market_data.line_movement(*_lookup_args(gpk, market, best["selection"]))
         signals.append({
             "game_pk": gpk, "snapshot_time": NOW, "market_type": market,

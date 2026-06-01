@@ -32,12 +32,12 @@ current-only. So:
    SUPABASE_KEY=<service-role key>
    SUPABASE_DB_URL=postgresql://postgres:<pw>@<host>:5432/postgres
    ```
-3. Apply the schema:
+3. `pip install psycopg2-binary`
+4. Apply the schema (idempotent — re-run whenever it grows):
    ```
-   psql "$SUPABASE_DB_URL" -f backtest/schema.sql
+   python -m backtest.apply_schema
    ```
-   (or paste `schema.sql` into the Supabase SQL editor)
-4. `pip install supabase psycopg2-binary`
+   (uses `SUPABASE_DB_URL`; or paste `schema.sql` into the Supabase SQL editor)
 
 ## Data flow
 1. Run `mlbma_pipeline` (produces CSVs).
