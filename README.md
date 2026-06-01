@@ -4,6 +4,19 @@ Turns a single MLB bet into a structured analysis: a statistical probability plu
 a worded read on implications, risk, and variance — then logs it into the
 ChaseAnalytics-Brain vault.
 
+**Live site:** https://alphakiller1.github.io/bet-evaluator/ — a static, in-browser
+version (model ported to JS) following the MLBMA design contract.
+
+## Live site (GitHub Pages)
+The `docs/` folder is served by GitHub Pages from `main`. To refresh its data after
+a pipeline run / odds fetch:
+```
+python export_web_data.py     # writes docs/data/site.json
+git add docs/data/site.json && git commit -m "refresh site data" && git push
+```
+The site computes probability/edge/EV/verdict in-browser (parity-checked vs the
+Python model) and auto-fills the best scraped price per bet.
+
 ## Boundaries
 - **Reads** MLB data from `mlbma_pipeline/data/*.csv` (read-only — never writes there).
 - **Writes** analyses into the vault: `ChaseAnalytics-Brain/13-Bet-History/`.
