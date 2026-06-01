@@ -108,6 +108,15 @@ ODDS_PROP_MARKETS = "batter_hits,batter_total_bases,pitcher_strikeouts,team_tota
 # Restrict to specific books, or "" for all US books (enables best-price shopping).
 ODDS_BOOKMAKERS = ""          # e.g. "draftkings,fanduel,betmgm"
 
+# Sharp-money tracking. Regions incl. EU so Pinnacle (the sharp reference) is pulled.
+ODDS_SHARP_REGIONS = "us,eu"
+# Books treated as "sharp" (move first, low-vig, respected by the market).
+SHARP_BOOKS = {"pinnacle", "betonlineag", "lowvig", "bookmaker", "circasports"}
+# Divergence (de-vig sharp consensus minus soft consensus) to flag a sharp lean.
+SHARP_DIVERGENCE_MIN = 0.02
+# Books moving the same way between snapshots to flag a steam move.
+STEAM_BOOK_MIN = 3
+
 # Map The Odds API full team names -> pipeline abbreviations.
 TEAM_NAME_TO_ABBR = {
     "Arizona Diamondbacks": "ARI", "Atlanta Braves": "ATL", "Baltimore Orioles": "BAL",

@@ -216,6 +216,30 @@ create table if not exists bet_logs (
 );
 create index if not exists idx_bet_game on bet_logs(game_pk);
 
+-- ── Sharp money / line movement signals ──────────────────────────────────────
+create table if not exists sharp_signals (
+  sharp_signal_id  bigint generated always as identity primary key,
+  game_pk          bigint references games(game_pk),
+  snapshot_time    timestamptz not null,
+  market_type      text,
+  selection        text,           -- the side sharp money favors
+  line             numeric,
+  sharp_novig_prob numeric,        -- de-vigged consensus across sharp books
+  soft_novig_prob  numeric,        -- de-vigged consensus across soft books
+  divergence       numeric,        -- sharp - soft (positive = sharps like this side)
+  n_sharp_books    int,
+  n_soft_books     int,
+  line_open        int,            -- consensus American at first snapshot
+  line_current     int,            -- consensus American now
+  line_delta       int,            -- movement toward this side
+  steam_flag       boolean,        -- multi-book simultaneous move
+  steam_books      int,
+  sharp_books_used text,
+  source           text default 'the-odds-api'
+);
+create index if not exists idx_sharp_game on sharp_signals(game_pk);
+create index if not exists idx_sharp_time on sharp_signals(snapshot_time);
+
 -- ============================================================================
 -- Look-ahead-safe views: ONLY surface snapshots taken before first pitch.
 -- All backtests must query through these, never the raw tables directly.
