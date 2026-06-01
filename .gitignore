@@ -1,5 +1,6 @@
-# Scraped market data (regenerated; can grow large)
-data/
+# Scraped market data (root store only; regenerated; can grow large)
+/data/
+# (docs/data/site.json IS committed — it's the static site's data)
 # Secrets
 .env
 *.key

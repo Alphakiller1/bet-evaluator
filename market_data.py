@@ -47,6 +47,7 @@ from config import (
     ODDS_PROP_MARKETS,
     ODDS_REGIONS,
     ODDS_SPORT_KEY,
+    PIPELINE_DATA_DIR,
     team_abbr,
 )
 
@@ -192,13 +193,48 @@ def store(rows: list[dict]) -> None:
 
 def list_events() -> dict[tuple[str, str], str]:
     """Map (away, home) -> event_id for the current slate. Free (0 credits)."""
-    data = _get(f"/sports/{ODDS_SPORT_KEY}/events", {})
     out: dict[tuple[str, str], str] = {}
-    for ev in data:
-        away = team_abbr(ev.get("away_team", ""))
-        home = team_abbr(ev.get("home_team", ""))
-        out[(away, home)] = ev.get("id", "")
+    for ev in upcoming_slate():
+        out[(ev["away"], ev["home"])] = ev["event_id"]
     return out
+
+
+def upcoming_slate() -> list[dict]:
+    """Upcoming MLB games from the live board (commence times). Free (0 credits)."""
+    data = _get(f"/sports/{ODDS_SPORT_KEY}/events", {})
+    games = []
+    for ev in data:
+        games.append({
+            "away": team_abbr(ev.get("away_team", "")),
+            "home": team_abbr(ev.get("home_team", "")),
+            "event_id": ev.get("id", ""),
+            "commence_time": ev.get("commence_time", ""),
+        })
+    return sorted(games, key=lambda g: g["commence_time"])
+
+
+def _pipeline_games() -> set[tuple[str, str]]:
+    """Games the pipeline has metrics for (today_matchups.csv) -> evaluable set."""
+    import os as _os
+    path = _os.path.join(PIPELINE_DATA_DIR, "today_matchups.csv")
+    if not _os.path.exists(path):
+        return set()
+    m = pd.read_csv(path)
+    return set(zip(m["Away"].astype(str).str.upper().str.strip(),
+                   m["Home"].astype(str).str.upper().str.strip()))
+
+
+def show_slate() -> None:
+    games = upcoming_slate()
+    evaluable = _pipeline_games()
+    print(f"\n  Upcoming MLB games (live board) - {len(games)} games")
+    print(f"  {'GAME':<12} {'START (UTC)':<22} EVALUABLE?")
+    for g in games:
+        tag = "yes" if (g["away"], g["home"]) in evaluable else "no metrics"
+        print(f"  {g['away']+'@'+g['home']:<12} {g['commence_time']:<22} {tag}")
+    if _LAST_USAGE:
+        print(f"  (events list is free; quota remaining {_LAST_USAGE.get('remaining')})")
+    print()
 
 
 def fetch_event_odds(event_id: str, props: bool = False) -> list[dict]:
@@ -332,6 +368,7 @@ def show_game(game: str) -> None:
 
 def main() -> None:
     p = argparse.ArgumentParser(description="Scrape MLB betting market data.")
+    p.add_argument("--slate", action="store_true", help="List upcoming games (free, 0 credits)")
     p.add_argument("--fetch", action="store_true", help="Fetch the whole slate (scan)")
     p.add_argument("--fetch-game", metavar="GAME", help='Fetch one game on demand, "AWAY@HOME"')
     p.add_argument("--props", action="store_true", help="Also fetch props/team totals")
@@ -339,6 +376,8 @@ def main() -> None:
     p.add_argument("--usage", action="store_true", help="Show API quota note")
     args = p.parse_args()
 
+    if args.slate:
+        show_slate()
     if args.fetch:
         run_fetch(props=args.props)
     if args.fetch_game:
@@ -349,7 +388,7 @@ def main() -> None:
         show_game(args.show)
     if args.usage:
         print(f"  Last API usage: {_LAST_USAGE or 'no call made this run'}")
-    if not (args.fetch or args.fetch_game or args.show or args.usage):
+    if not (args.slate or args.fetch or args.fetch_game or args.show or args.usage):
         p.print_help()
 
 
