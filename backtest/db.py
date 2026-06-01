@@ -60,6 +60,17 @@ def upsert(table: str, rows: list[dict], on_conflict: str) -> int:
                  "resolution=merge-duplicates,return=minimal")
 
 
+def select(table: str, params: str = "") -> list[dict]:
+    """GET rows from a table/view. params e.g. '?select=game_pk&settled=eq.false'."""
+    req = urllib.request.Request(f"{_BASE}/{table}{params}", headers=_headers())
+    try:
+        with urllib.request.urlopen(req, timeout=40) as r:
+            return json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"  {table} read failed (HTTP {e.code}): "
+                         f"{e.read().decode('utf-8','ignore')[:300]}") from e
+
+
 def count(table: str) -> int:
     """Exact row count for a table (HEAD with count=exact)."""
     req = urllib.request.Request(f"{_BASE}/{table}?select=*", method="HEAD",

@@ -35,10 +35,70 @@ import config
 import market_data
 from bet_evaluator import american_to_implied, load
 from backtest import db
-from backtest.import_snapshots import game_pk, TODAY
+from backtest.import_snapshots import game_pk, scheduled_start, TODAY
 
 NOW = datetime.now(timezone.utc).isoformat(timespec="seconds")
 SHARP_CSV = config.EVAL_DATA_DIR / "sharp_signals.csv"
+
+
+def _time_bucket(minutes_to_fp: int | None) -> str:
+    if minutes_to_fp is None or minutes_to_fp <= 0:
+        return "postgame"
+    if minutes_to_fp < 20:
+        return "close"
+    if minutes_to_fp < 120:
+        return "pregame"
+    if minutes_to_fp < 360:
+        return "midday"
+    return "early"
+
+
+def build_observations(gpk: int, rows: list[dict], sched: str | None, home: str) -> list[dict]:
+    """One row per SHARP book that diverges from the soft consensus, with conditions."""
+    import statistics
+    novig = devig_game(rows)
+    mins = None
+    if sched:
+        try:
+            st = datetime.fromisoformat(sched)
+            mins = int((st - datetime.now(timezone.utc)).total_seconds() // 60)
+        except ValueError:
+            pass
+    bucket = _time_bucket(mins)
+    obs = []
+    for (market, pk, sel), bybook in novig.items():
+        soft = [p for b, p in bybook.items() if b not in config.SHARP_BOOKS]
+        if not soft:
+            continue
+        soft_med = statistics.median(soft)
+        line = None
+        if "@" in pk:
+            try:
+                line = float(pk.split("@")[1])
+            except ValueError:
+                line = None
+        if market in ("total", "team_total"):
+            side_role = "over" if sel.endswith("over") or sel == "over" else "under"
+            home_away = "na"
+        else:
+            side_role = "fav" if soft_med >= 0.5 else "dog"
+            team = sel.split("_")[0]
+            home_away = "home" if team == home else "away"
+        for book, p in bybook.items():
+            if book not in config.SHARP_BOOKS:
+                continue
+            div = p - soft_med
+            if div < config.SHARP_DIVERGENCE_MIN or div >= config.SHARP_DIVERGENCE_MAX:
+                continue
+            obs.append({
+                "game_pk": gpk, "snapshot_time": NOW, "minutes_to_fp": mins,
+                "time_bucket": bucket, "book": book, "market_type": market,
+                "selection": sel, "line": line,
+                "book_novig_prob": round(p, 4), "soft_novig_prob": round(soft_med, 4),
+                "divergence": round(div, 4), "side_role": side_role,
+                "home_away": home_away, "metric_version": config.METRIC_VERSION,
+            })
+    return obs
 
 
 # ── Fetch (sharp + soft, us+eu) ───────────────────────────────────────────────
@@ -156,6 +216,8 @@ def run(only_game: str | None = None):
     m["Away"] = m["Away"].astype(str).str.upper().str.strip()
     m["Home"] = m["Home"].astype(str).str.upper().str.strip()
     matchups = set(zip(m["Away"], m["Home"]))
+    sched = {(r["Away"], r["Home"]): scheduled_start(TODAY, r.get("Time"))
+             for _, r in m.iterrows()}
     for a, h in matchups:
         _GAME_BY_PK[game_pk(TODAY, a, h)] = (a, h)
 
@@ -179,15 +241,25 @@ def run(only_game: str | None = None):
     sharp_books_seen = sorted({r["book"] for r in raw if r["book"] in config.SHARP_BOOKS})
     print(f"  Sharp books present: {sharp_books_seen or 'NONE (check region/credits)'}")
 
-    all_signals = []
+    all_signals, all_obs = [], []
     for (away, home), rows in by_game.items():
         if (away, home) not in matchups:
             continue
         if only_game and f"{away}@{home}" != only_game.upper():
             continue
-        all_signals.extend(sharp_signals_for_game(game_pk(TODAY, away, home), rows))
+        gpk = game_pk(TODAY, away, home)
+        all_signals.extend(sharp_signals_for_game(gpk, rows))
+        all_obs.extend(build_observations(gpk, rows, sched.get((away, home)), home))
 
     _persist(all_signals)
+    if all_obs:
+        try:
+            n = db.insert("sharp_observations", all_obs)
+            print(f"  Logged {n} per-book sharp observations.")
+        except SystemExit as e:
+            print(f"  sharp_observations store skipped: {e}")
+    else:
+        print("  No per-book sharp observations above threshold.")
     _report(all_signals)
 
 

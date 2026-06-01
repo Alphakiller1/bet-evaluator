@@ -35,8 +35,9 @@ def run():
     conn.autocommit = True
     with conn.cursor() as cur:
         cur.execute(sql)
+        cur.execute("notify pgrst, 'reload schema'")   # refresh PostgREST cache
     conn.close()
-    print("  Schema applied (idempotent).")
+    print("  Schema applied (idempotent) + PostgREST cache reloaded.")
 
 
 if __name__ == "__main__":

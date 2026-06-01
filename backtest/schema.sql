@@ -240,6 +240,36 @@ create table if not exists sharp_signals (
 create index if not exists idx_sharp_game on sharp_signals(game_pk);
 create index if not exists idx_sharp_time on sharp_signals(snapshot_time);
 
+-- ── Per-book sharp observations (the "which book to respect" record) ─────────
+-- One row per sharp book that diverges from the soft consensus, with the time +
+-- conditions it appeared under, graded against the outcome after the game.
+create table if not exists sharp_observations (
+  obs_id           bigint generated always as identity primary key,
+  game_pk          bigint references games(game_pk),
+  snapshot_time    timestamptz not null,
+  minutes_to_fp    int,            -- minutes before scheduled_start (NULL if after)
+  time_bucket      text,           -- early / midday / pregame / close
+  book             text,           -- the sharp book
+  market_type      text,
+  selection        text,
+  line             numeric,
+  book_novig_prob  numeric,        -- this book's de-vigged prob for the side
+  soft_novig_prob  numeric,        -- soft consensus de-vigged prob
+  divergence       numeric,        -- book - soft (positive = book likes this side)
+  side_role        text,           -- fav / dog / over / under
+  home_away        text,           -- home / away / na
+  settled          boolean default false,
+  won              boolean,        -- did the sharp side win/cover
+  push             boolean,
+  closing_soft_novig numeric,      -- soft consensus at last pre-game snapshot
+  market_moved_to_sharp boolean,   -- did soft consensus drift toward the sharp side (CLV proxy)
+  metric_version   text,
+  source           text default 'the-odds-api'
+);
+create index if not exists idx_obs_game on sharp_observations(game_pk);
+create index if not exists idx_obs_book on sharp_observations(book);
+create index if not exists idx_obs_settled on sharp_observations(settled);
+
 -- ============================================================================
 -- Look-ahead-safe views: ONLY surface snapshots taken before first pitch.
 -- All backtests must query through these, never the raw tables directly.
@@ -248,6 +278,28 @@ create or replace view v_team_snapshots_pregame as
   select s.* from team_metric_snapshots s
   join games g on g.game_pk = s.game_pk
   where g.scheduled_start is not null and s.snapshot_time < g.scheduled_start;
+
+-- Sharp performance — the cross-reference: which book/market/time/condition wins.
+create or replace view v_sharp_performance as
+  select book, market_type, time_bucket, side_role,
+         count(*) as n,
+         sum(case when won then 1 else 0 end) as wins,
+         round(avg(case when won then 1.0 else 0.0 end), 4) as win_rate,
+         round(avg(divergence), 4) as avg_divergence
+  from sharp_observations
+  where settled and won is not null and not coalesce(push, false)
+  group by book, market_type, time_bucket, side_role;
+
+create or replace view v_sharp_book_performance as
+  select book,
+         count(*) as n,
+         sum(case when won then 1 else 0 end) as wins,
+         round(avg(case when won then 1.0 else 0.0 end), 4) as win_rate,
+         round(avg(divergence), 4) as avg_divergence
+  from sharp_observations
+  where settled and won is not null and not coalesce(push, false)
+  group by book
+  order by win_rate desc;
 
 create or replace view v_odds_pregame as
   select o.* from odds_snapshots o
