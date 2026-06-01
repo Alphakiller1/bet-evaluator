@@ -56,14 +56,45 @@ odds_snapshots · market_closing_lines · model_predictions · bet_logs ·
 metric_versions · model_versions · look-ahead-safe views.
 
 ## Build phases
-- [x] **Phase 1** — schema + look-ahead-safe views + config wiring  ← *here*
-- [ ] **Phase 2** — CSV → snapshot importers (team/pitcher/bullpen/games)
-- [ ] **Phase 3** — odds snapshot ingestion + closing-line capture
-- [ ] **Phase 4** — outcome settlement + CLV
-- [ ] **Phase 5** — backtest engine (Brier, log-loss, calibration, ROI by edge/tier,
-      CLV; run MAE/RMSE/bias; signal hit-rate/ROI/CLV)
-- [ ] **Phase 6** — metric-target validation + model-version comparison
-      (market-only vs MLBMA-only vs hybrid, judged against closing lines)
+- [x] **Phase 1** — schema + look-ahead-safe views + config wiring
+- [x] **Phase 2** — CSV → snapshot importers (team/pitcher/bullpen/games)
+- [x] **Phase 3** — odds snapshot ingestion + closing-line capture (`v_closing_lines`)
+- [x] **Phase A** — evaluator prediction logging + settlement + CLV
+- [x] **Phase B** — calibration / ROI / CLV / sustainability expressors
+- [x] **Phase B-Report** — daily report + contradiction monitor (Discord + vault)
+- [ ] **Phase B-BI** — Metabase dashboards (compose + role provided; needs Docker)
+- [ ] **Phase C** — sharp softness / avoid-segment expressors
+- [ ] **Phase D** — metric-target validation + weight-update recommendations
+- [ ] **Phase E** — unified `v_game_features` hub for intelligent modules
+- [ ] **Phase F** — vault write-back + daily orchestrator
+
+## Evaluator learning loop (Phase A/B)
+```
+python bet_evaluator.py --game "TOR@BAL" --market ml --side BAL   # logs model_predictions
+python -m backtest.import_outcomes        # after games go final
+python -m backtest.settle_predictions     # grade won/push + CLV proxy
+python -m backtest.analyze_model          # calibration / ROI / CLV (--min-n gated)
+python -m backtest.daily_report           # contradiction monitor -> vault + Supabase
+```
+- `bet_evaluator.py` logs every evaluation to `model_predictions` (skip with `--no-log`).
+- CLV proxy = closing market-implied prob (from `v_closing_lines`, derived from
+  `odds_snapshots`) minus the implied prob at prediction time.
+- `daily_report` flags where the layers disagree (model over/under-confidence vs
+  calibrated history, unprofitable model edges, CLV loss) and writes recommend-only
+  congruence suggestions to `15-Reports/<date>.md` + the `daily_reports` table.
+  The **chase-discord-bot** reads that table and posts it in the postgame recap.
+
+## BI dashboards (Metabase)
+1. `docker compose -f docker-compose.metabase.yml up -d` → http://localhost:3000
+2. Create the read-only role: run `backtest/metabase_setup.sql` in the Supabase SQL
+   editor (set a real password first).
+3. In Metabase, Add Database → PostgreSQL with the Supabase host/port/db and the
+   `metabase_ro` role. Seed charts on these views:
+   - `v_calibration_buckets` — predicted vs actual (calibration curve)
+   - `v_roi_by_edge_tier` · `v_edge_sustainability` — ROI / sustainability by edge
+   - `v_clv_beat_rate` — CLV beat-rate over time
+   - `v_sharp_book_performance` · `v_sharp_performance` — sharp track record
+   - `daily_reports` — the contradiction-monitor history
 
 ## Metric backtest targets (what each metric is actually judged on)
 ABQ → opp starter pitches, pitches/PA, lower lineup K%, higher BB%, lower Chase%/
