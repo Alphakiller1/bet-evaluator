@@ -138,7 +138,8 @@ def team_abbr(name: str) -> str:
 #   SUPABASE_KEY=<service-role key>          # writes; keep secret
 #   SUPABASE_DB_URL=postgresql://...         # direct psql connection (migrations)
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")              # service-role (writes)
+SUPABASE_PUBLISHABLE_KEY = os.getenv("SUPABASE_PUBLISHABLE_KEY", "")  # anon (reads)
 SUPABASE_DB_URL = os.getenv("SUPABASE_DB_URL", "")
 
 # Bumped when a metric formula changes (stamped onto every snapshot).
