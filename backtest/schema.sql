@@ -334,6 +334,60 @@ create or replace view v_sharp_book_performance as
   group by book
   order by win_rate desc;
 
+-- ============================================================================
+-- Phase C — sharp OBJECTIVE-EDGE discovery: where the books are consistently
+-- beaten. Not just win rate — the sharp side's actual win rate vs the MARKET's
+-- own no-vig price, with a Wilson 95% lower bound (statistical floor) so we only
+-- trust segments that provably beat the price, not small-sample noise.
+--   z = 1.96 ; z^2 = 3.8416 ; z^2/2 = 1.9208 ; z^2/4 = 0.9604
+-- ============================================================================
+create or replace view v_sharp_edge_ranked as
+  with base as (
+    select book, market_type, time_bucket, side_role,
+           count(*)::numeric                              as n,
+           sum(case when won then 1 else 0 end)::numeric  as wins,
+           avg(case when won then 1.0 else 0.0 end)       as p,
+           avg(soft_novig_prob)                           as mkt,
+           avg(divergence)                                as div
+    from sharp_observations
+    where settled and won is not null and not coalesce(push, false)
+    group by 1, 2, 3, 4
+  )
+  select book, market_type, time_bucket, side_role,
+         n::int, wins::int,
+         round(p, 4)                                      as win_rate,
+         round(mkt, 4)                                    as avg_market_prob,
+         round(p - mkt, 4)                                as edge_vs_market,
+         round(div, 4)                                    as avg_divergence,
+         round((p + 1.9208/n - 1.96*sqrt((p*(1-p) + 0.9604/n)/n)) / (1 + 3.8416/n), 4)
+                                                          as win_rate_floor
+  from base;
+
+-- The objective edges: the 95% win-rate FLOOR still beats the market's price.
+-- These are the areas where the book is being taken advantage of consistently.
+create or replace view v_sharp_objective_edges as
+  select *, round(win_rate_floor - avg_market_prob, 4) as proven_edge
+  from v_sharp_edge_ranked
+  where win_rate_floor > avg_market_prob
+  order by (win_rate_floor - avg_market_prob) desc;
+
+-- Market softness: by market type, how exploitable the soft books are (weighted).
+create or replace view v_sharp_market_softness as
+  select market_type,
+         sum(n)                                                   as n,
+         round((sum(win_rate*n)/nullif(sum(n),0))::numeric, 4)    as win_rate,
+         round((sum(avg_market_prob*n)/nullif(sum(n),0))::numeric, 4) as avg_market_prob,
+         round((sum(edge_vs_market*n)/nullif(sum(n),0))::numeric, 4)  as edge_vs_market
+  from v_sharp_edge_ranked
+  group by market_type
+  order by edge_vs_market desc;
+
+-- Avoid: segments where the sharp signal does NOT beat the market (don't chase).
+create or replace view v_sharp_avoid_segments as
+  select * from v_sharp_edge_ranked
+  where edge_vs_market <= 0
+  order by edge_vs_market asc;
+
 create or replace view v_odds_pregame as
   select o.* from odds_snapshots o
   join games g on g.game_pk = o.game_pk
@@ -399,6 +453,85 @@ create or replace view v_bet_results as
          go.home_runs, go.away_runs
   from bet_logs b
   join game_outcomes go on go.game_pk = b.game_pk;
+
+-- Prediction-market prices (Kalshi / Polymarket) — independent real-money
+-- reference, logged with movement. No FK on game_pk: prediction data may lead the
+-- pipeline; it joins on the deterministic game_pk when our slate catches up.
+create table if not exists prediction_market_snapshots (
+  pm_snapshot_id      bigint generated always as identity primary key,
+  game_pk             bigint,
+  snapshot_time       timestamptz not null,
+  venue               text,        -- kalshi / polymarket
+  market_type         text,        -- ml / f5_total / total
+  selection           text,        -- team abbr (ml) / over_<line> (totals)
+  line                numeric,
+  yes_bid             numeric,
+  yes_ask             numeric,
+  last_price          numeric,
+  implied_probability numeric,     -- mid (bid/ask) or last, 0..1
+  volume              numeric,
+  open_interest       numeric,
+  liquidity           numeric,
+  ticker              text,
+  source              text default 'kalshi'
+);
+create index if not exists idx_pm_game on prediction_market_snapshots(game_pk);
+create index if not exists idx_pm_time on prediction_market_snapshots(snapshot_time);
+create index if not exists idx_pm_lookup on prediction_market_snapshots(game_pk, market_type, selection);
+
+-- Settlement columns so the SAME table holds historical closing-price -> outcome
+-- pairs (large-sample backtest base from Kalshi settled markets). Idempotent.
+alter table prediction_market_snapshots add column if not exists settled boolean default false;
+alter table prediction_market_snapshots add column if not exists won boolean;
+alter table prediction_market_snapshots add column if not exists result_value text;
+alter table prediction_market_snapshots add column if not exists game_date date;
+create index if not exists idx_pm_settled on prediction_market_snapshots(settled);
+
+-- Prediction-market calibration over the LARGE settled sample: does the closing
+-- price match how often that side actually won? (efficient market => near-diagonal).
+-- This is the historical truth base the model is judged against.
+create or replace view v_pm_calibration as
+  select width_bucket(implied_probability, 0, 1, 20) as price_bucket,
+         count(*)                                            as n,
+         round(avg(implied_probability)::numeric, 4)        as avg_price,
+         round(avg(case when won then 1.0 else 0.0 end), 4)  as actual_win_rate,
+         round((avg(implied_probability) - avg(case when won then 1.0 else 0.0 end))::numeric, 4)
+                                                             as gap
+  from prediction_market_snapshots
+  where settled and won is not null
+    and implied_probability between 0.02 and 0.98   -- drop post-game settlement prints
+  group by 1 order by 1;
+
+-- Latest prediction-market price per (game, market, selection).
+create or replace view v_pm_latest as
+  select distinct on (game_pk, market_type, selection)
+         game_pk, market_type, selection, venue, line,
+         implied_probability, volume, liquidity, snapshot_time
+  from prediction_market_snapshots
+  order by game_pk, market_type, selection, snapshot_time desc;
+
+-- Cross-reference: prediction market vs sportsbook consensus vs our model.
+-- pm_minus_book  > 0 => Kalshi prices this side higher than the books (book may be soft).
+-- pm_minus_model > 0 => the real-money market is higher than our model (model may be low).
+create or replace view v_market_consensus as
+  select pm.game_pk, pm.market_type, pm.selection,
+         pm.implied_probability                              as pm_implied,
+         bk.book_implied,
+         round((pm.implied_probability - bk.book_implied)::numeric, 4) as pm_minus_book,
+         mp.model_probability,
+         round((pm.implied_probability - mp.model_probability)::numeric, 4) as pm_minus_model,
+         pm.volume, pm.liquidity, pm.snapshot_time
+  from v_pm_latest pm
+  left join (
+     select game_pk, selection, round(avg(implied_probability)::numeric, 4) as book_implied
+     from odds_snapshots where market_type = 'ml' group by game_pk, selection
+  ) bk on bk.game_pk = pm.game_pk and bk.selection = pm.selection
+  left join lateral (
+     select model_probability from model_predictions m
+     where m.game_pk = pm.game_pk and m.market_type = pm.market_type and m.selection = pm.selection
+     order by prediction_time desc limit 1
+  ) mp on true
+  where pm.market_type = 'ml';
 
 -- Daily report / contradiction monitor output (written by backtest.daily_report,
 -- read+posted by the chase-discord-bot; also mirrored to the vault 15-Reports/).
