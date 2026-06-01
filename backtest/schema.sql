@@ -487,6 +487,74 @@ alter table prediction_market_snapshots add column if not exists result_value te
 alter table prediction_market_snapshots add column if not exists game_date date;
 create index if not exists idx_pm_settled on prediction_market_snapshots(settled);
 
+-- Line-movement columns (open->close trajectory before first pitch). implied_
+-- probability holds the CLOSE; these add the rest of the move + liquidity.
+alter table prediction_market_snapshots add column if not exists open_prob numeric;
+alter table prediction_market_snapshots add column if not exists delta numeric;       -- close - open
+alter table prediction_market_snapshots add column if not exists high_prob numeric;
+alter table prediction_market_snapshots add column if not exists low_prob numeric;
+alter table prediction_market_snapshots add column if not exists n_ticks int;
+
+-- ============================================================================
+-- Line-movement discovery algorithms (settled sample): where does open->close
+-- movement / liquidity / market beat the closing price's own implied outcome?
+-- edge_vs_close = actual win rate - average closing implied prob. Positive +
+-- significant = the segment is mispriced AT THE CLOSE = exploitable.
+-- ============================================================================
+
+-- 1) Does the MOVE itself predict beyond the close? (steam vs reversal vs flat)
+create or replace view v_line_move_vs_outcome as
+  select case when delta >  0.03 then '4_up_big'   when delta >  0.01 then '3_up'
+              when delta < -0.03 then '0_dn_big'   when delta < -0.01 then '1_dn'
+              else '2_flat' end                                  as move_bucket,
+         count(*)                                                as n,
+         round(avg(open_prob)::numeric, 4)                       as avg_open,
+         round(avg(implied_probability)::numeric, 4)             as avg_close,
+         round(avg(case when won then 1.0 else 0.0 end), 4)      as win_rate,
+         round((avg(case when won then 1.0 else 0.0 end) - avg(implied_probability))::numeric, 4)
+                                                                 as edge_vs_close
+  from prediction_market_snapshots
+  where settled and won is not null and open_prob is not null
+  group by 1 order by 1;
+
+-- 2) Open vs Close accuracy (Brier; lower = sharper). Quantifies how much the
+--    pre-game move improved the price.
+create or replace view v_open_vs_close_brier as
+  select count(*)                                                                       as n,
+         round(avg(power(open_prob - (case when won then 1 else 0 end), 2))::numeric, 4)            as open_brier,
+         round(avg(power(implied_probability - (case when won then 1 else 0 end), 2))::numeric, 4)  as close_brier,
+         round(avg(abs(delta))::numeric, 4)                                             as avg_abs_move
+  from prediction_market_snapshots
+  where settled and won is not null and open_prob is not null;
+
+-- 3) Liquidity quartiles: is high-volume movement sharper / are thin markets soft?
+create or replace view v_liquidity_calibration as
+  with b as (
+    select *, ntile(4) over (order by coalesce(volume, 0)) as liq_q
+    from prediction_market_snapshots where settled and won is not null
+  )
+  select liq_q,
+         count(*)                                            as n,
+         round(avg(coalesce(volume,0))::numeric, 0)          as avg_volume,
+         round(avg(implied_probability)::numeric, 4)         as avg_close,
+         round(avg(case when won then 1.0 else 0.0 end), 4)  as win_rate,
+         round((avg(case when won then 1.0 else 0.0 end) - avg(implied_probability))::numeric, 4)
+                                                             as edge_vs_close
+  from b group by liq_q order by liq_q;
+
+-- 4) Movement x liquidity: does a move only matter when it is backed by volume?
+create or replace view v_move_by_liquidity as
+  with b as (
+    select *, case when coalesce(volume,0) >= 50000 then 'high' else 'low' end as liq,
+           case when delta > 0.01 then 'up' when delta < -0.01 then 'down' else 'flat' end as mv
+    from prediction_market_snapshots where settled and won is not null and open_prob is not null
+  )
+  select liq, mv, count(*) as n,
+         round(avg(implied_probability)::numeric, 4) as avg_close,
+         round(avg(case when won then 1.0 else 0.0 end), 4) as win_rate,
+         round((avg(case when won then 1.0 else 0.0 end) - avg(implied_probability))::numeric, 4) as edge_vs_close
+  from b group by liq, mv order by liq, mv;
+
 -- Prediction-market calibration over the LARGE settled sample: does the closing
 -- price match how often that side actually won? (efficient market => near-diagonal).
 -- This is the historical truth base the model is judged against.

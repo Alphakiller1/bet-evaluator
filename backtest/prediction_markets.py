@@ -45,11 +45,14 @@ NAME_TO_ABBR = {
 }
 
 
-def _get(path: str, params: dict) -> dict:
-    url = f"{KALSHI_BASE}{path}?{urllib.parse.urlencode(params)}"
+def _get_url(url: str) -> dict:
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.loads(r.read().decode("utf-8"))
+
+
+def _get(path: str, params: dict) -> dict:
+    return _get_url(f"{KALSHI_BASE}{path}?{urllib.parse.urlencode(params)}")
 
 
 def _abbr(code_or_name: str) -> str | None:
@@ -78,6 +81,24 @@ def _ticker_date(ticker: str) -> str | None:
               "JUL": "07", "AUG": "08", "SEP": "09", "OCT": "10", "NOV": "11", "DEC": "12"}
     mm = months.get(mon)
     return f"20{yy}-{mm}-{dd}" if mm else None
+
+
+def _game_start_ts(ticker: str) -> int | None:
+    """Game start from the ticker's encoded date+time (ET) -> UTC unix seconds.
+    KXMLBGAME-26MAY311920... = 2026-05-31 19:20 ET. June = EDT (UTC-4)."""
+    import re
+    from datetime import datetime, timezone, timedelta
+    m = re.search(r"-(\d{2})([A-Z]{3})(\d{2})(\d{2})(\d{2})", ticker)
+    if not m:
+        return None
+    yy, mon, dd, hh, mm = m.groups()
+    months = {"JAN": 1, "FEB": 2, "MAR": 3, "APR": 4, "MAY": 5, "JUN": 6,
+              "JUL": 7, "AUG": 8, "SEP": 9, "OCT": 10, "NOV": 11, "DEC": 12}
+    if mon not in months:
+        return None
+    et = timezone(timedelta(hours=-4))   # EDT (MLB season)
+    dt = datetime(2000 + int(yy), months[mon], int(dd), int(hh), int(mm), tzinfo=et)
+    return int(dt.timestamp())
 
 
 def _implied(m: dict) -> float | None:
@@ -148,6 +169,108 @@ def backfill_history(max_pages: int = 60) -> None:
     games = len({r["game_pk"] for r in rows})
     print(f"  Kalshi history: logged {len(rows)} settled contracts across ~{games} games "
           f"(price + outcome). Calibration base: select * from v_pm_calibration;")
+
+
+def _unix(ts: str | None) -> int | None:
+    if not ts:
+        return None
+    from datetime import datetime
+    return int(datetime.fromisoformat(ts.replace("Z", "+00:00")).timestamp())
+
+
+def _candle_close_price(candle: dict) -> float | None:
+    """Mid of the bid/ask close for one candle; fall back to traded close/mean."""
+    def cl(side):
+        v = (candle.get(side) or {}).get("close_dollars")
+        return float(v) if v not in (None, "") else None
+    bid, ask = cl("yes_bid"), cl("yes_ask")
+    if bid is not None and ask is not None and (bid or ask):
+        return round((bid + ask) / 2, 4)
+    p = candle.get("price") or {}
+    for k in ("close_dollars", "mean_dollars", "previous_dollars"):
+        if p.get(k) not in (None, ""):
+            return round(float(p[k]), 4)
+    return None
+
+
+def _movement_stats(ticker: str, start_ts: int, open_ts: int, close_ts: int) -> dict | None:
+    """Pre-first-pitch price trajectory from candlesticks -> open/close/high/low/
+    ticks/volume + the closing candle ts. The line-movement signal base."""
+    url = (f"{KALSHI_BASE}/series/{MLB_GAME_SERIES}/markets/{ticker}/candlesticks"
+           f"?start_ts={open_ts}&end_ts={close_ts}&period_interval=60")
+    try:
+        cs = _get_url(url).get("candlesticks", [])
+    except Exception:
+        return None
+    pre = []
+    for c in cs:
+        ets = c.get("end_period_ts")
+        if ets is None or ets > start_ts:          # only pre-first-pitch candles
+            continue
+        px = _candle_close_price(c)
+        if px is not None and 0 < px < 1:
+            vol = c.get("volume_fp")
+            pre.append((ets, px, float(vol) if vol not in (None, "") else 0.0))
+    if not pre:
+        return None
+    pre.sort(key=lambda x: x[0])
+    prices = [p for _, p, _ in pre]
+    return {
+        "open": prices[0], "close": prices[-1], "close_ts": pre[-1][0],
+        "high": max(prices), "low": min(prices), "n": len(prices),
+        "volume": round(sum(v for _, _, v in pre), 2),
+    }
+
+
+def backfill_candlesticks(max_games: int = 400, sleep_s: float = 0.03) -> None:
+    """Large-sample CLEAN closing-price + outcome dataset: for each settled MLB game
+    market, pull candlesticks and take the price of the last candle before first
+    pitch (occurrence_datetime). One market per game (the other side is the
+    complement). This is the real price->outcome backtest base."""
+    import time
+    markets = fetch_markets("settled", max_pages=60)
+    # Pull BOTH sides of every game (each contract is an independent price->outcome
+    # observation) for the largest, most symmetric calibration sample.
+    picks = markets[:max_games * 2]
+    print(f"  Pulling closing lines for {len(picks)} contracts (candlesticks)...")
+
+    rows, done = [], 0
+    for m in picks:
+        ticker = m.get("ticker", "")
+        # Cutoff = game START (from the ticker), not occurrence_datetime (~game end).
+        start = _game_start_ts(ticker)
+        ot, ct = _unix(m.get("open_time")), _unix(m.get("close_time"))
+        gdate, suffix, result = _ticker_date(ticker), ticker.rsplit("-", 1)[-1], m.get("result")
+        side = _abbr(suffix)
+        if not (start and ot and ct and gdate and side and result in ("yes", "no")):
+            continue
+        mv = _movement_stats(ticker, start, ot, ct)
+        done += 1
+        if not mv:
+            continue
+        core = (m.get("title") or "").split(" Winner")[0]
+        away = home = None
+        if " vs " in core:
+            away, home = (_abbr(s.strip()) for s in core.split(" vs ", 1))
+        gpk = game_pk(gdate, away, home) if away and home else game_pk(gdate, side, side)
+        from datetime import datetime, timezone
+        rows.append({
+            "game_pk": gpk, "snapshot_time": datetime.fromtimestamp(mv["close_ts"], timezone.utc).isoformat(),
+            "game_date": gdate, "venue": "kalshi", "market_type": "ml", "selection": side,
+            "implied_probability": mv["close"], "open_prob": mv["open"],
+            "delta": round(mv["close"] - mv["open"], 4), "high_prob": mv["high"],
+            "low_prob": mv["low"], "n_ticks": mv["n"], "volume": mv["volume"],
+            "last_price": m.get("last_price_dollars"),
+            "ticker": ticker, "source": "kalshi-candlestick",
+            "settled": True, "won": (result == "yes"), "result_value": m.get("expiration_value"),
+        })
+        if sleep_s:
+            time.sleep(sleep_s)
+
+    if rows:
+        db.insert("prediction_market_snapshots", rows)
+    print(f"  Clean closing lines: {len(rows)} games (of {done} fetched). "
+          f"Calibration: select * from v_pm_calibration where source='kalshi-candlestick';")
 
 
 def run(only_game: str | None = None) -> None:
@@ -221,10 +344,15 @@ def main():
     p = argparse.ArgumentParser(description="Kalshi MLB prediction-market ingestion.")
     p.add_argument("--game", help='Limit to "AWAY@HOME"')
     p.add_argument("--history", action="store_true",
-                   help="Backfill the LARGE settled-market sample (closing price + outcome)")
+                   help="Backfill settled markets (outcomes; approximate price)")
+    p.add_argument("--candlesticks", action="store_true",
+                   help="Backfill CLEAN closing lines (candlestick at first pitch) + outcome")
     p.add_argument("--pages", type=int, default=60, help="Max history pages (200/page)")
+    p.add_argument("--games", type=int, default=400, help="Max games for candlestick backfill")
     args = p.parse_args()
-    if args.history:
+    if args.candlesticks:
+        backfill_candlesticks(max_games=args.games)
+    elif args.history:
         backfill_history(max_pages=args.pages)
     else:
         run(args.game)
