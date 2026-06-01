@@ -130,3 +130,17 @@ def team_abbr(name: str) -> str:
     if n.upper() in PARK_FACTORS:        # already an abbreviation
         return n.upper()
     return TEAM_NAME_TO_ABBR.get(n, n.upper()[:3])
+
+
+# ── Supabase (backtest / historical truth layer) ─────────────────────────────
+# Create a project at https://supabase.com, then put these in .env (gitignored):
+#   SUPABASE_URL=https://<ref>.supabase.co
+#   SUPABASE_KEY=<service-role key>          # writes; keep secret
+#   SUPABASE_DB_URL=postgresql://...         # direct psql connection (migrations)
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
+SUPABASE_DB_URL = os.getenv("SUPABASE_DB_URL", "")
+
+# Bumped when a metric formula changes (stamped onto every snapshot).
+METRIC_VERSION = os.getenv("MLBMA_METRIC_VERSION", "2026.05")
+MODEL_VERSION = os.getenv("BET_MODEL_VERSION", "v1-expected-runs")
