@@ -400,6 +400,21 @@ create or replace view v_bet_results as
   from bet_logs b
   join game_outcomes go on go.game_pk = b.game_pk;
 
+-- Daily report / contradiction monitor output (written by backtest.daily_report,
+-- read+posted by the chase-discord-bot; also mirrored to the vault 15-Reports/).
+create table if not exists daily_reports (
+  report_id        bigint generated always as identity primary key,
+  report_date      date not null,
+  generated_at     timestamptz default now(),
+  headline         text,
+  n_contradictions int default 0,
+  contradictions   jsonb,     -- [{kind, market, detail, suggestion}]
+  flags            jsonb,     -- sustainability / CLV flags
+  summary_md       text,      -- full markdown body (vault note + bot embed source)
+  posted           boolean default false   -- bot flips true after posting
+);
+create index if not exists idx_daily_reports_date on daily_reports(report_date desc);
+
 -- ============================================================================
 -- Phase B — calibration / ROI / CLV / sustainability expressors
 -- (ROI uses the evaluated price recovered as decimal = 1 / market-implied prob,
