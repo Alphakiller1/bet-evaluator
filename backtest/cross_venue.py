@@ -2,7 +2,7 @@
 Cross-venue edge engine — treat each Kalshi contract as a binary option and price
 it against the sportsbook market (and vice-versa). Three signals:
 
-  1. ARBITRAGE — bet side A on the cheaper venue and side B on the other; if the two
+  1. ARBITRAGE — bet side A on the cheaper venue (commercial consensus) and side B on the other; if the two
      costs sum to < 1 the profit is locked regardless of outcome (Dutch book).
   2. VALUE     — one venue prices a side cheaper than the other venue's no-vig fair;
      positive EV to take the cheap side (the other venue is the reference).
@@ -23,24 +23,37 @@ from backtest import db
 
 VIG_MARGIN = 0.0      # require strictly < 1 for arb; raise to demand a cushion
 MAX_PLAUSIBLE = 0.12  # cross-venue gaps above this are almost always a stale/
-                      # mismatched line (offshore/exchange book, different number),
-                      # not real edge — flagged "verify", not actioned.
+                      # mismatched line, not real edge — flagged "verify", not actioned.
+
+# Commercial mainstream books only — we reference the consensus a normal bettor can
+# actually get, not best-of-30 across obscure offshore/exchange books (which created
+# phantom arbs). Line-MOVEMENT analysis still uses every book; pricing uses these.
+COMMERCIAL_BOOKS = {
+    "draftkings", "fanduel", "betmgm", "caesars", "williamhill_us", "betrivers",
+    "espnbet", "fanatics", "pointsbetus", "bovada", "betonlineag", "betus",
+    "mybookieag", "lowvig", "hardrockbet", "ballybet", "fliff", "pinnacle",
+}
 
 
-def _best_book_ml() -> dict:
-    """Cheapest (best) book implied prob per (game_pk, selection) for today's ML."""
+def _commercial_ml() -> dict:
+    """Commercial-book consensus (median) implied prob per (game_pk, selection)."""
+    import statistics
     rows = db.select("odds_snapshots",
                      "?market_type=eq.ml&select=game_pk,selection,implied_probability,sportsbook,snapshot_time"
-                     "&order=snapshot_time.desc&limit=4000")
-    best: dict = {}
+                     "&order=snapshot_time.desc&limit=6000")
+    seen, by_sel = set(), {}
     for r in rows:
         ip = r.get("implied_probability")
-        if ip is None:
+        bk = r.get("sportsbook")
+        if ip is None or bk not in COMMERCIAL_BOOKS:
             continue
-        key = (r["game_pk"], r["selection"])
-        if key not in best or ip < best[key]["implied"]:
-            best[key] = {"implied": ip, "book": r.get("sportsbook")}
-    return best
+        k = (r["game_pk"], r["selection"], bk)        # one latest price per book
+        if k in seen:
+            continue
+        seen.add(k)
+        by_sel.setdefault((r["game_pk"], r["selection"]), []).append(ip)
+    return {key: {"implied": round(statistics.median(v), 4), "book": f"{len(v)} commercial"}
+            for key, v in by_sel.items()}
 
 
 def _kalshi_ml() -> dict:
@@ -48,8 +61,8 @@ def _kalshi_ml() -> dict:
     return {(r["game_pk"], r["selection"]): r for r in rows}
 
 
-def run(thin: float = 80000, min_edge: float = 0.02):
-    books = _best_book_ml()
+def compute(thin: float = 80000, min_edge: float = 0.02):
+    books = _commercial_ml()
     kalshi = _kalshi_ml()
     # group selections per game
     games: dict = {}
@@ -90,6 +103,11 @@ def run(thin: float = 80000, min_edge: float = 0.02):
                 if cost < 1 - VIG_MARGIN:
                     arbs.append((gpk, f"{bb}@kalshi + {a}@{ba['book']}", round(cost, 4), round((1 - cost) * 100, 2)))
 
+    return games, arbs, values, thins
+
+
+def run(thin: float = 80000, min_edge: float = 0.02):
+    games, arbs, values, thins = compute(thin, min_edge)
     print(f"\n  CROSS-VENUE EDGE  (Kalshi vs sportsbooks; {len(games)} games; min edge {min_edge*100:.0f}%)")
     real_arbs = [a for a in arbs if a[3] <= MAX_PLAUSIBLE * 100]
     print(f"\n  ARBITRAGE (locked profit; verify limits + simultaneity before trusting):")
