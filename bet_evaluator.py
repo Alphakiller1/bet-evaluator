@@ -764,6 +764,8 @@ def main() -> None:
     p.add_argument("--props", action="store_true",
                    help="Also pull props/team totals on the live fetch (costs more credits)")
     p.add_argument("--no-write", action="store_true", help="Print only; do not write a vault note")
+    p.add_argument("--no-log", action="store_true",
+                   help="Don't log this prediction to Supabase (model_predictions)")
     args = p.parse_args()
 
     if "@" not in args.game:
@@ -793,6 +795,11 @@ def main() -> None:
 
     a = build_analysis(gd, args.market, args.side, args.line, args.ou, odds, market_info)
     print_summary(a)
+    if not args.no_log:
+        from backtest import log_prediction
+        gpk = log_prediction.log(a)
+        if gpk:
+            print(f"  Logged prediction to Supabase (game_pk {gpk}).")
     md = render_markdown(a)
     if not args.no_write:
         path = write_to_vault(a, md)

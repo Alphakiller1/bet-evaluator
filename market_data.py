@@ -247,6 +247,30 @@ def fetch_event_odds(event_id: str, props: bool = False) -> list[dict]:
     return _normalize_event(ev, fetched_at)
 
 
+def fetch_historical(date_iso: str, props: bool = False) -> list[dict]:
+    """Past odds at a point in time. PAID-ONLY on The Odds API (free plan returns
+    401). Ready for when a paid key is set; degrades gracefully otherwise.
+    date_iso e.g. '2026-05-15T18:00:00Z'."""
+    markets = ODDS_GAME_MARKETS + ("," + ODDS_PROP_MARKETS if props else "")
+    params = {"regions": ODDS_REGIONS, "markets": markets,
+              "oddsFormat": ODDS_FORMAT, "date": date_iso}
+    try:
+        payload = _get(f"/historical/sports/{ODDS_SPORT_KEY}/odds", params)
+    except SystemExit as e:
+        if "FREE_USAGE_PLAN" in str(e) or "401" in str(e):
+            print("  Historical odds are paid-only on The Odds API — skipping past-odds "
+                  "scrape. Outcomes still backfill for free (backtest.import_history).")
+            return []
+        raise
+    # historical response wraps events under 'data'
+    events = payload.get("data", payload) if isinstance(payload, dict) else payload
+    fetched = date_iso
+    rows = []
+    for ev in events:
+        rows.extend(_normalize_event(ev, fetched))
+    return rows
+
+
 def fetch_game(away: str, home: str, props: bool = False) -> list[dict]:
     """Live fetch + store odds for one game. Returns its rows (may be empty)."""
     away, home = away.upper(), home.upper()

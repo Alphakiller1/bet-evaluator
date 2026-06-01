@@ -279,6 +279,39 @@ create or replace view v_team_snapshots_pregame as
   join games g on g.game_pk = s.game_pk
   where g.scheduled_start is not null and s.snapshot_time < g.scheduled_start;
 
+-- Past vs future separation (analyze both, kept distinct).
+create or replace view v_games_past as
+  select * from games where status = 'final';
+create or replace view v_games_upcoming as
+  select * from games where status is distinct from 'final';
+
+-- Past outcome base rates (the historical truth, outcome-based).
+create or replace view v_outcome_base_rates as
+  select count(*) as games,
+         round(avg(case when o.winner_team = g.home_team then 1.0 else 0.0 end), 4) as home_win_rate,
+         round(avg(o.total_runs), 2) as avg_total_runs,
+         round(avg(o.margin_home), 2) as avg_margin_home,
+         round(avg(o.home_runs), 2) as avg_home_runs,
+         round(avg(o.away_runs), 2) as avg_away_runs,
+         round(stddev_pop(o.total_runs), 2) as sd_total_runs
+  from game_outcomes o
+  join games g on g.game_pk = o.game_pk
+  where g.status = 'final';
+
+-- Per-team historical record (home & away win rate).
+create or replace view v_team_outcome_perf as
+  select t.team_abbr as team,
+         count(*) filter (where g.home_team = t.team_abbr) as home_g,
+         round(avg(case when g.home_team = t.team_abbr and o.winner_team = t.team_abbr then 1.0
+                        when g.home_team = t.team_abbr then 0.0 end), 4) as home_win_rate,
+         count(*) filter (where g.away_team = t.team_abbr) as away_g,
+         round(avg(case when g.away_team = t.team_abbr and o.winner_team = t.team_abbr then 1.0
+                        when g.away_team = t.team_abbr then 0.0 end), 4) as away_win_rate
+  from teams t
+  join games g on (g.home_team = t.team_abbr or g.away_team = t.team_abbr) and g.status = 'final'
+  join game_outcomes o on o.game_pk = g.game_pk
+  group by t.team_abbr;
+
 -- Sharp performance — the cross-reference: which book/market/time/condition wins.
 create or replace view v_sharp_performance as
   select book, market_type, time_bucket, side_role,
@@ -314,3 +347,55 @@ create or replace view v_backtest_team_base as
   from v_team_snapshots_pregame s
   join game_outcomes go on go.game_pk = s.game_pk
   order by s.game_pk, s.team, s.snapshot_time desc;
+
+-- ============================================================================
+-- Phase A — evaluator prediction logging + settlement loop
+-- ============================================================================
+
+-- Settlement columns on model_predictions (idempotent; table predates Phase A).
+-- CLV proxy for a prediction = closing market-implied prob for the side minus the
+-- market-implied prob at prediction time (positive = market moved toward our side).
+alter table model_predictions add column if not exists settled boolean default false;
+alter table model_predictions add column if not exists won boolean;
+alter table model_predictions add column if not exists push boolean;
+alter table model_predictions add column if not exists side_role text;       -- fav/dog/over/under
+alter table model_predictions add column if not exists closing_implied_probability numeric;
+alter table model_predictions add column if not exists clv numeric;
+alter table model_predictions add column if not exists settled_at timestamptz;
+create index if not exists idx_pred_settled on model_predictions(settled);
+
+-- Predictions made before first pitch (look-ahead-safe). Predictions are
+-- inherently pre-game, but enforce the cutoff so a replayed/late eval can't leak.
+create or replace view v_predictions_pregame as
+  select p.* from model_predictions p
+  join games g on g.game_pk = p.game_pk
+  where g.scheduled_start is null or p.prediction_time < g.scheduled_start;
+
+-- Closing line per (game, market, selection): the BEST price at the latest odds
+-- snapshot strictly before first pitch. Derived from odds_snapshots so CLV works
+-- without a separate closing-line capture job (market_closing_lines stays optional).
+create or replace view v_closing_lines as
+  select distinct on (o.game_pk, o.market_type, o.selection)
+    o.game_pk, o.market_type, o.selection, o.line,
+    o.american_odds       as closing_odds,
+    o.decimal_odds        as closing_decimal,
+    o.implied_probability as closing_implied_probability,
+    o.snapshot_time       as closing_snapshot_time
+  from odds_snapshots o
+  join games g on g.game_pk = o.game_pk
+  where g.scheduled_start is not null and o.snapshot_time < g.scheduled_start
+  order by o.game_pk, o.market_type, o.selection, o.snapshot_time desc, o.decimal_odds desc;
+
+-- Settled predictions joined to the final outcome (the grading base for calibration).
+create or replace view v_prediction_results as
+  select p.*, go.winner_team, go.total_runs, go.margin_home,
+         go.home_runs, go.away_runs, go.home_f5_runs, go.away_f5_runs
+  from model_predictions p
+  join game_outcomes go on go.game_pk = p.game_pk;
+
+-- Placed bets joined to outcomes (ROI / record base).
+create or replace view v_bet_results as
+  select b.*, go.winner_team, go.total_runs, go.margin_home,
+         go.home_runs, go.away_runs
+  from bet_logs b
+  join game_outcomes go on go.game_pk = b.game_pk;

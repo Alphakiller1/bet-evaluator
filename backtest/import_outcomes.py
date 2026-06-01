@@ -20,6 +20,11 @@ def _b(v):
     return str(v).strip().lower() in ("true", "1", "w")
 
 
+def _int(v):
+    n = _num(v)
+    return int(n) if n is not None else None
+
+
 def run():
     g = load("game_results.csv")
     if g is None:
@@ -47,15 +52,15 @@ def run():
             "total_runs": (hr + ar) if hr is not None and ar is not None else None,
             "margin_home": (hr - ar) if hr is not None and ar is not None else None,
             "winner_team": home if str(h["result"]).strip().upper() == "W" else away,
-            "home_starter_id": _num(h.get("team_starter_id")),
-            "away_starter_id": _num(h.get("opp_starter_id")),
+            "home_starter_id": _int(h.get("team_starter_id")),
+            "away_starter_id": _int(h.get("opp_starter_id")),
             "home_starter_ip": _num(h.get("team_starter_ip")),
             "away_starter_ip": _num(h.get("opp_starter_ip")),
-            "home_starter_er": _num(h.get("team_starter_er")),
-            "away_starter_er": _num(h.get("opp_starter_er")),
+            "home_starter_er": _int(h.get("team_starter_er")),
+            "away_starter_er": _int(h.get("opp_starter_er")),
             "home_quality_start": _b(h.get("team_quality_start")),
             "away_quality_start": _b(h.get("opp_quality_start")),
-            "save_pitcher_id": _num(h.get("save_pitcher_id")),
+            "save_pitcher_id": _int(h.get("save_pitcher_id")),
             "blown_save_home": _b(h.get("blown_save")),
             "blown_save_away": _b(a.get("blown_save")) if a is not None else None,
         })
