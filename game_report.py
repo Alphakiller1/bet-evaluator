@@ -84,6 +84,21 @@ def _proj_ks(k_pct: float | None, ip: float) -> float | None:
     return round(k_pct / 100.0 * ip * PA_PER_INNING, 1)
 
 
+try:
+    import regression as _regmod
+except Exception:
+    _regmod = None
+
+
+def _reg_tag(sp: str):
+    if _regmod is None:
+        return None
+    try:
+        return _regmod.tag(sp)
+    except Exception:
+        return None
+
+
 def _f(x, d: int = 1) -> str:
     return f"{x:.{d}f}" if isinstance(x, (int, float)) else "-"
 
@@ -191,8 +206,12 @@ def run(away: str, home: str, k_line: float = 5.5):
                 continue
             edge = proj - mline
             lean = "OVER" if edge >= 0.5 else ("UNDER" if edge <= -0.5 else "pass")
+            guard = "  [!] VERIFY INPUTS (model vs market > 2.5K - likely stale K%)" if abs(edge) > 2.5 else ""
+            reg = _reg_tag(sp)
             print(f"  {sp} ({who}): proj ~{proj} Ks | Kalshi line {mline} (over {over*100:.0f}%)"
-                  f"  ->  {lean} ({edge:+.1f})")
+                  f"  ->  {lean} ({edge:+.1f}){guard}")
+            if reg:
+                print(f"       form: {reg}")
         elif proj is not None:
             edge = proj - k_line
             lean = "OVER" if edge >= 0.4 else ("UNDER" if edge <= -0.4 else "pass")

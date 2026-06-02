@@ -11,6 +11,7 @@ Commands
   cross [--min-edge N]          Kalshi vs commercial books: arb / value / thin
   book  [--min-n N]             cross-book intelligence (sharp vs soft)
   scenarios [--min-n N]         parameterized react-scenarios
+  regress [--game AWAY@HOME]    pitcher regression / progression spots (fade hot, back cold)
   sharp                         fetch + report live sharp signals (uses API credits)
   predict                       fetch live Kalshi contract prices
   model [--min-n N]             model calibration / ROI / CLV
@@ -58,6 +59,8 @@ def _dispatch(cmd: str, rest: list[str]):
         from backtest import analyze_model; analyze_model.main()
     elif cmd == "report":
         from backtest import daily_report; daily_report.main()
+    elif cmd == "regress":
+        import regression; regression.main()
     elif cmd == "bet":
         import bet_evaluator; bet_evaluator.main()
     else:
