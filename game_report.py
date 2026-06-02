@@ -131,14 +131,34 @@ def run(away: str, home: str, k_line: float = 5.5):
     # ── FIRST 5 (F5) ─────────────────────────────────────────────────────────
     print("\n  -- FIRST 5 INNINGS (F5) --")
     f5_total = probs.exp_total * F5_SHARE
-    f5_line = round(f5_total * 2) / 2
-    p_f5_over, _ = be.market_probability("total", "over", f5_line / F5_SHARE, gd, probs, anchors, None)
-    print(f"  Model F5 total est: {f5_total:.2f} runs  ->  {_lean(p_f5_over, f'OVER {f5_line}')}")
+    print(f"  Model F5 total est: {f5_total:.2f} runs")
+    # Live Kalshi F5 line: pick the strike priced nearest 50/50 (the balanced line),
+    # then compare the model's P(F5 over that line) to Kalshi's over price.
+    f5 = {}
+    try:
+        from backtest import prediction_markets as pm
+        f5 = pm.f5_market(away, home, TODAY) if db is not None else {}
+    except Exception:
+        f5 = {}
+    if f5:
+        main = min(f5, key=lambda k: abs(f5[k] - 0.5))   # balanced line
+        kalshi_over = f5[main]
+        p_model_over, _ = be.market_probability("total", "over", main / F5_SHARE, gd, probs, anchors, None)
+        edge = p_model_over - kalshi_over
+        lean = "OVER" if edge >= 0.04 else ("UNDER" if edge <= -0.04 else "pass")
+        print(f"  Kalshi F5 line {main}: Over {kalshi_over*100:.0f}%  |  model {p_model_over*100:.0f}%"
+              f"  ->  {lean} ({edge*100:+.0f} pts)")
+        others = sorted(k for k in f5 if k != main)
+        if others:
+            print("  other strikes: " + " | ".join(f"{k}={f5[k]*100:.0f}%" for k in others))
+    else:
+        f5_line = round(f5_total * 2) / 2
+        p_f5_over, _ = be.market_probability("total", "over", f5_line / F5_SHARE, gd, probs, anchors, None)
+        print(f"  No live Kalshi F5 line found -> model lean {_lean(p_f5_over, f'OVER {f5_line}')}")
     fa, fh = _f5_winpct(away), _f5_winpct(home)
     if fa is not None or fh is not None:
         print(f"  Pipeline F5 win%: {away} {('%.0f%%'%(fa*100)) if fa is not None else '-'} / "
               f"{home} {('%.0f%%'%(fh*100)) if fh is not None else '-'}  (SP/early-game strength)")
-    print("  (Live F5 line on Kalshi KXMLBF5TOTAL - compare the model est to that number.)")
 
     # ── PITCHER STRIKEOUTS ───────────────────────────────────────────────────
     print("\n  -- PITCHER STRIKEOUTS (props) --")

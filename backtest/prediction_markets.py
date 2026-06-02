@@ -125,6 +125,46 @@ def fetch_markets(status: str, max_pages: int = 10) -> list[dict]:
     return out
 
 
+TO_KALSHI = {"ARI": "AZ", "SDP": "SD", "SFG": "SF", "TBR": "TB", "KCR": "KC",
+             "WSN": "WSH", "CHW": "CWS", "ATH": "OAK"}
+_MON = {1: "JAN", 2: "FEB", 3: "MAR", 4: "APR", 5: "MAY", 6: "JUN",
+        7: "JUL", 8: "AUG", 9: "SEP", 10: "OCT", 11: "NOV", 12: "DEC"}
+
+
+def _date_compact(gdate: str) -> str:
+    y, m, d = gdate.split("-")
+    return f"{y[2:]}{_MON[int(m)]}{d}"
+
+
+def f5_market(away: str, home: str, gdate: str) -> dict:
+    """Live Kalshi First-5-innings TOTAL for a game -> {line: over_implied_mid}.
+    Only liquid strikes (bid/ask spread < 0.20). Matched by date + team blob."""
+    blob = TO_KALSHI.get(away, away) + TO_KALSHI.get(home, home)
+    dc = _date_compact(gdate)
+    out, cursor = {}, None
+    for _ in range(8):
+        params = {"series_ticker": "KXMLBF5TOTAL", "status": "open", "limit": 200}
+        if cursor:
+            params["cursor"] = cursor
+        data = _get("/markets", params)
+        for m in data.get("markets", []):
+            tk = m.get("ticker", "")
+            if dc not in tk or blob not in tk:
+                continue
+            strike = m.get("floor_strike")
+            bid, ask = m.get("yes_bid_dollars"), m.get("yes_ask_dollars")
+            if strike is None or bid is None or ask is None:
+                continue
+            bid, ask = float(bid), float(ask)
+            if ask - bid > 0.20 or not (bid or ask):
+                continue
+            out[float(strike)] = round((bid + ask) / 2, 4)
+        cursor = data.get("cursor")
+        if not cursor:
+            break
+    return out
+
+
 def backfill_history(max_pages: int = 60) -> None:
     """Pull the LARGE settled-market sample. The reliable signal here is the game
     OUTCOME (result/winner) — a big independent sample of real MLB results. The
