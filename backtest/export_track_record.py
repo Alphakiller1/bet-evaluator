@@ -15,7 +15,7 @@ from pathlib import Path
 import config
 from backtest import db, market_edge
 
-OUT = Path(config.PIPELINE_DATA_DIR).parent / "dashboard" / "data" / "track_record.json"
+OUT = Path(config.PIPELINE_DATA_DIR).parent / "dashboard" / "track_record.json"
 
 
 def build() -> dict:
