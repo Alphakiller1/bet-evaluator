@@ -107,11 +107,10 @@ SEGMENTS = [
 ]
 
 
-def run(min_n: int = 30, hurdle: float = 0.03, kelly_cap: float = 0.25):
+def scan(min_n: int = 30, hurdle: float = 0.03, kelly_cap: float = 0.25) -> list[dict]:
     rows = [r for r in _fetch() if r.get("market_type") == "ml"]
     if len(rows) < min_n:
-        print(f"\n  Only {len(rows)} settled contracts — need the candlestick backfill to finish.\n")
-        return
+        return []
 
     results = []
     for label, pred in SEGMENTS:
@@ -143,7 +142,14 @@ def run(min_n: int = 30, hurdle: float = 0.03, kelly_cap: float = 0.25):
     for r, s in zip(tested, survive):
         r["fdr_ok"] = s
         r["tradeable"] = s and r["roi_lb"] > hurdle and r["kelly"] > 0.01
+    return results
 
+
+def run(min_n: int = 30, hurdle: float = 0.03, kelly_cap: float = 0.25):
+    results = scan(min_n, hurdle, kelly_cap)
+    if not results:
+        print(f"\n  Insufficient settled sample (need >= {min_n}). Run the candlestick backfill.\n")
+        return
     print(f"\n  MARKET-EDGE SCAN  (settled ML; n>={min_n}; ROI at ENTRY/open; hurdle {hurdle*100:.0f}% ROI)")
     print(f"  {'SEGMENT':<24}{'N':>5}{'WIN%':>7}{'ROI/u':>8}{'ROI 95%LB':>11}{'CLV':>7}{'KELLY':>7}{'SHRP':>6}  VERDICT")
     for r in results:
