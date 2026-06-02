@@ -19,9 +19,11 @@ from bet_evaluator import load, _num
 
 try:
     from backtest import db
+    from backtest import prediction_markets as pm
     from backtest.import_snapshots import game_pk, TODAY
 except Exception:
     db = None
+    pm = None
 
 F5_SHARE = 0.55      # first 5 innings ~ 55% of a game's runs (SP-driven, ~5/9 of innings)
 PA_PER_INNING = 4.3  # batters faced per inning incl. baserunners
@@ -136,8 +138,7 @@ def run(away: str, home: str, k_line: float = 5.5):
     # then compare the model's P(F5 over that line) to Kalshi's over price.
     f5 = {}
     try:
-        from backtest import prediction_markets as pm
-        f5 = pm.f5_market(away, home, TODAY) if db is not None else {}
+        f5 = pm.f5_market(away, home, TODAY) if pm is not None else {}
     except Exception:
         f5 = {}
     if f5:
@@ -162,16 +163,43 @@ def run(away: str, home: str, k_line: float = 5.5):
 
     # ── PITCHER STRIKEOUTS ───────────────────────────────────────────────────
     print("\n  -- PITCHER STRIKEOUTS (props) --")
-    for who, sp, kp, opp in ((away, gd.away_sp, gd.away_k, home), (home, gd.home_sp, gd.home_k, away)):
+    ks_mkts = {}
+    try:
+        ks_mkts = pm.ks_market(away, home, TODAY) if pm is not None else {}
+    except Exception:
+        ks_mkts = {}
+
+    def _match_ladder(sp_name: str):
+        last = (sp_name or "").split()[-1].lower() if sp_name and sp_name != "TBD" else None
+        if not last:
+            return None
+        for name, ladder in ks_mkts.items():
+            if last in name.lower():
+                return ladder
+        return None
+
+    for who, sp, kp in ((away, gd.away_sp, gd.away_k), (home, gd.home_sp, gd.home_k)):
         ip = _ip_per_start(who)
-        ks = _proj_ks(kp, ip)
-        if ks is None:
+        proj = _proj_ks(kp, ip)
+        ladder = _match_ladder(sp)
+        if ladder:
+            # market line = the strike priced nearest 50/50 over
+            mline = min(ladder, key=lambda k: abs(ladder[k] - 0.5))
+            over = ladder[mline]
+            if proj is None:
+                print(f"  {sp} ({who}): Kalshi line {mline} (over {over*100:.0f}%) | model K% n/a")
+                continue
+            edge = proj - mline
+            lean = "OVER" if edge >= 0.5 else ("UNDER" if edge <= -0.5 else "pass")
+            print(f"  {sp} ({who}): proj ~{proj} Ks | Kalshi line {mline} (over {over*100:.0f}%)"
+                  f"  ->  {lean} ({edge:+.1f})")
+        elif proj is not None:
+            edge = proj - k_line
+            lean = "OVER" if edge >= 0.4 else ("UNDER" if edge <= -0.4 else "pass")
+            print(f"  {sp} ({who}): proj ~{proj} Ks vs default line {k_line} (no live market)  ->  {lean} ({edge:+.1f})")
+        else:
             print(f"  {sp} ({who}): K% n/a - can't project")
-            continue
-        edge = ks - k_line
-        lean = "OVER" if edge >= 0.4 else ("UNDER" if edge <= -0.4 else "pass")
-        print(f"  {sp} ({who}): K% {_f(kp)} x {ip:.1f} IP -> ~{ks} Ks vs line {k_line}  ->  {lean} ({edge:+.1f})")
-    print("  (Live K lines on Kalshi KXMLBKS / sportsbook props - use ~5.5 default or pass --k-line.)\n")
+    print()
 
 
 def main():
