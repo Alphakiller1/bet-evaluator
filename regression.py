@@ -28,6 +28,33 @@ K_DEV = 1.5     # strikeout deviation
 RECENT_N = 3
 
 
+def _ip_true(x) -> float:
+    """Box-score IP (5.2 = 5 and 2/3) -> true innings."""
+    try:
+        f = float(x)
+    except (TypeError, ValueError):
+        return 0.0
+    whole = int(f)
+    return whole + round((f - whole) * 10) / 3.0
+
+
+FIP_CONST = 3.10   # league FIP constant (approx); only the FIP-vs-ERA GAP matters here
+LUCK_GAP = 0.75    # |recent FIP - recent ERA| to call results luck-driven
+HEAVY_PITCHES = 100  # recent avg pitch count flagging workload/fatigue
+
+
+def _agg(df) -> dict:
+    ip = sum(_ip_true(v) for v in df["IP"]) if "IP" in df.columns else 0.0
+    if ip <= 0:
+        return {}
+    s = lambda c: float(df[c].sum()) if c in df.columns else 0.0
+    fip = (13 * s("HR") + 3 * s("BB") - 2 * s("K")) / ip + FIP_CONST
+    era = 9 * s("ER") / ip
+    return {"fip": round(fip, 2), "era": round(era, 2),
+            "k9": round(9 * s("K") / ip, 1),
+            "pitches": round(df["pitches"].mean(), 0) if "pitches" in df.columns else None}
+
+
 def pitcher_form(name: str, n_recent: int = RECENT_N) -> dict | None:
     gl = load("sp_gamelog.csv")
     if gl is None or "pitcher_name" not in gl.columns or not name or name == "TBD":
@@ -44,26 +71,43 @@ def pitcher_form(name: str, n_recent: int = RECENT_N) -> dict | None:
 
     def avg(df, c):
         return float(df[c].mean()) if c in df.columns else None
+    ra, se = _agg(recent), _agg(g)
     return {
         "name": name, "starts": len(g),
         "recent_k": avg(recent, "K"), "season_k": avg(g, "K"),
         "recent_gs": avg(recent, "game_score"), "season_gs": avg(g, "game_score"),
-        "recent_er": avg(recent, "ER"), "season_er": avg(g, "ER"),
+        "recent_fip": ra.get("fip"), "recent_era": ra.get("era"),
+        "season_fip": se.get("fip"), "season_era": se.get("era"),
+        "recent_pitches": ra.get("pitches"),
+        # luck gap: FIP - ERA. positive => ERA below peripherals => lucky (regress).
+        "luck": round((ra.get("fip") - ra.get("era")), 2) if ra.get("fip") is not None and ra.get("era") is not None else None,
     }
 
 
 def regression_signal(form: dict | None):
-    """Return (state, detail, k_dev) - REGRESSION / PROGRESSION / STABLE."""
+    """Return (state, detail, k_dev) - REGRESSION / PROGRESSION / STABLE.
+    Research-grounded: the regression fuel is luck (recent ERA vs FIP/peripherals;
+    BABIP/HR-FB/LOB% don't stabilize), corroborated by game-score swing. K% is semi-
+    stable (~70 BF) so it's a secondary tell. Heavy recent workload adds fatigue risk."""
     if not form or form.get("recent_gs") is None or form.get("season_gs") is None:
         return None
     gs_dev = form["recent_gs"] - form["season_gs"]
     k_dev = (form["recent_k"] or 0) - (form["season_k"] or 0)
-    base = (f"GS {form['recent_gs']:.0f} vs {form['season_gs']:.0f}, "
-            f"K {form['recent_k']:.1f} vs {form['season_k']:.1f} (last {RECENT_N} of {form['starts']})")
-    if gs_dev >= GS_DEV or k_dev >= K_DEV:
-        return ("REGRESSION", f"hot, fading toward mean - {base}", k_dev)
-    if gs_dev <= -GS_DEV or k_dev <= -K_DEV:
-        return ("PROGRESSION", f"cold, due to bounce back - {base}", k_dev)
+    luck = form.get("luck")          # +FIP>ERA = lucky (regress) ; -ERA>FIP = unlucky
+    heavy = form.get("recent_pitches") and form["recent_pitches"] >= HEAVY_PITCHES
+    base = (f"ERA {form['recent_era']} vs FIP {form['recent_fip']} (luck {luck:+}), "
+            f"GS {form['recent_gs']:.0f} vs {form['season_gs']:.0f}, "
+            f"K {form['recent_k']:.1f} vs {form['season_k']:.1f} [last {RECENT_N}/{form['starts']}]"
+            if luck is not None else
+            f"GS {form['recent_gs']:.0f} vs {form['season_gs']:.0f} [last {RECENT_N}/{form['starts']}]")
+    fatigue = " + heavy workload (fatigue risk)" if heavy else ""
+
+    hot = (luck is not None and luck >= LUCK_GAP) or gs_dev >= GS_DEV or k_dev >= K_DEV
+    cold = (luck is not None and luck <= -LUCK_GAP) or gs_dev <= -GS_DEV or k_dev <= -K_DEV
+    if hot:
+        return ("REGRESSION", f"hot/lucky, mean-reverting - {base}{fatigue}", k_dev)
+    if cold:
+        return ("PROGRESSION", f"cold/unlucky, due to bounce back - {base}", k_dev)
     return ("STABLE", f"near baseline - {base}", k_dev)
 
 
