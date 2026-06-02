@@ -12,6 +12,7 @@ Commands
   book  [--min-n N]             cross-book intelligence (sharp vs soft)
   scenarios [--min-n N]         parameterized react-scenarios
   regress [--game AWAY@HOME]    pitcher regression / progression spots (fade hot, back cold)
+  serve                         launch the visual Command Center (http://localhost:8787)
   sharp                         fetch + report live sharp signals (uses API credits)
   predict                       fetch live Kalshi contract prices
   model [--min-n N]             model calibration / ROI / CLV
@@ -59,6 +60,8 @@ def _dispatch(cmd: str, rest: list[str]):
         from backtest import analyze_model; analyze_model.main()
     elif cmd == "report":
         from backtest import daily_report; daily_report.main()
+    elif cmd in ("serve", "ui", "center"):
+        import command_center; command_center.main()
     elif cmd == "regress":
         import regression; regression.main()
     elif cmd == "bet":
