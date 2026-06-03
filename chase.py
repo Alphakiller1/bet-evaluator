@@ -12,6 +12,8 @@ Commands
   book  [--min-n N]             cross-book intelligence (sharp vs soft)
   scenarios [--min-n N]         parameterized react-scenarios
   regress [--game AWAY@HOME]    pitcher regression / progression spots (fade hot, back cold)
+  ingest                        bank today's pre-game snapshots + MLBMA signals into Supabase
+  signals                       ingest today's cross-metric signals into Supabase only
   serve                         launch the visual Command Center (http://localhost:8787)
   sharp                         fetch + report live sharp signals (uses API credits)
   predict                       fetch live Kalshi contract prices
@@ -64,6 +66,12 @@ def _dispatch(cmd: str, rest: list[str]):
         import command_center; command_center.main()
     elif cmd == "regress":
         import regression; regression.main()
+    elif cmd == "ingest":
+        from backtest import import_snapshots, import_signals
+        import_snapshots.run()
+        import_signals.run()
+    elif cmd == "signals":
+        from backtest import import_signals; import_signals.run()
     elif cmd == "bet":
         import bet_evaluator; bet_evaluator.main()
     else:

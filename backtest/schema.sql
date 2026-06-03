@@ -270,6 +270,51 @@ create index if not exists idx_obs_game on sharp_observations(game_pk);
 create index if not exists idx_obs_book on sharp_observations(book);
 create index if not exists idx_obs_settled on sharp_observations(settled);
 
+-- ── MLBMA cross-metric signals (the model's reasoning, banked for learning) ──
+-- compute_signals.py fires 10 cross-metric signals per lineup side. Storing them
+-- (and the weighted convergence) turns the retired Signal Board page into machine
+-- intelligence: the evaluator and metric loops join through v_signal_outcomes
+-- after games settle to learn WHICH signals actually predict. Look-ahead-safe via
+-- snapshot_time < scheduled_start (see v_mlbma_signals_pregame).
+create table if not exists mlbma_signals (
+  signal_id      bigint generated always as identity primary key,
+  game_pk        bigint references games(game_pk),
+  snapshot_time  timestamptz not null,
+  game_date      date,
+  away           text,
+  home           text,
+  side           text,            -- which lineup fired it: away | home
+  signal_name    text not null,   -- e.g. 'K% vs OBR', 'PP-Gap', 'RCV archetype'
+  fired          boolean not null default false,
+  direction      text,            -- lineup / pitching / over / under / high / low / hot / cold
+  magnitude      numeric,
+  bet_angle      text,
+  verdict_text   text,
+  metric_version text,
+  unique (game_pk, snapshot_time, side, signal_name)
+);
+create index if not exists idx_mlbma_sig_game on mlbma_signals(game_pk);
+create index if not exists idx_mlbma_sig_fired on mlbma_signals(fired);
+create index if not exists idx_mlbma_sig_name on mlbma_signals(signal_name);
+
+create table if not exists mlbma_convergence (
+  conv_id               bigint generated always as identity primary key,
+  game_pk               bigint references games(game_pk),
+  snapshot_time         timestamptz not null,
+  game_date             date,
+  away                  text,
+  home                  text,
+  side                  text,     -- away | home lineup
+  convergence_count     numeric,  -- weighted fired-signal score (PP-Gap = 2, others = 1)
+  convergence_direction text,
+  is_convergence_play   boolean,  -- weighted score >= threshold
+  signals_fired         int,
+  metric_version        text,
+  unique (game_pk, snapshot_time, side)
+);
+create index if not exists idx_mlbma_conv_game on mlbma_convergence(game_pk);
+create index if not exists idx_mlbma_conv_play on mlbma_convergence(is_convergence_play);
+
 -- ============================================================================
 -- Look-ahead-safe views: ONLY surface snapshots taken before first pitch.
 -- All backtests must query through these, never the raw tables directly.
@@ -333,6 +378,59 @@ create or replace view v_sharp_book_performance as
   where settled and won is not null and not coalesce(push, false)
   group by book
   order by win_rate desc;
+
+-- ── MLBMA signal intelligence ────────────────────────────────────────────────
+-- Pre-game signals only (look-ahead-safe).
+create or replace view v_mlbma_signals_pregame as
+  select s.* from mlbma_signals s
+  join games g on g.game_pk = s.game_pk
+  where g.scheduled_start is not null and s.snapshot_time < g.scheduled_start;
+
+create or replace view v_mlbma_convergence_pregame as
+  select c.* from mlbma_convergence c
+  join games g on g.game_pk = c.game_pk
+  where g.scheduled_start is not null and c.snapshot_time < g.scheduled_start;
+
+-- Each pre-game signal joined to the settled outcome: did the side it favored win,
+-- and what was the run environment. The learning substrate for "which trends matter".
+create or replace view v_signal_outcomes as
+  select s.signal_name, s.side, s.direction, s.bet_angle, s.fired, s.magnitude,
+         s.game_pk, s.game_date, s.away, s.home, s.metric_version,
+         o.total_runs, o.winner_team, o.margin_home,
+         case when s.side = 'home' then o.home_runs else o.away_runs end as side_runs,
+         case when s.side = 'home' then (o.winner_team = g.home_team)
+              when s.side = 'away' then (o.winner_team = g.away_team) end as side_won
+  from v_mlbma_signals_pregame s
+  join games g on g.game_pk = s.game_pk
+  join game_outcomes o on o.game_pk = s.game_pk
+  where g.status = 'final';
+
+-- Per-signal realized predictive power when fired (recommend-only, gate on n_fired).
+create or replace view v_signal_performance as
+  select signal_name, side,
+         count(*) as n_fired,
+         sum(case when side_won then 1 else 0 end) as side_wins,
+         round(avg(case when side_won then 1.0 else 0.0 end), 4) as side_win_rate,
+         round(avg(total_runs), 2) as avg_total_runs,
+         round(avg(magnitude), 3) as avg_magnitude
+  from v_signal_outcomes
+  where fired and side_won is not null
+  group by signal_name, side
+  order by side_win_rate desc;
+
+-- Convergence plays vs the field: do multi-signal agreements actually cash more?
+create or replace view v_convergence_performance as
+  select c.is_convergence_play, c.convergence_direction,
+         count(*) as n,
+         round(avg(case when c.side = 'home' and o.winner_team = g.home_team then 1.0
+                        when c.side = 'away' and o.winner_team = g.away_team then 1.0
+                        else 0.0 end), 4) as side_win_rate,
+         round(avg(o.total_runs), 2) as avg_total_runs
+  from v_mlbma_convergence_pregame c
+  join games g on g.game_pk = c.game_pk
+  join game_outcomes o on o.game_pk = c.game_pk
+  where g.status = 'final'
+  group by c.is_convergence_play, c.convergence_direction;
 
 -- ============================================================================
 -- Phase C — sharp OBJECTIVE-EDGE discovery: where the books are consistently
