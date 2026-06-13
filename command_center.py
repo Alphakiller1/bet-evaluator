@@ -192,7 +192,7 @@ def bet_eval_payload(qs: dict) -> dict:
 PAGE = """<!DOCTYPE html><html lang=en><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>Chase Command Center</title><style>
-:root{--bg:#0a0e16;--panel:#121a2b;--ink:#e9eef7;--mut:#8a97ad;--teal:#2dd4bf;--purple:#9a6bff;--line:#1e293b;--green:#22c55e;--red:#ef4444;--amber:#f59e0b}
+:root{--bg:#08090F;--panel:#12141D;--ink:#F5F6FA;--mut:#A4A8B6;--teal:#2DD4BF;--purple:#9A6BFF;--line:#262A38;--green:#3CCB7F;--red:#F2545B;--amber:#E8C24A}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",Segoe UI,system-ui,sans-serif;display:flex;height:100vh}
 #side{width:220px;background:#0c1422;border-right:1px solid var(--line);padding:16px 12px;flex-shrink:0;overflow:auto}
 #side h1{font-family:"Roboto Condensed",sans-serif;font-size:18px;margin:0 0 4px}
