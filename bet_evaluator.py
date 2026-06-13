@@ -26,6 +26,10 @@ Usage:
     python bet_evaluator.py --game "ATL@CIN" --market total --side over --line 9.5 --odds -110
     python bet_evaluator.py --game "NYY@ATH" --market team_total --side NYY --ou over --line 4.5 --odds +100
     python bet_evaluator.py --game "PHI@LAD" --market runline --side LAD --line -1.5 --odds +105
+
+    Add --print to see the FULL worded analysis in the terminal (thesis, signals,
+    risk, variance, verdict). Without it you get the compact summary + a vault note.
+    Also reachable via the hub:  python chase.py bet --game "TOR@BAL" --market ml --side BAL --odds -130 --print
 """
 
 from __future__ import annotations
@@ -797,6 +801,13 @@ def print_summary(a: dict[str, Any]) -> None:
 # ── CLI ──────────────────────────────────────────────────────────────────────
 
 
+def _safe_print(text: str) -> None:
+    """Print Unicode (emoji/arrows/Δ) safely on the Windows cp1252 console."""
+    import sys
+    enc = getattr(sys.stdout, "encoding", None) or "utf-8"
+    print(text.encode(enc, "replace").decode(enc))
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="Evaluate a single MLB bet.")
     p.add_argument("--game", required=True, help='Matchup as "AWAY@HOME", e.g. "TOR@BAL"')
@@ -813,6 +824,8 @@ def main() -> None:
     p.add_argument("--no-write", action="store_true", help="Print only; do not write a vault note")
     p.add_argument("--no-log", action="store_true",
                    help="Don't log this prediction to Supabase (model_predictions)")
+    p.add_argument("--print", dest="print_full", action="store_true",
+                   help="Print the FULL worded analysis (thesis/signals/risk/variance) to the console.")
     args = p.parse_args()
 
     if "@" not in args.game:
@@ -842,12 +855,16 @@ def main() -> None:
 
     a = build_analysis(gd, args.market, args.side, args.line, args.ou, odds, market_info)
     print_summary(a)
+    md = render_markdown(a)
+    if args.print_full:
+        # Drop the YAML frontmatter for console readability; keep it in the vault note.
+        body = md.split("---", 2)[-1].strip() if md.startswith("---") else md
+        _safe_print("\n" + body)
     if not args.no_log:
         from backtest import log_prediction
         gpk = log_prediction.log(a)
         if gpk:
             print(f"  Logged prediction to Supabase (game_pk {gpk}).")
-    md = render_markdown(a)
     if not args.no_write:
         path = write_to_vault(a, md)
         print(f"  Wrote: {path}")
