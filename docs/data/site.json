@@ -1,13 +1,13 @@
 {
   "generated": "2026-06-13",
   "anchors": {
-    "home_winp": 0.539,
-    "away_winp": 0.4514,
-    "league_runs": 4.61,
-    "total_sd": 4.79,
-    "team_sd": 3.329,
-    "margin_sd": 4.615,
-    "blown_save": 0.1695
+    "home_winp": 0.5403,
+    "away_winp": 0.4501,
+    "league_runs": 4.616,
+    "total_sd": 4.781,
+    "team_sd": 3.326,
+    "margin_sd": 4.614,
+    "blown_save": 0.1687
   },
   "model": {
     "LEAGUE_FIP": 4.2,
@@ -49,65 +49,141 @@
   },
   "games": [
     {
-      "away": "MIA",
-      "home": "PIT",
-      "away_sp": "Sandy Alcantara",
-      "home_sp": "Braxton Ashcraft",
+      "away": "STL",
+      "home": "MIN",
+      "away_sp": "M. Liberatore",
+      "home_sp": "Connor Prielipp",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 33.5,
-      "home_osi": 61.6,
-      "away_fip": 4.064208249939358,
-      "home_fip": 3.114073983993963,
-      "away_hr9": 1.00746269,
-      "home_hr9": 0.90376569,
-      "away_k": 17.112299,
-      "home_k": 26.708074999999997,
-      "park_factor": 0.95,
+      "away_osi": 44.4,
+      "home_osi": 44.2,
+      "away_fip": 4.593983994372045,
+      "home_fip": 3.4221323697376844,
+      "away_hr9": 1.49246231,
+      "home_hr9": 0.82442748,
+      "away_k": 21.107266,
+      "home_k": 25.65445,
+      "park_factor": 0.99,
       "weather": {
-        "temp_f": 70.0,
+        "temp_f": 64.0,
         "wind_mph": 5.0,
-        "wind_dir": "SSW",
-        "conditions": "rain",
+        "wind_dir": "WSW",
+        "conditions": "cloudy",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 3.36,
+        "bullpen_era": 4.37,
         "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 3.1,
+        "bullpen_era": 4.78,
         "window_direction": "stable"
       },
       "signals": {
         "away": [
           {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 33.05,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 33.5 vs opp Pitch 66.5 (gap -33.1) -- pitching edge."
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ],
+        "home": [
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 1.0,
+          "direction": "profile",
+          "is_play": false,
+          "fired": 1.0
+        },
+        "home": {
+          "count": 1.0,
+          "direction": "profile",
+          "is_play": false,
+          "fired": 1.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "NYY",
+      "home": "TOR",
+      "away_sp": "Cam Schlittler",
+      "home_sp": "Kevin Gausman",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 70.7,
+      "home_osi": 34.9,
+      "away_fip": 2.113716804690477,
+      "home_fip": 3.151521682739258,
+      "away_hr9": 0.43902439,
+      "home_hr9": 1.0125,
+      "away_k": 28.075709999999997,
+      "home_k": 24.307692,
+      "park_factor": 0.98,
+      "weather": {
+        "temp_f": null,
+        "wind_mph": null,
+        "wind_dir": "nan",
+        "conditions": "dome",
+        "dome": true
+      },
+      "away_risk": {
+        "bullpen_era": 3.22,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 2.73,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Table Setter Plus",
+            "verdict": "Table Setter Plus (Mid/High) -- Strong on-base process with moderate power -- grind-and-advance profile."
           },
           {
-            "name": "PALS + projOSI",
-            "direction": "lineup",
-            "magnitude": 14.07,
-            "bet_angle": "Buy-low offense / process catching up",
-            "verdict": "OSI\u2248PALS (\u03942.9) with PP-Gap +14.1 -- stable profile, process ahead of box score."
+            "name": "Schedule context",
+            "direction": "cold",
+            "magnitude": 8.1,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 27.2 vs HvP baseline 35.3 (\u0394-8.1) -- cooler than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 44.38,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 34.9 vs opp Pitch 79.3 (gap -44.4) -- pitching edge."
           },
           {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 14.07,
+            "magnitude": 17.3,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +14.1 (ABQ ahead of RCV) -- buy-low process signal."
+            "verdict": "PP-Gap +17.3 (ABQ ahead of RCV) -- buy-low process signal."
           },
           {
             "name": "OBR + BB%",
             "direction": "low",
-            "magnitude": 36.12,
+            "magnitude": 35.95,
             "bet_angle": "Under / pitcher control",
-            "verdict": "Stall risk: OBR 18.9 + SP BB% 5.3% -- limited free passes."
+            "verdict": "Stall risk: OBR 19.0 + SP BB% 4.4% -- limited free passes."
           },
           {
             "name": "RCV archetype",
@@ -119,9 +195,81 @@
           {
             "name": "Schedule context",
             "direction": "hot",
-            "magnitude": 5.82,
+            "magnitude": 15.56,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 59.2 vs HvP baseline 53.4 (\u0394+5.8) -- hotter than season profile."
+            "verdict": "Opponent OOR 85.3 vs HvP baseline 69.7 (\u0394+15.6) -- hotter than season profile."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 2.0,
+          "direction": "profile",
+          "is_play": false,
+          "fired": 2.0
+        },
+        "home": {
+          "count": 6.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 5.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "MIA",
+      "home": "PIT",
+      "away_sp": "Lake Bachar",
+      "home_sp": "Bubba Chandler",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 33.1,
+      "home_osi": 60.5,
+      "away_fip": 3.789595077297797,
+      "home_fip": 4.753928099939921,
+      "away_hr9": 1.23853211,
+      "home_hr9": 1.15508021,
+      "away_k": 28.472222000000002,
+      "home_k": 22.222222,
+      "park_factor": 0.95,
+      "weather": {
+        "temp_f": 65.0,
+        "wind_mph": 2.0,
+        "wind_dir": "W",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 3.28,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 3.48,
+        "window_direction": "falling"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 33.42,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 33.1 vs opp Pitch 66.5 (gap -33.4) -- pitching edge."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 14.48,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +14.5 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
           }
         ],
         "home": [
@@ -135,18 +283,18 @@
           {
             "name": "Schedule context",
             "direction": "cold",
-            "magnitude": 8.28,
+            "magnitude": 9.06,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 26.1 vs HvP baseline 34.4 (\u0394-8.3) -- cooler than season profile."
+            "verdict": "Opponent OOR 25.0 vs HvP baseline 34.0 (\u0394-9.1) -- cooler than season profile."
           }
         ]
       },
       "convergence": {
         "away": {
-          "count": 7.0,
+          "count": 4.0,
           "direction": "process",
           "is_play": true,
-          "fired": 6.0
+          "fired": 3.0
         },
         "home": {
           "count": 2.0,
@@ -158,137 +306,35 @@
       "odds": []
     },
     {
-      "away": "SEA",
-      "home": "WSN",
-      "away_sp": "Bryce Miller",
-      "home_sp": "Zack Littell",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 60.8,
-      "home_osi": 58.4,
-      "away_fip": 3.77393547595864,
-      "home_fip": 5.946081268378872,
-      "away_hr9": 0.46551724,
-      "home_hr9": 2.0984456,
-      "away_k": 30.0,
-      "home_k": 14.028777,
-      "park_factor": 0.95,
-      "weather": {
-        "temp_f": 74.0,
-        "wind_mph": 3.0,
-        "wind_dir": "WSW",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 2.94,
-        "window_direction": "falling"
-      },
-      "home_risk": {
-        "bullpen_era": 3.74,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "HR/9 vs RCV",
-            "direction": "lineup",
-            "magnitude": 3.11,
-            "bet_angle": "Over HR / power",
-            "verdict": "Barrel lane open: HR/9 2.10 vs RCV 75.1 -- damage upside vs flyball risk arm."
-          },
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 29.99,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 60.8 vs opp Pitch 30.8 (gap +30.0) -- offensive edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Boom-or-Bust",
-            "verdict": "Boom-or-Bust (High/Low) -- High damage ceiling but thin on-base support -- volatile run-scoring bursts."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 9.2,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 70.3 vs HvP baseline 61.1 (\u0394+9.2) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 20.73,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 58.4 vs opp Pitch 79.1 (gap -20.7) -- pitching edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Contact Floor",
-            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 5.71,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 59.1 vs HvP baseline 53.4 (\u0394+5.7) -- hotter than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 4.0,
-          "direction": "lineup",
-          "is_play": true,
-          "fired": 4.0
-        },
-        "home": {
-          "count": 3.0,
-          "direction": "pitching",
-          "is_play": false,
-          "fired": 3.0
-        }
-      },
-      "odds": []
-    },
-    {
       "away": "SDP",
       "home": "BAL",
-      "away_sp": "Griffin Canning",
-      "home_sp": "Shane Baz",
+      "away_sp": "Randy Vasquez",
+      "home_sp": "Trey Gibson",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 42.7,
-      "home_osi": 67.1,
-      "away_fip": 5.030093111113894,
-      "home_fip": 3.4276086392255527,
-      "away_hr9": 1.65306122,
-      "home_hr9": 0.58695652,
-      "away_k": 23.741007,
-      "home_k": 20.155039,
+      "away_osi": 42.6,
+      "home_osi": 66.6,
+      "away_fip": 4.442867836649899,
+      "home_fip": 4.549797544308818,
+      "away_hr9": 1.29807692,
+      "home_hr9": 0.93103448,
+      "away_k": 18.213058,
+      "home_k": 21.276596,
       "park_factor": 0.98,
       "weather": {
-        "temp_f": 75.0,
+        "temp_f": 81.0,
         "wind_mph": 9.0,
-        "wind_dir": "WSW",
+        "wind_dir": "NW",
         "conditions": "clear",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 2.79,
-        "window_direction": "falling"
+        "bullpen_era": 2.7,
+        "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 3.84,
-        "window_direction": "falling"
+        "bullpen_era": 3.8,
+        "window_direction": "stable"
       },
       "signals": {
         "away": [
@@ -302,18 +348,18 @@
           {
             "name": "Schedule context",
             "direction": "hot",
-            "magnitude": 10.66,
+            "magnitude": 10.21,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 71.9 vs HvP baseline 61.2 (\u0394+10.7) -- hotter than season profile."
+            "verdict": "Opponent OOR 71.0 vs HvP baseline 60.8 (\u0394+10.2) -- hotter than season profile."
           }
         ],
         "home": [
           {
-            "name": "OBR + BB%",
-            "direction": "high",
-            "magnitude": 7.83,
-            "bet_angle": "Over / baserunners",
-            "verdict": "Run environment: OBR 75.8 + SP BB% 12.2% -- table-setters & traffic."
+            "name": "K% vs OBR",
+            "direction": "lineup",
+            "magnitude": 10.39,
+            "bet_angle": "Over offense / team total",
+            "verdict": "Soft K% arm (18.2%) vs elite floor (OBR 75.4) -- contact & baserunners likely."
           },
           {
             "name": "RCV archetype",
@@ -333,7 +379,7 @@
         },
         "home": {
           "count": 2.0,
-          "direction": "high",
+          "direction": "lineup",
           "is_play": false,
           "fired": 2.0
         }
@@ -341,34 +387,304 @@
       "odds": []
     },
     {
-      "away": "DET",
-      "home": "CLE",
-      "away_sp": "Jack Flaherty",
-      "home_sp": "Tanner Bibee",
+      "away": "SEA",
+      "home": "WSN",
+      "away_sp": "Luis Castillo",
+      "home_sp": "Cade Cavalli",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 49.1,
-      "home_osi": 45.0,
-      "away_fip": 4.122798278429616,
-      "home_fip": 4.633989215206791,
-      "away_hr9": 1.14893617,
-      "home_hr9": 1.51948052,
-      "away_k": 26.279863,
-      "home_k": 19.873817,
-      "park_factor": 0.96,
+      "away_osi": 59.5,
+      "home_osi": 57.9,
+      "away_fip": 4.183488895854012,
+      "home_fip": 3.3598948884685225,
+      "away_hr9": 1.18032787,
+      "home_hr9": 0.64593301,
+      "away_k": 22.509225,
+      "home_k": 24.28115,
+      "park_factor": 0.95,
       "weather": {
-        "temp_f": 74.0,
-        "wind_mph": 14.0,
-        "wind_dir": "SW",
+        "temp_f": 76.0,
+        "wind_mph": 6.0,
+        "wind_dir": "WNW",
         "conditions": "cloudy",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 4.05,
+        "bullpen_era": 3.07,
         "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 3.05,
+        "bullpen_era": 3.9,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 28.69,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 59.5 vs opp Pitch 30.8 (gap +28.7) -- offensive edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Boom-or-Bust",
+            "verdict": "Boom-or-Bust (High/Low) -- High damage ceiling but thin on-base support -- volatile run-scoring bursts."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "hot",
+            "magnitude": 8.83,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 69.5 vs HvP baseline 60.7 (\u0394+8.8) -- hotter than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 21.19,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 57.9 vs opp Pitch 79.1 (gap -21.2) -- pitching edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Contact Floor",
+            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 3.0,
+          "direction": "lineup",
+          "is_play": false,
+          "fired": 3.0
+        },
+        "home": {
+          "count": 2.0,
+          "direction": "pitching",
+          "is_play": false,
+          "fired": 2.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "ARI",
+      "home": "CIN",
+      "away_sp": "Michael Soroka",
+      "home_sp": "Rhett Lowder",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 30.5,
+      "home_osi": 56.5,
+      "away_fip": 3.0609811421987176,
+      "home_fip": 3.972489424744981,
+      "away_hr9": 0.72972973,
+      "home_hr9": 0.43548387,
+      "away_k": 23.529412,
+      "home_k": 17.032967,
+      "park_factor": 1.1,
+      "weather": {
+        "temp_f": 61.0,
+        "wind_mph": 2.0,
+        "wind_dir": "E",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 2.51,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 3.79,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 14.38,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 30.5 vs opp Pitch 16.1 (gap +14.4) -- offensive edge."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 15.36,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +15.4 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "hot",
+            "magnitude": 8.3,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 68.4 vs HvP baseline 60.1 (\u0394+8.3) -- hotter than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 11.88,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 56.5 vs opp Pitch 44.6 (gap +11.9) -- offensive edge."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 4.43,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +4.4 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "OBP First",
+            "verdict": "OBP First (Low/High) -- Gets on base without big damage -- small-ball and walk-heavy lean."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "cold",
+            "magnitude": 8.91,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 26.2 vs HvP baseline 35.1 (\u0394-8.9) -- cooler than season profile."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 5.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 4.0
+        },
+        "home": {
+          "count": 5.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 4.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "ATL",
+      "home": "NYM",
+      "away_sp": "Martin Perez",
+      "home_sp": "Sean Manaea",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 59.8,
+      "home_osi": 44.2,
+      "away_fip": 3.9838746238638256,
+      "home_fip": 3.985242612971816,
+      "away_hr9": 0.95294118,
+      "home_hr9": 1.04651163,
+      "away_k": 20.888889,
+      "home_k": 23.4375,
+      "park_factor": 1.0,
+      "weather": {
+        "temp_f": 77.0,
+        "wind_mph": 12.0,
+        "wind_dir": "NW",
+        "conditions": "cloudy",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 1.41,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 3.04,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 32.3,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 44.2 vs opp Pitch 76.5 (gap -32.3) -- pitching edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "hot",
+            "magnitude": 8.05,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 66.7 vs HvP baseline 58.6 (\u0394+8.0) -- hotter than season profile."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 0.0,
+          "direction": "none",
+          "is_play": false,
+          "fired": 0.0
+        },
+        "home": {
+          "count": 3.0,
+          "direction": "pitching",
+          "is_play": false,
+          "fired": 3.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "DET",
+      "home": "CLE",
+      "away_sp": "Tarik Skubal",
+      "home_sp": "Joey Cantillo",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 43.0,
+      "home_osi": 45.1,
+      "away_fip": 2.1092139903552343,
+      "home_fip": 5.011969443933288,
+      "away_hr9": 0.41538462,
+      "home_hr9": 1.47761194,
+      "away_k": 27.108434,
+      "home_k": 21.649485,
+      "park_factor": 0.96,
+      "weather": {
+        "temp_f": 68.0,
+        "wind_mph": 7.0,
+        "wind_dir": "SSW",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 3.83,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 2.99,
         "window_direction": "falling"
       },
       "signals": {
@@ -376,9 +692,9 @@
           {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 15.48,
+            "magnitude": 21.59,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 49.1 vs opp Pitch 64.6 (gap -15.5) -- pitching edge."
+            "verdict": "OSI 43.0 vs opp Pitch 64.6 (gap -21.6) -- pitching edge."
           },
           {
             "name": "RCV archetype",
@@ -392,23 +708,30 @@
           {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 13.76,
+            "magnitude": 13.66,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 45.0 vs opp Pitch 58.8 (gap -13.8) -- pitching edge."
+            "verdict": "OSI 45.1 vs opp Pitch 58.8 (gap -13.7) -- pitching edge."
           },
           {
             "name": "PALS + projOSI",
             "direction": "lineup",
-            "magnitude": 31.13,
+            "magnitude": 31.25,
             "bet_angle": "Buy-low offense / process catching up",
-            "verdict": "OSI\u2248PALS (\u03941.6) with PP-Gap +31.1 -- stable profile, process ahead of box score."
+            "verdict": "OSI\u2248PALS (\u03942.3) with PP-Gap +31.3 -- stable profile, process ahead of box score."
           },
           {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 31.13,
+            "magnitude": 31.25,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +31.1 (ABQ ahead of RCV) -- buy-low process signal."
+            "verdict": "PP-Gap +31.3 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "OBR + BB%",
+            "direction": "low",
+            "magnitude": 12.27,
+            "bet_angle": "Under / pitcher control",
+            "verdict": "Stall risk: OBR 42.7 + SP BB% 3.6% -- limited free passes."
           },
           {
             "name": "RCV archetype",
@@ -427,240 +750,8 @@
           "fired": 2.0
         },
         "home": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "TEX",
-      "home": "BOS",
-      "away_sp": "Jack Leiter",
-      "home_sp": "Sonny Gray",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 45.3,
-      "home_osi": 24.2,
-      "away_fip": 3.06537710443036,
-      "home_fip": 3.9358412094158446,
-      "away_hr9": 0.65060241,
-      "home_hr9": 0.95857988,
-      "away_k": 25.0,
-      "home_k": 18.88412,
-      "park_factor": 1.12,
-      "weather": {
-        "temp_f": 70.0,
-        "wind_mph": 6.0,
-        "wind_dir": "WSW",
-        "conditions": "clear",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 2.36,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 3.95,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 13.98,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 45.3 vs opp Pitch 59.3 (gap -14.0) -- pitching edge."
-          },
-          {
-            "name": "PALS + projOSI",
-            "direction": "lineup",
-            "magnitude": 6.26,
-            "bet_angle": "Buy-low offense / process catching up",
-            "verdict": "OSI\u2248PALS (\u03943.8) with PP-Gap +6.3 -- stable profile, process ahead of box score."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 6.26,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +6.3 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 9.29,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 9.3 (RHP side) vs RHP -- handedness aligned."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 12.53,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 16.4 vs HvP baseline 28.9 (\u0394-12.5) -- cooler than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 39.58,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 24.2 vs opp Pitch 63.8 (gap -39.6) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 31.66,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +31.7 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 7.0,
-          "direction": "lineup",
-          "is_play": true,
-          "fired": 6.0
-        },
-        "home": {
-          "count": 4.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 3.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "ARI",
-      "home": "CIN",
-      "away_sp": "E. Rodriguez",
-      "home_sp": "Nick Lodolo",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 31.1,
-      "home_osi": 57.4,
-      "away_fip": 3.838809818301237,
-      "home_fip": 6.499480866065997,
-      "away_hr9": 0.80084746,
-      "home_hr9": 2.20408163,
-      "away_k": 17.757009,
-      "home_k": 17.241379000000002,
-      "park_factor": 1.1,
-      "weather": {
-        "temp_f": 70.0,
-        "wind_mph": 9.0,
-        "wind_dir": "SW",
-        "conditions": "storm",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 2.35,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 3.88,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 15.01,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 31.1 vs opp Pitch 16.1 (gap +15.0) -- offensive edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 16.01,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +16.0 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 8.94,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 69.8 vs HvP baseline 60.9 (\u0394+8.9) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "K% vs OBR",
-            "direction": "lineup",
-            "magnitude": 11.38,
-            "bet_angle": "Over offense / team total",
-            "verdict": "Soft K% arm (17.8%) vs elite floor (OBR 76.4) -- contact & baserunners likely."
-          },
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 12.72,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 57.4 vs opp Pitch 44.6 (gap +12.7) -- offensive edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 4.68,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +4.7 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "OBP First",
-            "verdict": "OBP First (Low/High) -- Gets on base without big damage -- small-ball and walk-heavy lean."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 7.99,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 27.7 vs HvP baseline 35.7 (\u0394-8.0) -- cooler than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        },
-        "home": {
           "count": 6.0,
-          "direction": "lineup",
+          "direction": "process",
           "is_play": true,
           "fired": 5.0
         }
@@ -668,245 +759,49 @@
       "odds": []
     },
     {
-      "away": "ATL",
-      "home": "NYM",
-      "away_sp": "Martin Perez",
-      "home_sp": "Nolan McLean",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 60.5,
-      "home_osi": 44.7,
-      "away_fip": 3.9838746238638256,
-      "home_fip": 3.72364149843613,
-      "away_hr9": 0.95294118,
-      "home_hr9": 0.99539171,
-      "away_k": 20.888889,
-      "home_k": 27.424749,
-      "park_factor": 1.0,
-      "weather": {
-        "temp_f": 77.0,
-        "wind_mph": 5.0,
-        "wind_dir": "WSW",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 1.78,
-        "window_direction": "falling"
-      },
-      "home_risk": {
-        "bullpen_era": 2.88,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 31.77,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 44.7 vs opp Pitch 76.5 (gap -31.8) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 3.28,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +3.3 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 8.62,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 67.9 vs HvP baseline 59.3 (\u0394+8.6) -- hotter than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 0.0,
-          "direction": "none",
-          "is_play": false,
-          "fired": 0.0
-        },
-        "home": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "NYY",
-      "home": "TOR",
-      "away_sp": "Ryan Weathers",
-      "home_sp": "Trey Yesavage",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 71.5,
-      "home_osi": 34.7,
-      "away_fip": 4.115807397024972,
-      "home_fip": 3.05464668274292,
-      "away_hr9": 1.67142857,
-      "home_hr9": 0.421875,
-      "away_k": 27.719298,
-      "home_k": 25.433526,
-      "park_factor": 0.98,
-      "weather": {
-        "temp_f": null,
-        "wind_mph": null,
-        "wind_dir": "nan",
-        "conditions": "dome",
-        "dome": true
-      },
-      "away_risk": {
-        "bullpen_era": 3.27,
-        "window_direction": "falling"
-      },
-      "home_risk": {
-        "bullpen_era": 3.03,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OBR + BB%",
-            "direction": "high",
-            "magnitude": 17.64,
-            "bet_angle": "Over / baserunners",
-            "verdict": "Run environment: OBR 85.6 + SP BB% 11.0% -- table-setters & traffic."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Table Setter Plus",
-            "verdict": "Table Setter Plus (Mid/High) -- Strong on-base process with moderate power -- grind-and-advance profile."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 7.7,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 27.4 vs HvP baseline 35.1 (\u0394-7.7) -- cooler than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 44.57,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 34.7 vs opp Pitch 79.3 (gap -44.6) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 17.09,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +17.1 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 16.06,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 86.6 vs HvP baseline 70.5 (\u0394+16.1) -- hotter than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 3.0,
-          "direction": "high",
-          "is_play": false,
-          "fired": 3.0
-        },
-        "home": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": []
-    },
-    {
       "away": "LAD",
       "home": "CHW",
-      "away_sp": "Roki Sasaki",
-      "home_sp": "Anthony Kay",
+      "away_sp": "Y. Yamamoto",
+      "home_sp": "Sean Burke",
       "away_hand": "R",
       "home_hand": "R",
       "away_osi": 84.4,
-      "home_osi": 61.6,
-      "away_fip": 4.5670389241185685,
-      "home_fip": 5.481956465477325,
-      "away_hr9": 1.55172414,
-      "home_hr9": 1.4673913,
-      "away_k": 24.291498,
-      "home_k": 16.487455,
+      "home_osi": 62.5,
+      "away_fip": 3.424797544822158,
+      "home_fip": 4.414021682739258,
+      "away_hr9": 1.04741379,
+      "home_hr9": 0.84375,
+      "away_k": 24.662162000000002,
+      "home_k": 21.73913,
       "park_factor": 0.91,
       "weather": {
         "temp_f": 65.0,
-        "wind_mph": 11.0,
-        "wind_dir": "W",
-        "conditions": "cloudy",
+        "wind_mph": 6.0,
+        "wind_dir": "SW",
+        "conditions": "clear",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 3.23,
-        "window_direction": "falling"
+        "bullpen_era": 3.43,
+        "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 3.67,
-        "window_direction": "falling"
+        "bullpen_era": 3.34,
+        "window_direction": "stable"
       },
       "signals": {
         "away": [
           {
-            "name": "K% vs OBR",
-            "direction": "lineup",
-            "magnitude": 31.01,
-            "bet_angle": "Over offense / team total",
-            "verdict": "Soft K% arm (16.5%) vs elite floor (OBR 96.0) -- contact & baserunners likely."
-          },
-          {
             "name": "BB% vs ABQ",
             "direction": "high",
-            "magnitude": 1.96,
+            "magnitude": 2.77,
             "bet_angle": "Over / walks",
-            "verdict": "Walk game: SP BB% 9.3% with lineup ABQ 72.0 -- patience tax on pitcher."
-          },
-          {
-            "name": "HR/9 vs RCV",
-            "direction": "lineup",
-            "magnitude": 8.16,
-            "bet_angle": "Over HR / power",
-            "verdict": "Barrel lane open: HR/9 1.47 vs RCV 80.2 -- damage upside vs flyball risk arm."
+            "verdict": "Walk game: SP BB% 14.5% with lineup ABQ 72.8 -- patience tax on pitcher."
           },
           {
             "name": "OSI vs Pitching Score",
             "direction": "lineup",
-            "magnitude": 34.25,
+            "magnitude": 34.15,
             "bet_angle": "Fade weak pitching / back strong offense",
             "verdict": "OSI 84.4 vs opp Pitch 50.2 (gap +34.2) -- offensive edge."
           },
@@ -915,7 +810,7 @@
             "direction": "high",
             "magnitude": 28.01,
             "bet_angle": "Over / baserunners",
-            "verdict": "Run environment: OBR 96.0 + SP BB% 9.3% -- table-setters & traffic."
+            "verdict": "Run environment: OBR 96.0 + SP BB% 14.5% -- table-setters & traffic."
           },
           {
             "name": "ABQ split gap + handedness",
@@ -934,25 +829,18 @@
           {
             "name": "Schedule context",
             "direction": "hot",
-            "magnitude": 11.16,
+            "magnitude": 11.77,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 75.1 vs HvP baseline 64.0 (\u0394+11.2) -- hotter than season profile."
+            "verdict": "Opponent OOR 76.7 vs HvP baseline 64.9 (\u0394+11.8) -- hotter than season profile."
           }
         ],
         "home": [
           {
-            "name": "HR/9 vs RCV",
-            "direction": "lineup",
-            "magnitude": 7.74,
-            "bet_angle": "Over HR / power",
-            "verdict": "Barrel lane open: HR/9 1.55 vs RCV 79.7 -- damage upside vs flyball risk arm."
-          },
-          {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 29.39,
+            "magnitude": 28.48,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 61.6 vs opp Pitch 91.0 (gap -29.4) -- pitching edge."
+            "verdict": "OSI 62.5 vs opp Pitch 91.0 (gap -28.5) -- pitching edge."
           },
           {
             "name": "RCV archetype",
@@ -964,192 +852,81 @@
           {
             "name": "Schedule context",
             "direction": "hot",
-            "magnitude": 21.93,
+            "magnitude": 22.03,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 100.0 vs HvP baseline 78.1 (\u0394+21.9) -- hotter than season profile."
+            "verdict": "Opponent OOR 100.0 vs HvP baseline 78.0 (\u0394+22.0) -- hotter than season profile."
           }
         ]
       },
       "convergence": {
         "away": {
-          "count": 8.0,
-          "direction": "lineup",
+          "count": 6.0,
+          "direction": "high",
           "is_play": true,
-          "fired": 8.0
+          "fired": 6.0
         },
         "home": {
-          "count": 4.0,
-          "direction": "lineup",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "PHI",
-      "home": "MIL",
-      "away_sp": "Andrew Painter",
-      "home_sp": "J. Misiorowski",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 36.7,
-      "home_osi": 60.3,
-      "away_fip": 5.084280303428914,
-      "home_fip": 1.9092139904315657,
-      "away_hr9": 1.70689655,
-      "home_hr9": 0.46153846,
-      "away_k": 18.007662999999997,
-      "home_k": 38.410596000000005,
-      "park_factor": 1.04,
-      "weather": {
-        "temp_f": 64.0,
-        "wind_mph": 17.0,
-        "wind_dir": "W",
-        "conditions": "clear",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.48,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 2.69,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 43.51,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 36.7 vs opp Pitch 80.2 (gap -43.5) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 3.24,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +3.2 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 6.44,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 61.5 vs HvP baseline 55.0 (\u0394+6.4) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 16.42,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 60.3 vs opp Pitch 76.8 (gap -16.4) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 19.46,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +19.5 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Glove Line",
-            "verdict": "Glove Line (Low/Mid) -- Below-average damage and average OB -- defensive-value lineup profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        },
-        "home": {
-          "count": 4.0,
-          "direction": "process",
-          "is_play": true,
+          "count": 3.0,
+          "direction": "pitching",
+          "is_play": false,
           "fired": 3.0
         }
       },
       "odds": []
     },
     {
-      "away": "HOU",
-      "home": "KCR",
-      "away_sp": "Tatsuya Imai",
-      "home_sp": "Luinder Avila",
+      "away": "TEX",
+      "home": "BOS",
+      "away_sp": "Jacob deGrom",
+      "home_sp": "Ranger Suarez",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 37.9,
-      "home_osi": 49.5,
-      "away_fip": 5.256861488773756,
-      "home_fip": 3.963223810490503,
-      "away_hr9": 1.31067961,
-      "home_hr9": 0.57446809,
-      "away_k": 24.0,
-      "home_k": 20.895522,
-      "park_factor": 0.95,
+      "away_osi": 44.7,
+      "home_osi": 24.4,
+      "away_fip": 3.752465078934968,
+      "home_fip": 4.5640216825564455,
+      "away_hr9": 1.65566038,
+      "home_hr9": 1.0125,
+      "away_k": 29.787234,
+      "home_k": 15.517241,
+      "park_factor": 1.12,
       "weather": {
-        "temp_f": 69.0,
-        "wind_mph": 4.0,
-        "wind_dir": "WSW",
-        "conditions": "clear",
+        "temp_f": 79.0,
+        "wind_mph": 11.0,
+        "wind_dir": "NW",
+        "conditions": "cloudy",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 3.5,
+        "bullpen_era": 2.67,
         "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 3.95,
+        "bullpen_era": 3.78,
         "window_direction": "stable"
       },
       "signals": {
         "away": [
           {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ],
-        "home": [
-          {
             "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 24.09,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 49.5 vs opp Pitch 25.4 (gap +24.1) -- offensive edge."
-          },
-          {
-            "name": "PALS + projOSI",
-            "direction": "lineup",
-            "magnitude": 13.98,
-            "bet_angle": "Buy-low offense / process catching up",
-            "verdict": "OSI\u2248PALS (\u03941.2) with PP-Gap +14.0 -- stable profile, process ahead of box score."
+            "direction": "pitching",
+            "magnitude": 14.57,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 44.7 vs opp Pitch 59.3 (gap -14.6) -- pitching edge."
           },
           {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 13.98,
+            "magnitude": 7.1,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +14.0 (ABQ ahead of RCV) -- buy-low process signal."
+            "verdict": "PP-Gap +7.1 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "ABQ split gap + handedness",
+            "direction": "lineup",
+            "magnitude": 9.29,
+            "bet_angle": "Target RHP hitters vs RHP",
+            "verdict": "Platoon edge: ABQ gap 9.3 (RHP side) vs RHP -- handedness aligned."
           },
           {
             "name": "RCV archetype",
@@ -1161,9 +938,134 @@
           {
             "name": "Schedule context",
             "direction": "cold",
-            "magnitude": 6.05,
+            "magnitude": 13.0,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 31.4 vs HvP baseline 37.4 (\u0394-6.0) -- cooler than season profile."
+            "verdict": "Opponent OOR 16.1 vs HvP baseline 29.1 (\u0394-13.0) -- cooler than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 39.38,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 24.4 vs opp Pitch 63.8 (gap -39.4) -- pitching edge."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 31.73,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +31.7 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "OBR + BB%",
+            "direction": "low",
+            "magnitude": 32.29,
+            "bet_angle": "Under / pitcher control",
+            "verdict": "Stall risk: OBR 22.7 + SP BB% 5.3% -- limited free passes."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 6.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 5.0
+        },
+        "home": {
+          "count": 5.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 4.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "HOU",
+      "home": "KCR",
+      "away_sp": "Mike Burrows",
+      "home_sp": "Noah Cameron",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 37.9,
+      "home_osi": 49.2,
+      "away_fip": 5.746976228314051,
+      "home_fip": 3.147206961924756,
+      "away_hr9": 2.08636364,
+      "home_hr9": 0.82233503,
+      "away_k": 18.404908,
+      "home_k": 22.909091,
+      "park_factor": 0.95,
+      "weather": {
+        "temp_f": 76.0,
+        "wind_mph": 6.0,
+        "wind_dir": "SSE",
+        "conditions": "cloudy",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 3.35,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 3.98,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 23.79,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 49.2 vs opp Pitch 25.4 (gap +23.8) -- offensive edge."
+          },
+          {
+            "name": "PALS + projOSI",
+            "direction": "lineup",
+            "magnitude": 14.13,
+            "bet_angle": "Buy-low offense / process catching up",
+            "verdict": "OSI\u2248PALS (\u03941.7) with PP-Gap +14.1 -- stable profile, process ahead of box score."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 14.13,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +14.1 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "cold",
+            "magnitude": 6.52,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 30.9 vs HvP baseline 37.4 (\u0394-6.5) -- cooler than season profile."
           }
         ]
       },
@@ -1184,125 +1086,44 @@
       "odds": []
     },
     {
-      "away": "STL",
-      "home": "MIN",
-      "away_sp": "Kyle Leahy",
-      "home_sp": "Joe Ryan",
+      "away": "PHI",
+      "home": "MIL",
+      "away_sp": "Aaron Nola",
+      "home_sp": "Shane Drohan",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 44.9,
-      "home_osi": 38.1,
-      "away_fip": 4.694742021722309,
-      "home_fip": 4.876169569813252,
-      "away_hr9": 1.22033898,
-      "home_hr9": 1.14084507,
-      "away_k": 17.472119,
-      "home_k": 14.423077000000001,
-      "park_factor": 0.99,
+      "away_osi": 35.5,
+      "home_osi": 60.7,
+      "away_fip": 4.207582288799864,
+      "home_fip": 2.7032915942789244,
+      "away_hr9": 1.5,
+      "home_hr9": 0.47787611,
+      "away_k": 23.69338,
+      "home_k": 24.025974,
+      "park_factor": 1.04,
       "weather": {
-        "temp_f": 60.0,
-        "wind_mph": 9.0,
-        "wind_dir": "WSW",
-        "conditions": "clear",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 4.05,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 4.52,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 5.29,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 33.6 vs HvP baseline 38.9 (\u0394-5.3) -- cooler than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 2.0,
-          "direction": "profile",
-          "is_play": false,
-          "fired": 2.0
-        },
-        "home": {
-          "count": 1.0,
-          "direction": "profile",
-          "is_play": false,
-          "fired": 1.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "TBR",
-      "home": "LAA",
-      "away_sp": "Shane McClanahan",
-      "home_sp": "Sam Aldegheri",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 42.8,
-      "home_osi": 35.5,
-      "away_fip": 2.9348550160725915,
-      "home_fip": 4.101521682739259,
-      "away_hr9": 0.45,
-      "home_hr9": 0.75,
-      "away_k": 23.88664,
-      "home_k": 15.686275,
-      "park_factor": 0.93,
-      "weather": {
-        "temp_f": 67.0,
-        "wind_mph": 3.0,
+        "temp_f": 65.0,
+        "wind_mph": 10.0,
         "wind_dir": "SW",
         "conditions": "clear",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 3.41,
-        "window_direction": "falling"
+        "bullpen_era": 3.59,
+        "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 3.47,
+        "bullpen_era": 2.98,
         "window_direction": "stable"
       },
       "signals": {
         "away": [
           {
-            "name": "BB% vs ABQ",
-            "direction": "high",
-            "magnitude": 8.84,
-            "bet_angle": "Over / walks",
-            "verdict": "Walk game: SP BB% 9.8% with lineup ABQ 78.8 -- patience tax on pitcher."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 43.1,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +43.1 (ABQ ahead of RCV) -- buy-low process signal."
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 44.76,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 35.5 vs opp Pitch 80.2 (gap -44.8) -- pitching edge."
           },
           {
             "name": "RCV archetype",
@@ -1313,141 +1134,53 @@
           },
           {
             "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 6.44,
+            "direction": "hot",
+            "magnitude": 6.47,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 31.0 vs HvP baseline 37.4 (\u0394-6.4) -- cooler than season profile."
+            "verdict": "Opponent OOR 61.9 vs HvP baseline 55.4 (\u0394+6.5) -- hotter than season profile."
           }
         ],
         "home": [
           {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 24.63,
+            "magnitude": 16.05,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 35.5 vs opp Pitch 60.1 (gap -24.6) -- pitching edge."
+            "verdict": "OSI 60.7 vs opp Pitch 76.8 (gap -16.1) -- pitching edge."
           },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        },
-        "home": {
-          "count": 2.0,
-          "direction": "pitching",
-          "is_play": false,
-          "fired": 2.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "COL",
-      "home": "ATH",
-      "away_sp": "Zach Agnos",
-      "home_sp": "Gage Jump",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 26.2,
-      "home_osi": 51.8,
-      "away_fip": 5.651521682739258,
-      "home_fip": 2.8287944099623985,
-      "away_hr9": 1.8,
-      "home_hr9": 0.0,
-      "away_k": 15.135135,
-      "home_k": 17.808219,
-      "park_factor": 0.9,
-      "weather": {
-        "temp_f": 88.0,
-        "wind_mph": 3.0,
-        "wind_dir": "W",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 4.98,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 3.85,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
           {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 30.93,
+            "magnitude": 19.2,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +30.9 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 14.93,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 14.9 (RHP side) vs RHP -- handedness aligned."
+            "verdict": "PP-Gap +19.2 (ABQ ahead of RCV) -- buy-low process signal."
           },
           {
             "name": "RCV archetype",
             "direction": "profile",
             "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 34.42,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 51.8 vs opp Pitch 17.4 (gap +34.4) -- offensive edge."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 14.08,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 14.1 (RHP side) vs RHP -- handedness aligned."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Contact Floor",
-            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
+            "bet_angle": "Glove Line",
+            "verdict": "Glove Line (Low/Mid) -- Below-average damage and average OB -- defensive-value lineup profile."
           },
           {
             "name": "Schedule context",
             "direction": "cold",
-            "magnitude": 17.18,
+            "magnitude": 5.86,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 1.9 vs HvP baseline 19.0 (\u0394-17.2) -- cooler than season profile."
+            "verdict": "Opponent OOR 33.5 vs HvP baseline 39.4 (\u0394-5.9) -- cooler than season profile."
           }
         ]
       },
       "convergence": {
         "away": {
-          "count": 4.0,
-          "direction": "process",
-          "is_play": true,
+          "count": 3.0,
+          "direction": "pitching",
+          "is_play": false,
           "fired": 3.0
         },
         "home": {
-          "count": 4.0,
-          "direction": "lineup",
+          "count": 5.0,
+          "direction": "process",
           "is_play": true,
           "fired": 4.0
         }
@@ -1458,31 +1191,31 @@
       "away": "CHC",
       "home": "SFG",
       "away_sp": "Ben Brown",
-      "home_sp": "Landen Roupp",
+      "home_sp": "Trevor McDonald",
       "away_hand": "R",
       "home_hand": "R",
       "away_osi": 63.7,
-      "home_osi": 43.5,
+      "home_osi": 43.2,
       "away_fip": 2.2418725599322404,
-      "home_fip": 3.015397280829504,
+      "home_fip": 3.511778092995668,
       "away_hr9": 0.15789474,
-      "home_hr9": 0.51674641,
+      "home_hr9": 0.69230769,
       "away_k": 26.363636,
-      "home_k": 26.279863,
+      "home_k": 22.424242,
       "park_factor": 0.97,
       "weather": {
-        "temp_f": 59.0,
-        "wind_mph": 7.0,
-        "wind_dir": "SW",
+        "temp_f": 57.0,
+        "wind_mph": 6.0,
+        "wind_dir": "WSW",
         "conditions": "cloudy",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 3.34,
+        "bullpen_era": 3.17,
         "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 3.4,
+        "bullpen_era": 3.45,
         "window_direction": "stable"
       },
       "signals": {
@@ -1490,23 +1223,9 @@
           {
             "name": "OSI vs Pitching Score",
             "direction": "lineup",
-            "magnitude": 26.14,
+            "magnitude": 26.08,
             "bet_angle": "Fade weak pitching / back strong offense",
             "verdict": "OSI 63.7 vs opp Pitch 37.6 (gap +26.1) -- offensive edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 3.32,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +3.3 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "OBR + BB%",
-            "direction": "high",
-            "magnitude": 7.05,
-            "bet_angle": "Over / baserunners",
-            "verdict": "Run environment: OBR 75.0 + SP BB% 10.2% -- table-setters & traffic."
           },
           {
             "name": "ABQ split gap + handedness",
@@ -1534,22 +1253,219 @@
           {
             "name": "Schedule context",
             "direction": "hot",
-            "magnitude": 9.75,
+            "magnitude": 9.59,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 70.3 vs HvP baseline 60.5 (\u0394+9.8) -- hotter than season profile."
+            "verdict": "Opponent OOR 70.0 vs HvP baseline 60.5 (\u0394+9.6) -- hotter than season profile."
           }
         ]
       },
       "convergence": {
         "away": {
-          "count": 6.0,
+          "count": 3.0,
           "direction": "lineup",
-          "is_play": true,
-          "fired": 5.0
+          "is_play": false,
+          "fired": 3.0
         },
         "home": {
           "count": 2.0,
           "direction": "profile",
+          "is_play": false,
+          "fired": 2.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "COL",
+      "home": "ATH",
+      "away_sp": "Kyle Freeland",
+      "home_sp": "Jeffrey Springs",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 27.1,
+      "home_osi": 51.8,
+      "away_fip": 5.780766965758126,
+      "home_fip": 5.194855016072591,
+      "away_hr9": 2.20754717,
+      "home_hr9": 1.92,
+      "away_k": 17.857143,
+      "home_k": 19.6875,
+      "park_factor": 0.9,
+      "weather": {
+        "temp_f": 93.0,
+        "wind_mph": 8.0,
+        "wind_dir": "WSW",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 4.75,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 3.87,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 30.12,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +30.1 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "ABQ split gap + handedness",
+            "direction": "lineup",
+            "magnitude": 14.93,
+            "bet_angle": "Target RHP hitters vs RHP",
+            "verdict": "Platoon edge: ABQ gap 14.9 (RHP side) vs RHP -- handedness aligned."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 34.44,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 51.8 vs opp Pitch 17.4 (gap +34.4) -- offensive edge."
+          },
+          {
+            "name": "ABQ split gap + handedness",
+            "direction": "lineup",
+            "magnitude": 14.08,
+            "bet_angle": "Target RHP hitters vs RHP",
+            "verdict": "Platoon edge: ABQ gap 14.1 (RHP side) vs RHP -- handedness aligned."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Contact Floor",
+            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "cold",
+            "magnitude": 17.44,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 2.5 vs HvP baseline 20.0 (\u0394-17.4) -- cooler than season profile."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 4.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 3.0
+        },
+        "home": {
+          "count": 4.0,
+          "direction": "lineup",
+          "is_play": true,
+          "fired": 4.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "TBR",
+      "home": "LAA",
+      "away_sp": "Griffin Jax",
+      "home_sp": "Jose Soriano",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 43.3,
+      "home_osi": 35.5,
+      "away_fip": 4.973316554534129,
+      "home_fip": 4.438871080168493,
+      "away_hr9": 1.61538462,
+      "home_hr9": 1.30120482,
+      "away_k": 21.95122,
+      "home_k": 21.052632,
+      "park_factor": 0.93,
+      "weather": {
+        "temp_f": 68.0,
+        "wind_mph": 5.0,
+        "wind_dir": "SW",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 3.41,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 3.38,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "BB% vs ABQ",
+            "direction": "high",
+            "magnitude": 8.84,
+            "bet_angle": "Over / walks",
+            "verdict": "Walk game: SP BB% 8.8% with lineup ABQ 78.8 -- patience tax on pitcher."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 43.66,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +43.7 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "cold",
+            "magnitude": 6.88,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 30.6 vs HvP baseline 37.5 (\u0394-6.9) -- cooler than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 24.56,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 35.5 vs opp Pitch 60.1 (gap -24.6) -- pitching edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 5.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 4.0
+        },
+        "home": {
+          "count": 2.0,
+          "direction": "pitching",
           "is_play": false,
           "fired": 2.0
         }
