@@ -122,6 +122,25 @@ def run(away: str, home: str, k_line: float = 5.5):
     print(f"  SP:  {away} {gd.away_sp} ({gd.away_hand}, FIP {_f(gd.away_fip,2)}, K% {_f(gd.away_k)}, HR9 {_f(gd.away_hr9,2)})")
     print(f"       {home} {gd.home_sp} ({gd.home_hand}, FIP {_f(gd.home_fip,2)}, K% {_f(gd.home_k)}, HR9 {_f(gd.home_hr9,2)})")
     print(f"  Lineup OSI: {away} {gd.away_osi} vs {home} {gd.home_osi} | Park {gd.park_factor}")
+    print(f"  Bullpen: {away} factor {gd.away_pen_factor:.3f} / {home} factor {gd.home_pen_factor:.3f} "
+          f"(1.0 = lg avg, {be.BULLPEN_WEIGHT:.0%} of opp run prevention)")
+
+    # ── PIPELINE SIGNALS (MLBMA, display-only) ───────────────────────────────
+    print("\n  -- PIPELINE SIGNALS (MLBMA) --")
+    sigs = be.load_signals_for_game(away, home)
+    conv = be.load_convergence_for_game(away, home)
+    any_line = False
+    for side_key, team in (("away", away), ("home", home)):
+        for s in sigs.get(side_key, []):
+            any_line = True
+            mag = f", mag {s['magnitude']:+.1f}" if s.get("magnitude") is not None else ""
+            print(f"  {team}: {s['name']} ({s['direction']}{mag}) -> {s['bet_angle']}")
+        c = conv.get(side_key)
+        if c and c.get("is_play"):
+            any_line = True
+            print(f"  {team}: CONVERGENCE PLAY ({c['direction']}, {int(c['fired'] or 0)} signals fired)")
+    if not any_line:
+        print("  No signals fired for this game today.")
 
     # ── MONEYLINE ────────────────────────────────────────────────────────────
     print("\n  -- MONEYLINE --")

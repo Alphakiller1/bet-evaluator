@@ -18,6 +18,7 @@ Commands
   sharp                         fetch + report live sharp signals (uses API credits)
   predict                       fetch live Kalshi contract prices
   model [--min-n N]             model calibration / ROI / CLV
+  quant [--no-write]            full quant/biostat battery (Brier, Kelly, SPRT, CLV)
   report                        daily contradiction report -> vault + Supabase
   bet ...                       single-bet evaluator (passes through to bet_evaluator)
 
@@ -60,6 +61,8 @@ def _dispatch(cmd: str, rest: list[str]):
         from backtest import prediction_markets; prediction_markets.main()
     elif cmd == "model":
         from backtest import analyze_model; analyze_model.main()
+    elif cmd == "quant":
+        from backtest import quant_analysis; quant_analysis.main()
     elif cmd == "report":
         from backtest import daily_report; daily_report.main()
     elif cmd in ("serve", "ui", "center"):

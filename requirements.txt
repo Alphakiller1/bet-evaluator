@@ -1,0 +1,4 @@
+# bet-evaluator runtime deps (verified against crawl_env, Python 3.12)
+pandas==3.0.3
+psycopg2-binary==2.9.12   # backtest/settle_predictions.py, settle_sharp.py, apply_schema.py
+tzdata==2026.2            # IANA tz database for zoneinfo on Windows

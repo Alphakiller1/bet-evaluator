@@ -103,6 +103,7 @@ def build_observations(gpk: int, rows: list[dict], sched: str | None, home: str)
 
 # ── Fetch (sharp + soft, us+eu) ───────────────────────────────────────────────
 def fetch_sharp_odds() -> list[dict]:
+    market_data.check_quota()
     params = {"regions": config.ODDS_SHARP_REGIONS, "markets": config.ODDS_GAME_MARKETS,
               "oddsFormat": config.ODDS_FORMAT}
     data = market_data._get(f"/sports/{config.ODDS_SPORT_KEY}/odds", params)
@@ -227,6 +228,7 @@ def run(only_game: str | None = None):
         raise SystemExit("  No odds returned.")
     # store raw for movement history + Supabase odds_snapshots
     market_data.store(raw)
+    market_data.print_usage()
     try:
         from backtest import import_odds
         import_odds.run()

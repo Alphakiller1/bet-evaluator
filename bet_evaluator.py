@@ -45,10 +45,13 @@ import market_data
 from config import (
     AWAY_BASE_WINP,
     BET_HISTORY_DIR,
+    BULLPEN_IR_SENSITIVITY,
+    BULLPEN_WEIGHT,
     CONFIDENCE_TIERS,
     HFA_RUNS,
     HOME_BASE_WINP,
     IMPLAUSIBLE_EDGE,
+    LEAGUE_BULLPEN_ERA,
     LEAGUE_FIP,
     LEAGUE_RUNS_PER_TEAM,
     MARGIN_SD,
@@ -126,6 +129,10 @@ class GameData:
     home_k: float | None
     park_factor: float = 1.0
     weather: dict[str, Any] = field(default_factory=dict)
+    away_pen_factor: float = 1.0      # away bullpen run-allowance vs league (1.0 = avg)
+    home_pen_factor: float = 1.0
+    away_pen_era: float | None = None
+    home_pen_era: float | None = None
 
 
 @dataclass
@@ -185,6 +192,10 @@ def load_game(away: str, home: str) -> GameData:
                 "dome": bool(w.get("is_dome", False)),
             }
 
+    pens = load_bullpen_factors()
+    away_pen = pens.get(away, {})
+    home_pen = pens.get(home, {})
+
     return GameData(
         away=away,
         home=home,
@@ -202,6 +213,10 @@ def load_game(away: str, home: str) -> GameData:
         home_k=_pct(g.get("Home_K%")),
         park_factor=park_factor_for_team(home),
         weather=weather,
+        away_pen_factor=away_pen.get("factor", 1.0),
+        home_pen_factor=home_pen.get("factor", 1.0),
+        away_pen_era=away_pen.get("era"),
+        home_pen_era=home_pen.get("era"),
     )
 
 
@@ -274,6 +289,35 @@ def refresh_anchors() -> dict[str, float]:
     return anchors
 
 
+def load_bullpen_factors() -> dict[str, dict]:
+    """Per-team bullpen run-allowance factor from team_profiles.csv: pen ERA /
+    league pen ERA, nudged by inherited-runners-scored%, clipped with
+    PITCH_FACTOR_CLIP. Missing file/team/value -> caller uses 1.0 (league avg).
+    Self-normalizes against the league mean computed from the same file so a
+    metric-definition drift in the pipeline can't skew all 30 teams together."""
+    tp = load("team_profiles.csv")
+    if tp is None or "bullpen_era" not in tp.columns:
+        return {}
+    tp = tp.copy()
+    tp["team"] = tp["team"].astype(str).str.upper().str.strip()
+    eras = pd.to_numeric(tp["bullpen_era"], errors="coerce")
+    lg_era = float(eras.mean()) if eras.notna().any() else LEAGUE_BULLPEN_ERA
+    irs = pd.to_numeric(tp["bullpen_ir_scored_pct"], errors="coerce") \
+        if "bullpen_ir_scored_pct" in tp.columns else None
+    lg_ir = float(irs.mean()) if irs is not None and irs.notna().any() else None
+    out: dict[str, dict] = {}
+    for _, r in tp.iterrows():
+        era = _num(r.get("bullpen_era"))
+        if era is None or lg_era <= 0:
+            continue
+        f = era / lg_era
+        ir = _num(r.get("bullpen_ir_scored_pct"))
+        if ir is not None and lg_ir is not None:
+            f *= 1 + BULLPEN_IR_SENSITIVITY * (ir - lg_ir)
+        out[r["team"]] = {"factor": clip(f, *PITCH_FACTOR_CLIP), "era": era, "ir": ir}
+    return out
+
+
 # ── Probability model ──────────────────────────────────────────────────────
 
 
@@ -289,21 +333,21 @@ def offense_factor(osi: float | None) -> float:
     return _regress(raw)
 
 
-def pitch_factor(opp_sp_fip: float | None) -> float:
-    """Run-allowance multiplier from the opposing starter, blended toward league
-    for the bullpen innings the SP does not cover. >1 = allows more runs."""
-    if opp_sp_fip is None:
-        return 1.0
-    sp = clip(opp_sp_fip / LEAGUE_FIP, *PITCH_FACTOR_CLIP)
-    blended = SP_FIP_WEIGHT * sp + (1 - SP_FIP_WEIGHT) * 1.0
+def pitch_factor(opp_sp_fip: float | None, opp_pen_factor: float = 1.0) -> float:
+    """Run-allowance multiplier: opposing SP (SP_FIP_WEIGHT) blended with the
+    opposing bullpen's ACTUAL quality (BULLPEN_WEIGHT) for the innings the SP
+    does not cover. 1.0 = league average; >1 = allows more runs."""
+    sp = 1.0 if opp_sp_fip is None else clip(opp_sp_fip / LEAGUE_FIP, *PITCH_FACTOR_CLIP)
+    pen = clip(opp_pen_factor, *PITCH_FACTOR_CLIP)
+    blended = SP_FIP_WEIGHT * sp + BULLPEN_WEIGHT * pen
     return _regress(blended)
 
 
 def model_probabilities(gd: GameData, anchors: dict[str, float]) -> Probabilities:
     league = anchors["league_runs"]
-    # Away offense vs home SP; home offense vs away SP.
-    exp_away = league * offense_factor(gd.away_osi) * pitch_factor(gd.home_fip) * gd.park_factor
-    exp_home = league * offense_factor(gd.home_osi) * pitch_factor(gd.away_fip) * gd.park_factor
+    # Away offense vs home SP + home pen; home offense vs away SP + away pen.
+    exp_away = league * offense_factor(gd.away_osi) * pitch_factor(gd.home_fip, gd.home_pen_factor) * gd.park_factor
+    exp_home = league * offense_factor(gd.home_osi) * pitch_factor(gd.away_fip, gd.away_pen_factor) * gd.park_factor
     exp_home += HFA_RUNS
     exp_total = exp_away + exp_home
     exp_margin = exp_home - exp_away
@@ -604,6 +648,7 @@ clv: ""
 - **{gd.away}** ({gd.away_sp}, {gd.away_hand}HP, FIP {_fmt(gd.away_fip)}) lineup OSI **{gd.away_osi}**
 - **{gd.home}** ({gd.home_sp}, {gd.home_hand}HP, FIP {_fmt(gd.home_fip)}) lineup OSI **{gd.home_osi}**
 - Park factor (home): **{gd.park_factor}** · Weather: {weather_str}
+- Bullpens: {gd.away} factor **{gd.away_pen_factor:.3f}** (pen ERA {_fmt(gd.away_pen_era)}) · {gd.home} factor **{gd.home_pen_factor:.3f}** (pen ERA {_fmt(gd.home_pen_era)}) — weighted {BULLPEN_WEIGHT:.0%} of run prevention
 
 ## Market
 {_market_block(a)}
@@ -738,6 +783,8 @@ def print_summary(a: dict[str, Any]) -> None:
     print(f"  {gd.away}@{gd.home}  |  {a['pick_desc']}  @ {a['odds']:+d}")
     print(f"  {'='*58}")
     print(f"  Model prob   : {a['model_p']*100:5.1f}%")
+    print(f"  Bullpen adj  : {gd.away} pen {gd.away_pen_factor:.3f} (ERA {_fmt(gd.away_pen_era)}) | "
+          f"{gd.home} pen {gd.home_pen_factor:.3f} (ERA {_fmt(gd.home_pen_era)})  [{BULLPEN_WEIGHT:.0%} of opp run prevention]")
     print(f"  Implied prob : {v['implied']*100:5.1f}%")
     print(f"  Edge         : {v['edge']*100:+5.1f} pts")
     print(f"  EV / unit    : {v['ev_per_unit']:+.3f}")
