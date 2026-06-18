@@ -1,13 +1,13 @@
 {
-  "generated": "2026-06-17",
+  "generated": "2026-06-18",
   "anchors": {
-    "home_winp": 0.542,
-    "away_winp": 0.4488,
-    "league_runs": 4.607,
-    "total_sd": 4.782,
-    "team_sd": 3.332,
-    "margin_sd": 4.63,
-    "blown_save": 0.1667
+    "home_winp": 0.5405,
+    "away_winp": 0.4503,
+    "league_runs": 4.613,
+    "total_sd": 4.774,
+    "team_sd": 3.33,
+    "margin_sd": 4.635,
+    "blown_save": 0.1653
   },
   "model": {
     "LEAGUE_FIP": 4.2,
@@ -49,988 +49,26 @@
   },
   "games": [
     {
-      "away": "MIA",
-      "home": "PHI",
-      "away_sp": "Sandy Alcantara",
-      "home_sp": "Andrew Painter",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 31.0,
-      "home_osi": 31.1,
-      "away_fip": 4.13718352386684,
-      "home_fip": 5.17887737031967,
-      "away_hr9": 1.10958904,
-      "home_hr9": 1.71428571,
-      "away_k": 17.574257,
-      "home_k": 17.54386,
-      "park_factor": 1.07,
-      "weather": {
-        "temp_f": 69.0,
-        "wind_mph": 5.0,
-        "wind_dir": "S",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.39,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 3.51,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 42.35,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 31.0 vs opp Pitch 73.3 (gap -42.3) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 13.98,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +14.0 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 8.69,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 25.4 vs HvP baseline 34.1 (\u0394-8.7) -- cooler than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 36.53,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 31.1 vs opp Pitch 67.6 (gap -36.5) -- pitching edge."
-          },
-          {
-            "name": "OBR + BB%",
-            "direction": "low",
-            "magnitude": 25.28,
-            "bet_angle": "Under / pitcher control",
-            "verdict": "Stall risk: OBR 29.7 + SP BB% 5.7% -- limited free passes."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 9.95,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 21.8 vs HvP baseline 31.7 (\u0394-10.0) -- cooler than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        },
-        "home": {
-          "count": 4.0,
-          "direction": "pitching",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": [
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "180"
-        },
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-215"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-128"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "106"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "184"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-205"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-115"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "-105"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "184"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-205"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-112"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "-102"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-107"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-107"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "178"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-205"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-115"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "-105"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "185"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-225"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-115"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "-105"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-105"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-115"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "177"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-217"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-118"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "-102"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "172"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-212"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-120"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "100"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-110"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "178"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-212"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-117"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "100"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-108"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-113"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "MIA",
-          "line": "",
-          "odds": "170"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "PHI",
-          "line": "",
-          "odds": "-220"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "MIA",
-          "line": "1.5",
-          "odds": "-130"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "PHI",
-          "line": "-1.5",
-          "odds": "105"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "over",
-          "line": "7.5",
-          "odds": "-117"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "under",
-          "line": "7.5",
-          "odds": "-107"
-        }
-      ]
-    },
-    {
-      "away": "KCR",
-      "home": "WSN",
-      "away_sp": "Luinder Avila",
-      "home_sp": "Zack Littell",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 48.0,
-      "home_osi": 57.3,
-      "away_fip": 5.03701229095459,
-      "home_fip": 6.114663806106105,
-      "away_hr9": 1.125,
-      "home_hr9": 2.18181818,
-      "away_k": 19.444444,
-      "home_k": 13.541666999999999,
-      "park_factor": 0.95,
-      "weather": {
-        "temp_f": 71.0,
-        "wind_mph": 4.0,
-        "wind_dir": "SE",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 4.01,
-        "window_direction": "falling"
-      },
-      "home_risk": {
-        "bullpen_era": 3.73,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 15.36,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 48.0 vs opp Pitch 32.6 (gap +15.4) -- offensive edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 18.03,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +18.0 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 8.82,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 69.3 vs HvP baseline 60.5 (\u0394+8.8) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 21.28,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 57.3 vs opp Pitch 36.0 (gap +21.3) -- offensive edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Contact Floor",
-            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        },
-        "home": {
-          "count": 2.0,
-          "direction": "lineup",
-          "is_play": false,
-          "fired": 2.0
-        }
-      },
-      "odds": [
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "120"
-        },
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-142"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-170"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "140"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-115"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-105"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "119"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-143"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-171"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "141"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-114"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-105"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "120"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-141"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-164"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "139"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-119"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-101"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "112"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-139"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-190"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "150"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-121"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-104"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "122"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-135"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-162"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "142"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-105"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "122"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-135"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-162"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "143"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-113"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-102"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "120"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-145"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-170"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "140"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-105"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "122"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-135"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-160"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "140"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-105"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "KCR",
-          "line": "",
-          "odds": "124"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "WSN",
-          "line": "",
-          "odds": "-148"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "KCR",
-          "line": "1.5",
-          "odds": "-165"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "WSN",
-          "line": "-1.5",
-          "odds": "140"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-115"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-105"
-        }
-      ]
-    },
-    {
       "away": "TOR",
       "home": "BOS",
-      "away_sp": "Max Scherzer",
-      "home_sp": "Jake Bennett",
+      "away_sp": "Trey Yesavage",
+      "home_sp": "Sonny Gray",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 35.1,
-      "home_osi": 23.9,
-      "away_fip": 8.781330472772773,
-      "home_fip": 5.19951229305459,
-      "away_hr9": 3.68181818,
-      "home_hr9": 0.0,
-      "away_k": 13.72549,
-      "home_k": 23.529412,
+      "away_osi": 36.4,
+      "home_osi": 24.5,
+      "away_fip": 3.57808108493125,
+      "home_fip": 3.624975367181703,
+      "away_hr9": 0.56643357,
+      "home_hr9": 0.86631016,
+      "away_k": 23.737374,
+      "home_k": 19.921875,
       "park_factor": 1.12,
       "weather": {
-        "temp_f": 66.0,
+        "temp_f": 67.0,
         "wind_mph": 6.0,
-        "wind_dir": "SW",
-        "conditions": "clear",
+        "wind_dir": "SSW",
+        "conditions": "cloudy",
         "dome": false
       },
       "away_risk": {
@@ -1046,16 +84,16 @@
           {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 24.56,
+            "magnitude": 21.16,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 35.1 vs opp Pitch 59.6 (gap -24.6) -- pitching edge."
+            "verdict": "OSI 36.4 vs opp Pitch 57.6 (gap -21.2) -- pitching edge."
           },
           {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 18.36,
+            "magnitude": 16.98,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +18.4 (ABQ ahead of RCV) -- buy-low process signal."
+            "verdict": "PP-Gap +17.0 (ABQ ahead of RCV) -- buy-low process signal."
           },
           {
             "name": "RCV archetype",
@@ -1067,25 +105,25 @@
           {
             "name": "Schedule context",
             "direction": "cold",
-            "magnitude": 12.96,
+            "magnitude": 13.18,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 14.9 vs HvP baseline 27.9 (\u0394-13.0) -- cooler than season profile."
+            "verdict": "Opponent OOR 15.2 vs HvP baseline 28.4 (\u0394-13.2) -- cooler than season profile."
           }
         ],
         "home": [
           {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 47.58,
+            "magnitude": 45.67,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 23.9 vs opp Pitch 71.5 (gap -47.6) -- pitching edge."
+            "verdict": "OSI 24.5 vs opp Pitch 70.2 (gap -45.7) -- pitching edge."
           },
           {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 30.09,
+            "magnitude": 28.84,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +30.1 (ABQ ahead of RCV) -- buy-low process signal."
+            "verdict": "PP-Gap +28.8 (ABQ ahead of RCV) -- buy-low process signal."
           },
           {
             "name": "RCV archetype",
@@ -1097,9 +135,9 @@
           {
             "name": "Schedule context",
             "direction": "cold",
-            "magnitude": 7.89,
+            "magnitude": 6.99,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 26.7 vs HvP baseline 34.6 (\u0394-7.9) -- cooler than season profile."
+            "verdict": "Opponent OOR 29.4 vs HvP baseline 36.4 (\u0394-7.0) -- cooler than season profile."
           }
         ]
       },
@@ -1115,684 +153,6 @@
           "direction": "process",
           "is_play": true,
           "fired": 4.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "CHW",
-      "home": "NYY",
-      "away_sp": "Anthony Kay",
-      "home_sp": "Carlos Rod\u00f3n",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 61.4,
-      "home_osi": 69.8,
-      "away_fip": 5.225140431764923,
-      "home_fip": null,
-      "away_hr9": 1.35678392,
-      "home_hr9": null,
-      "away_k": 17.607972999999998,
-      "home_k": null,
-      "park_factor": 1.06,
-      "weather": {
-        "temp_f": 69.0,
-        "wind_mph": 5.0,
-        "wind_dir": "SSW",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.37,
-        "window_direction": "falling"
-      },
-      "home_risk": {
-        "bullpen_era": 3.12,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 14.29,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 61.4 vs opp Pitch 75.7 (gap -14.3) -- pitching edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Power Leverage",
-            "verdict": "Power Leverage (High/Mid) -- Big damage output with average table-setting -- slug-first lineup shape."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 14.97,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 83.9 vs HvP baseline 68.9 (\u0394+15.0) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "K% vs OBR",
-            "direction": "lineup",
-            "magnitude": 19.53,
-            "bet_angle": "Over offense / team total",
-            "verdict": "Soft K% arm (17.6%) vs elite floor (OBR 84.5) -- contact & baserunners likely."
-          },
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 21.39,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 69.8 vs opp Pitch 48.4 (gap +21.4) -- offensive edge."
-          },
-          {
-            "name": "OBR + BB%",
-            "direction": "high",
-            "magnitude": 16.53,
-            "bet_angle": "Over / baserunners",
-            "verdict": "Run environment: OBR 84.5 + SP BB% 9.0% -- table-setters & traffic."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Table Setter Plus",
-            "verdict": "Table Setter Plus (Mid/High) -- Strong on-base process with moderate power -- grind-and-advance profile."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 11.6,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 76.3 vs HvP baseline 64.7 (\u0394+11.6) -- hotter than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 3.0,
-          "direction": "pitching",
-          "is_play": false,
-          "fired": 3.0
-        },
-        "home": {
-          "count": 5.0,
-          "direction": "lineup",
-          "is_play": true,
-          "fired": 5.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "NYM",
-      "home": "CIN",
-      "away_sp": "Nolan McLean",
-      "home_sp": "Nick Lodolo",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 43.1,
-      "home_osi": 52.4,
-      "away_fip": 3.689031941635355,
-      "home_fip": 6.073196501480906,
-      "away_hr9": 0.94323144,
-      "home_hr9": 1.89473684,
-      "away_k": 27.760252,
-      "home_k": 17.54386,
-      "park_factor": 1.1,
-      "weather": {
-        "temp_f": 66.0,
-        "wind_mph": 6.0,
-        "wind_dir": "WSW",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.24,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 3.69,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 26.07,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 43.1 vs opp Pitch 17.1 (gap +26.1) -- offensive edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 3.44,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +3.4 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 6.5,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 63.9 vs HvP baseline 57.4 (\u0394+6.5) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 13.84,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 52.4 vs opp Pitch 66.2 (gap -13.8) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 5.6,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +5.6 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "OBR + BB%",
-            "direction": "high",
-            "magnitude": 1.64,
-            "bet_angle": "Over / baserunners",
-            "verdict": "Run environment: OBR 69.6 + SP BB% 9.8% -- table-setters & traffic."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Glove Line",
-            "verdict": "Glove Line (Low/Mid) -- Below-average damage and average OB -- defensive-value lineup profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        },
-        "home": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": [
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-142"
-        },
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "120"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "158"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-192"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "over",
-          "line": "8.5",
-          "odds": "-104"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "under",
-          "line": "8.5",
-          "odds": "-118"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-143"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "119"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "149"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-181"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-114"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-105"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-136"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "116"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "152"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-180"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-112"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-109"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-131"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "119"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "157"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-180"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-105"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-131"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "119"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "158"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-180"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-113"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-102"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-139"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "112"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "150"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-186"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-114"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-109"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-140"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "115"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "150"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-185"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-105"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-131"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "119"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "156"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-180"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-105"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "CIN",
-          "line": "",
-          "odds": "-139"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "NYM",
-          "line": "",
-          "odds": "116"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "CIN",
-          "line": "-1.5",
-          "odds": "155"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "NYM",
-          "line": "1.5",
-          "odds": "-180"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "over",
-          "line": "8.0",
-          "odds": "-115"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "under",
-          "line": "8.0",
-          "odds": "-105"
-        }
-      ]
-    },
-    {
-      "away": "SFG",
-      "home": "ATL",
-      "away_sp": "Adrian Houser",
-      "home_sp": "JR Ritchie",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 43.0,
-      "home_osi": 56.6,
-      "away_fip": 5.176435367877668,
-      "home_fip": 5.153860116818247,
-      "away_hr9": 1.52307692,
-      "home_hr9": 1.17391304,
-      "away_k": 15.540541,
-      "home_k": 19.69697,
-      "park_factor": 1.03,
-      "weather": {
-        "temp_f": 71.0,
-        "wind_mph": 6.0,
-        "wind_dir": "SW",
-        "conditions": "rain",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.81,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 1.39,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 29.43,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 43.0 vs opp Pitch 72.4 (gap -29.4) -- pitching edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Contact Floor",
-            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 6.16,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 61.8 vs HvP baseline 55.7 (\u0394+6.2) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 16.61,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 56.6 vs opp Pitch 40.0 (gap +16.6) -- offensive edge."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 3.0,
-          "direction": "pitching",
-          "is_play": false,
-          "fired": 3.0
-        },
-        "home": {
-          "count": 1.0,
-          "direction": "lineup",
-          "is_play": false,
-          "fired": 1.0
         }
       },
       "odds": []
@@ -1800,23 +160,23 @@
     {
       "away": "CLE",
       "home": "MIL",
-      "away_sp": "Gavin Williams",
-      "home_sp": "Brandon Sproat",
+      "away_sp": "Parker Messick",
+      "home_sp": "Shane Drohan",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 43.4,
-      "home_osi": 62.1,
-      "away_fip": 2.8423694337749983,
-      "home_fip": 5.54951229095459,
-      "away_hr9": 0.77142857,
-      "home_hr9": 1.8,
-      "away_k": 35.92233,
-      "home_k": 21.83908,
+      "away_osi": 43.2,
+      "home_osi": 62.3,
+      "away_fip": 3.318704098306058,
+      "home_fip": 2.720563602476807,
+      "away_hr9": 0.89256198,
+      "home_hr9": 0.6328125,
+      "away_k": 25.624999999999996,
+      "home_k": 24.858757,
       "park_factor": 1.04,
       "weather": {
-        "temp_f": 62.0,
-        "wind_mph": 11.0,
-        "wind_dir": "W",
+        "temp_f": 64.0,
+        "wind_mph": 15.0,
+        "wind_dir": "WSW",
         "conditions": "cloudy",
         "dome": false
       },
@@ -1833,16 +193,16 @@
           {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 39.63,
+            "magnitude": 39.49,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 43.4 vs opp Pitch 83.1 (gap -39.6) -- pitching edge."
+            "verdict": "OSI 43.2 vs opp Pitch 82.7 (gap -39.5) -- pitching edge."
           },
           {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 34.95,
+            "magnitude": 34.61,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +35.0 (ABQ ahead of RCV) -- buy-low process signal."
+            "verdict": "PP-Gap +34.6 (ABQ ahead of RCV) -- buy-low process signal."
           },
           {
             "name": "RCV archetype",
@@ -1854,32 +214,18 @@
           {
             "name": "Schedule context",
             "direction": "hot",
-            "magnitude": 7.7,
+            "magnitude": 8.54,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 64.8 vs HvP baseline 57.1 (\u0394+7.7) -- hotter than season profile."
+            "verdict": "Opponent OOR 66.0 vs HvP baseline 57.5 (\u0394+8.5) -- hotter than season profile."
           }
         ],
         "home": [
           {
-            "name": "BB% vs ABQ",
-            "direction": "high",
-            "magnitude": 2.29,
-            "bet_angle": "Over / walks",
-            "verdict": "Walk game: SP BB% 13.6% with lineup ABQ 72.3 -- patience tax on pitcher."
-          },
-          {
             "name": "PP-Gap",
             "direction": "process",
-            "magnitude": 23.56,
+            "magnitude": 22.87,
             "bet_angle": "Process > production",
-            "verdict": "PP-Gap +23.6 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 8.42,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 8.4 (RHP side) vs RHP -- handedness aligned."
+            "verdict": "PP-Gap +22.9 (ABQ ahead of RCV) -- buy-low process signal."
           },
           {
             "name": "RCV archetype",
@@ -1898,595 +244,8 @@
           "fired": 4.0
         },
         "home": {
-          "count": 5.0,
-          "direction": "process",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "SDP",
-      "home": "STL",
-      "away_sp": "Michael King",
-      "home_sp": "Kyle Leahy",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 40.6,
-      "home_osi": 45.5,
-      "away_fip": 4.301991629747876,
-      "home_fip": 4.66201229095459,
-      "away_hr9": 1.11570248,
-      "home_hr9": 1.265625,
-      "away_k": 22.08589,
-      "home_k": 17.869415999999998,
-      "park_factor": 1.0,
-      "weather": {
-        "temp_f": 71.0,
-        "wind_mph": 4.0,
-        "wind_dir": "N",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.11,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 4.4,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 12.47,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 45.5 vs opp Pitch 57.9 (gap -12.5) -- pitching edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 5.77,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 31.4 vs HvP baseline 37.2 (\u0394-5.8) -- cooler than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 1.0,
-          "direction": "profile",
-          "is_play": false,
-          "fired": 1.0
-        },
-        "home": {
           "count": 3.0,
-          "direction": "pitching",
-          "is_play": false,
-          "fired": 3.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "COL",
-      "home": "CHC",
-      "away_sp": "Sean Sullivan",
-      "home_sp": "Javier Assad",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 26.4,
-      "home_osi": 63.2,
-      "away_fip": 2.766178957621257,
-      "home_fip": 3.986468812770847,
-      "away_hr9": 0.0,
-      "home_hr9": 0.93913043,
-      "away_k": 16.666667,
-      "home_k": 16.0,
-      "park_factor": 1.05,
-      "weather": {
-        "temp_f": 65.0,
-        "wind_mph": 13.0,
-        "wind_dir": "W",
-        "conditions": "clear",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 4.91,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 3.36,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 20.31,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 26.4 vs opp Pitch 46.8 (gap -20.3) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 28.31,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +28.3 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 14.37,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 14.4 (RHP side) vs RHP -- handedness aligned."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 9.89,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 70.9 vs HvP baseline 61.0 (\u0394+9.9) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "K% vs OBR",
-            "direction": "lineup",
-            "magnitude": 9.99,
-            "bet_angle": "Over offense / team total",
-            "verdict": "Soft K% arm (16.7%) vs elite floor (OBR 75.0) -- contact & baserunners likely."
-          },
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 48.2,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 63.2 vs opp Pitch 15.0 (gap +48.2) -- offensive edge."
-          },
-          {
-            "name": "PALS + projOSI",
-            "direction": "lineup",
-            "magnitude": 5.41,
-            "bet_angle": "Buy-low offense / process catching up",
-            "verdict": "OSI\u2248PALS (\u03942.5) with PP-Gap +5.4 -- stable profile, process ahead of box score."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 5.41,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +5.4 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 8.22,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 8.2 (RHP side) vs RHP -- handedness aligned."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "OBP First",
-            "verdict": "OBP First (Low/High) -- Gets on base without big damage -- small-ball and walk-heavy lean."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 17.09,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 2.3 vs HvP baseline 19.4 (\u0394-17.1) -- cooler than season profile."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 6.0,
           "direction": "process",
-          "is_play": true,
-          "fired": 5.0
-        },
-        "home": {
-          "count": 8.0,
-          "direction": "lineup",
-          "is_play": true,
-          "fired": 7.0
-        }
-      },
-      "odds": [
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-210"
-        },
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "176"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "CHC",
-          "line": "-1.5",
-          "odds": "100"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "COL",
-          "line": "1.5",
-          "odds": "-120"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-124"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "102"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-195"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "175"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-195"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "175"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-210"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "170"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "CHC",
-          "line": "-1.5",
-          "odds": "100"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "COL",
-          "line": "1.5",
-          "odds": "-120"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "over",
-          "line": "9.5",
-          "odds": "100"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "under",
-          "line": "9.5",
-          "odds": "-120"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-200"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "174"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "CHC",
-          "line": "-1.5",
-          "odds": "100"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "COL",
-          "line": "1.5",
-          "odds": "-120"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-125"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "105"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-202"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "170"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "CHC",
-          "line": "-1.5",
-          "odds": "-105"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "COL",
-          "line": "1.5",
-          "odds": "-112"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-121"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-101"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-207"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "169"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "CHC",
-          "line": "-1.5",
-          "odds": "-102"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "COL",
-          "line": "1.5",
-          "odds": "-118"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "over",
-          "line": "9.5",
-          "odds": "101"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "under",
-          "line": "9.5",
-          "odds": "-122"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "CHC",
-          "line": "",
-          "odds": "-225"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "COL",
-          "line": "",
-          "odds": "175"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "CHC",
-          "line": "-1.5",
-          "odds": "104"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "COL",
-          "line": "1.5",
-          "odds": "-127"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-113"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-110"
-        }
-      ]
-    },
-    {
-      "away": "DET",
-      "home": "HOU",
-      "away_sp": "Casey Mize",
-      "home_sp": "Peter Lambert",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 44.2,
-      "home_osi": 39.0,
-      "away_fip": 2.407204598695311,
-      "home_fip": 3.906529834814239,
-      "away_hr9": 0.37762238,
-      "home_hr9": 0.78947368,
-      "away_k": 26.486486,
-      "home_k": 22.268908,
-      "park_factor": 1.02,
-      "weather": {
-        "temp_f": 79.0,
-        "wind_mph": 6.0,
-        "wind_dir": "E",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.84,
-        "window_direction": "stable"
-      },
-      "home_risk": {
-        "bullpen_era": 3.48,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 18.89,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 44.2 vs opp Pitch 25.3 (gap +18.9) -- offensive edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "cold",
-            "magnitude": 5.74,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 31.9 vs HvP baseline 37.6 (\u0394-5.7) -- cooler than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 20.67,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 39.0 vs opp Pitch 59.7 (gap -20.7) -- pitching edge."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 3.0,
-          "direction": "lineup",
-          "is_play": false,
-          "fired": 3.0
-        },
-        "home": {
-          "count": 2.0,
-          "direction": "pitching",
           "is_play": false,
           "fired": 2.0
         }
@@ -2494,25 +253,289 @@
       "odds": []
     },
     {
-      "away": "BAL",
-      "home": "SEA",
-      "away_sp": "Kyle Bradish",
-      "home_sp": "George Kirby",
+      "away": "MIN",
+      "home": "TEX",
+      "away_sp": "Joe Ryan",
+      "home_sp": "Jack Leiter",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 65.3,
-      "home_osi": 57.7,
-      "away_fip": 4.694966836481656,
-      "home_fip": 4.072485264190529,
-      "away_hr9": 1.35,
-      "home_hr9": 1.45945946,
-      "away_k": 22.600619,
-      "home_k": 30.188679,
+      "away_osi": 46.2,
+      "home_osi": 36.3,
+      "away_fip": 4.870211489521504,
+      "home_fip": 2.994440006953254,
+      "away_hr9": 1.14084507,
+      "home_hr9": 0.60674157,
+      "away_k": 14.423077000000001,
+      "home_k": 24.409449,
+      "park_factor": 1.08,
+      "weather": {
+        "temp_f": 83.0,
+        "wind_mph": 12.0,
+        "wind_dir": "SE",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 4.73,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 3.04,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 12.22,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 46.2 vs opp Pitch 58.4 (gap -12.2) -- pitching edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Contact Floor",
+            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "cold",
+            "magnitude": 6.3,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 31.4 vs HvP baseline 37.7 (\u0394-6.3) -- cooler than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 16.46,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 36.3 vs opp Pitch 52.7 (gap -16.5) -- pitching edge."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 17.09,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +17.1 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 3.0,
+          "direction": "pitching",
+          "is_play": false,
+          "fired": 3.0
+        },
+        "home": {
+          "count": 4.0,
+          "direction": "process",
+          "is_play": true,
+          "fired": 3.0
+        }
+      },
+      "odds": [
+        {
+          "book": "fanduel",
+          "market": "ml",
+          "side": "MIN",
+          "line": "",
+          "odds": "142"
+        },
+        {
+          "book": "fanduel",
+          "market": "ml",
+          "side": "TEX",
+          "line": "",
+          "odds": "-168"
+        },
+        {
+          "book": "fanduel",
+          "market": "runline",
+          "side": "MIN",
+          "line": "1.5",
+          "odds": "-154"
+        },
+        {
+          "book": "fanduel",
+          "market": "runline",
+          "side": "TEX",
+          "line": "-1.5",
+          "odds": "128"
+        },
+        {
+          "book": "fanduel",
+          "market": "total",
+          "side": "over",
+          "line": "8.0",
+          "odds": "-110"
+        },
+        {
+          "book": "fanduel",
+          "market": "total",
+          "side": "under",
+          "line": "8.0",
+          "odds": "-110"
+        },
+        {
+          "book": "mybookieag",
+          "market": "ml",
+          "side": "MIN",
+          "line": "",
+          "odds": "140"
+        },
+        {
+          "book": "mybookieag",
+          "market": "ml",
+          "side": "TEX",
+          "line": "",
+          "odds": "-166"
+        },
+        {
+          "book": "mybookieag",
+          "market": "runline",
+          "side": "MIN",
+          "line": "1.5",
+          "odds": "-149"
+        },
+        {
+          "book": "mybookieag",
+          "market": "runline",
+          "side": "TEX",
+          "line": "-1.5",
+          "odds": "127"
+        },
+        {
+          "book": "mybookieag",
+          "market": "total",
+          "side": "over",
+          "line": "8.0",
+          "odds": "-111"
+        },
+        {
+          "book": "mybookieag",
+          "market": "total",
+          "side": "under",
+          "line": "8.0",
+          "odds": "-111"
+        },
+        {
+          "book": "betrivers",
+          "market": "ml",
+          "side": "MIN",
+          "line": "",
+          "odds": "135"
+        },
+        {
+          "book": "betrivers",
+          "market": "ml",
+          "side": "TEX",
+          "line": "",
+          "odds": "-167"
+        },
+        {
+          "book": "betrivers",
+          "market": "runline",
+          "side": "MIN",
+          "line": "1.5",
+          "odds": "-159"
+        },
+        {
+          "book": "betrivers",
+          "market": "runline",
+          "side": "TEX",
+          "line": "-1.5",
+          "odds": "128"
+        },
+        {
+          "book": "betrivers",
+          "market": "total",
+          "side": "over",
+          "line": "8.0",
+          "odds": "-114"
+        },
+        {
+          "book": "betrivers",
+          "market": "total",
+          "side": "under",
+          "line": "8.0",
+          "odds": "-109"
+        },
+        {
+          "book": "draftkings",
+          "market": "ml",
+          "side": "MIN",
+          "line": "",
+          "odds": "139"
+        },
+        {
+          "book": "draftkings",
+          "market": "ml",
+          "side": "TEX",
+          "line": "",
+          "odds": "-168"
+        },
+        {
+          "book": "draftkings",
+          "market": "runline",
+          "side": "MIN",
+          "line": "1.5",
+          "odds": "-156"
+        },
+        {
+          "book": "draftkings",
+          "market": "runline",
+          "side": "TEX",
+          "line": "-1.5",
+          "odds": "129"
+        },
+        {
+          "book": "draftkings",
+          "market": "total",
+          "side": "over",
+          "line": "8.0",
+          "odds": "-110"
+        },
+        {
+          "book": "draftkings",
+          "market": "total",
+          "side": "under",
+          "line": "8.0",
+          "odds": "-110"
+        }
+      ]
+    },
+    {
+      "away": "BAL",
+      "home": "SEA",
+      "away_sp": "Shane Baz",
+      "home_sp": "Bryan Woo",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 62.9,
+      "home_osi": 58.0,
+      "away_fip": 3.281130612775919,
+      "home_fip": 3.9622302691141766,
+      "away_hr9": 0.55670103,
+      "home_hr9": 1.2,
+      "away_k": 20.740741,
+      "home_k": 20.661157,
       "park_factor": 0.96,
       "weather": {
-        "temp_f": 68.0,
-        "wind_mph": 9.0,
-        "wind_dir": "NE",
+        "temp_f": 73.0,
+        "wind_mph": 7.0,
+        "wind_dir": "N",
         "conditions": "clear",
         "dome": false
       },
@@ -2529,32 +552,18 @@
           {
             "name": "OSI vs Pitching Score",
             "direction": "pitching",
-            "magnitude": 11.91,
+            "magnitude": 15.43,
             "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 65.3 vs opp Pitch 77.2 (gap -11.9) -- pitching edge."
-          },
-          {
-            "name": "OBR + BB%",
-            "direction": "high",
-            "magnitude": 4.8,
-            "bet_angle": "Over / baserunners",
-            "verdict": "Run environment: OBR 72.8 + SP BB% 9.4% -- table-setters & traffic."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Table Setter Plus",
-            "verdict": "Table Setter Plus (Mid/High) -- Strong on-base process with moderate power -- grind-and-advance profile."
+            "verdict": "OSI 62.9 vs opp Pitch 78.3 (gap -15.4) -- pitching edge."
           }
         ],
         "home": [
           {
             "name": "OSI vs Pitching Score",
             "direction": "lineup",
-            "magnitude": 21.22,
+            "magnitude": 22.92,
             "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 57.7 vs opp Pitch 36.5 (gap +21.2) -- offensive edge."
+            "verdict": "OSI 58.0 vs opp Pitch 35.1 (gap +22.9) -- offensive edge."
           },
           {
             "name": "RCV archetype",
@@ -2566,18 +575,18 @@
           {
             "name": "Schedule context",
             "direction": "hot",
-            "magnitude": 8.85,
+            "magnitude": 8.33,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 67.3 vs HvP baseline 58.5 (\u0394+8.8) -- hotter than season profile."
+            "verdict": "Opponent OOR 65.3 vs HvP baseline 57.0 (\u0394+8.3) -- hotter than season profile."
           }
         ]
       },
       "convergence": {
         "away": {
-          "count": 3.0,
+          "count": 1.0,
           "direction": "pitching",
           "is_play": false,
-          "fired": 3.0
+          "fired": 1.0
         },
         "home": {
           "count": 3.0,
@@ -2589,38 +598,52 @@
       "odds": []
     },
     {
-      "away": "LAA",
-      "home": "ARI",
-      "away_sp": "Sam Aldegheri",
-      "home_sp": "Eduardo Rodriguez",
+      "away": "NYM",
+      "home": "PHI",
+      "away_sp": "Sean Manaea",
+      "home_sp": "Aaron Nola",
       "away_hand": "R",
       "home_hand": "R",
-      "away_osi": 37.4,
-      "home_osi": 28.8,
-      "away_fip": 3.864218173307531,
-      "home_fip": 4.083118848371951,
-      "away_hr9": 0.52941176,
-      "home_hr9": 0.8852459,
-      "away_k": 16.666667,
-      "home_k": 17.857143,
-      "park_factor": 0.97,
+      "away_osi": 43.0,
+      "home_osi": 32.7,
+      "away_fip": 3.891481969794449,
+      "home_fip": 4.496506998607843,
+      "away_hr9": 1.10204082,
+      "home_hr9": 1.65566038,
+      "away_k": 23.831775999999998,
+      "home_k": 22.977346,
+      "park_factor": 1.07,
       "weather": {
-        "temp_f": 105.0,
+        "temp_f": 74.0,
         "wind_mph": 8.0,
-        "wind_dir": "NW",
+        "wind_dir": "S",
         "conditions": "cloudy",
         "dome": false
       },
       "away_risk": {
-        "bullpen_era": 3.38,
+        "bullpen_era": 3.24,
         "window_direction": "stable"
       },
       "home_risk": {
-        "bullpen_era": 2.53,
+        "bullpen_era": 3.51,
         "window_direction": "stable"
       },
       "signals": {
         "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 30.29,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 43.0 vs opp Pitch 73.3 (gap -30.3) -- pitching edge."
+          },
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 3.28,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +3.3 (ABQ ahead of RCV) -- buy-low process signal."
+          },
           {
             "name": "RCV archetype",
             "direction": "profile",
@@ -2631,18 +654,18 @@
           {
             "name": "Schedule context",
             "direction": "cold",
-            "magnitude": 9.52,
+            "magnitude": 8.27,
             "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 23.7 vs HvP baseline 33.2 (\u0394-9.5) -- cooler than season profile."
+            "verdict": "Opponent OOR 26.8 vs HvP baseline 35.1 (\u0394-8.3) -- cooler than season profile."
           }
         ],
         "home": [
           {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 19.47,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +19.5 (ABQ ahead of RCV) -- buy-low process signal."
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 32.31,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 32.7 vs opp Pitch 65.0 (gap -32.3) -- pitching edge."
           },
           {
             "name": "RCV archetype",
@@ -2650,203 +673,6 @@
             "magnitude": 1.0,
             "bet_angle": "Cold Profile",
             "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 2.0,
-          "direction": "profile",
-          "is_play": false,
-          "fired": 2.0
-        },
-        "home": {
-          "count": 3.0,
-          "direction": "process",
-          "is_play": false,
-          "fired": 2.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "PIT",
-      "home": "ATH",
-      "away_sp": "Braxton Ashcraft",
-      "home_sp": "Aaron Civale",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 59.2,
-      "home_osi": 53.1,
-      "away_fip": 3.087701267333008,
-      "home_fip": 5.470769775842539,
-      "away_hr9": 0.8503937,
-      "home_hr9": 1.94011976,
-      "away_k": 26.162791000000002,
-      "home_k": 15.853659,
-      "park_factor": 0.9,
-      "weather": {
-        "temp_f": 74.0,
-        "wind_mph": 14.0,
-        "wind_dir": "SSW",
-        "conditions": "clear",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.47,
-        "window_direction": "falling"
-      },
-      "home_risk": {
-        "bullpen_era": 4.35,
-        "window_direction": "stable"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 32.37,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 59.2 vs opp Pitch 26.8 (gap +32.4) -- offensive edge."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 12.49,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 12.5 (RHP side) vs RHP -- handedness aligned."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 11.15,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 53.1 vs opp Pitch 64.2 (gap -11.2) -- pitching edge."
-          },
-          {
-            "name": "OBR + BB%",
-            "direction": "low",
-            "magnitude": 10.24,
-            "bet_angle": "Under / pitcher control",
-            "verdict": "Stall risk: OBR 44.8 + SP BB% 5.5% -- limited free passes."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 16.21,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 16.2 (RHP side) vs RHP -- handedness aligned."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Contact Floor",
-            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
-          }
-        ]
-      },
-      "convergence": {
-        "away": {
-          "count": 2.0,
-          "direction": "lineup",
-          "is_play": false,
-          "fired": 2.0
-        },
-        "home": {
-          "count": 4.0,
-          "direction": "pitching",
-          "is_play": true,
-          "fired": 4.0
-        }
-      },
-      "odds": []
-    },
-    {
-      "away": "TBR",
-      "home": "LAD",
-      "away_sp": "Shane McClanahan",
-      "home_sp": "Shohei Ohtani",
-      "away_hand": "R",
-      "home_hand": "R",
-      "away_osi": 44.3,
-      "home_osi": 84.9,
-      "away_fip": 2.77138729095459,
-      "home_fip": 2.670940862404273,
-      "away_hr9": 0.421875,
-      "home_hr9": 0.39901478,
-      "away_k": 24.626866,
-      "home_k": 27.862595000000002,
-      "park_factor": 1.01,
-      "weather": {
-        "temp_f": 64.0,
-        "wind_mph": 6.0,
-        "wind_dir": "SSW",
-        "conditions": "cloudy",
-        "dome": false
-      },
-      "away_risk": {
-        "bullpen_era": 3.81,
-        "window_direction": "falling"
-      },
-      "home_risk": {
-        "bullpen_era": 3.4,
-        "window_direction": "falling"
-      },
-      "signals": {
-        "away": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "pitching",
-            "magnitude": 44.2,
-            "bet_angle": "Back pitching / fade offense",
-            "verdict": "OSI 44.3 vs opp Pitch 88.5 (gap -44.2) -- pitching edge."
-          },
-          {
-            "name": "PP-Gap",
-            "direction": "process",
-            "magnitude": 45.65,
-            "bet_angle": "Process > production",
-            "verdict": "PP-Gap +45.6 (ABQ ahead of RCV) -- buy-low process signal."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Cold Profile",
-            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
-          },
-          {
-            "name": "Schedule context",
-            "direction": "hot",
-            "magnitude": 21.9,
-            "bet_angle": "Adjust expectations vs season norm",
-            "verdict": "Opponent OOR 100.0 vs HvP baseline 78.1 (\u0394+21.9) -- hotter than season profile."
-          }
-        ],
-        "home": [
-          {
-            "name": "OSI vs Pitching Score",
-            "direction": "lineup",
-            "magnitude": 24.83,
-            "bet_angle": "Fade weak pitching / back strong offense",
-            "verdict": "OSI 84.9 vs opp Pitch 60.1 (gap +24.8) -- offensive edge."
-          },
-          {
-            "name": "ABQ split gap + handedness",
-            "direction": "lineup",
-            "magnitude": 9.28,
-            "bet_angle": "Target RHP hitters vs RHP",
-            "verdict": "Platoon edge: ABQ gap 9.3 (RHP side) vs RHP -- handedness aligned."
-          },
-          {
-            "name": "RCV archetype",
-            "direction": "profile",
-            "magnitude": 1.0,
-            "bet_angle": "Elite Engine",
-            "verdict": "Elite Engine (High/High) -- Top-tier run creation with a strong on-base floor -- complete offensive profile."
           }
         ]
       },
@@ -2858,392 +684,379 @@
           "fired": 4.0
         },
         "home": {
+          "count": 2.0,
+          "direction": "pitching",
+          "is_play": false,
+          "fired": 2.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "CHW",
+      "home": "NYY",
+      "away_sp": "Sean Burke",
+      "home_sp": "Ryan Weathers",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 60.7,
+      "home_osi": 69.6,
+      "away_fip": 4.495563602447509,
+      "home_fip": 4.427402167529655,
+      "away_hr9": 0.77142857,
+      "home_hr9": 1.8161435,
+      "away_k": 20.12987,
+      "home_k": 26.557377,
+      "park_factor": 1.06,
+      "weather": {
+        "temp_f": 70.0,
+        "wind_mph": 9.0,
+        "wind_dir": "SSE",
+        "conditions": "cloudy",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 3.37,
+        "window_direction": "falling"
+      },
+      "home_risk": {
+        "bullpen_era": 3.12,
+        "window_direction": "falling"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "HR/9 vs RCV",
+            "direction": "lineup",
+            "magnitude": 4.64,
+            "bet_angle": "Over HR / power",
+            "verdict": "Barrel lane open: HR/9 1.82 vs RCV 76.6 -- damage upside vs flyball risk arm."
+          },
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 14.73,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 60.7 vs opp Pitch 75.4 (gap -14.7) -- pitching edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Power Leverage",
+            "verdict": "Power Leverage (High/Mid) -- Big damage output with average table-setting -- slug-first lineup shape."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "hot",
+            "magnitude": 15.23,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 82.9 vs HvP baseline 67.7 (\u0394+15.2) -- hotter than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 25.3,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 69.6 vs opp Pitch 44.3 (gap +25.3) -- offensive edge."
+          },
+          {
+            "name": "OBR + BB%",
+            "direction": "high",
+            "magnitude": 14.23,
+            "bet_angle": "Over / baserunners",
+            "verdict": "Run environment: OBR 82.2 + SP BB% 14.9% -- table-setters & traffic."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Elite Engine",
+            "verdict": "Elite Engine (High/High) -- Top-tier run creation with a strong on-base floor -- complete offensive profile."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "hot",
+            "magnitude": 11.68,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 75.3 vs HvP baseline 63.6 (\u0394+11.7) -- hotter than season profile."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 4.0,
+          "direction": "lineup",
+          "is_play": true,
+          "fired": 4.0
+        },
+        "home": {
+          "count": 4.0,
+          "direction": "lineup",
+          "is_play": true,
+          "fired": 4.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "SFG",
+      "home": "ATL",
+      "away_sp": "Landen Roupp",
+      "home_sp": "Mart\u00edn P\u00e9rez",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 43.7,
+      "home_osi": 57.3,
+      "away_fip": 2.9610344544594143,
+      "home_fip": null,
+      "away_hr9": 0.48430493,
+      "home_hr9": null,
+      "away_k": 26.198083,
+      "home_k": null,
+      "park_factor": 1.03,
+      "weather": {
+        "temp_f": 77.0,
+        "wind_mph": 7.0,
+        "wind_dir": "SSW",
+        "conditions": "cloudy",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 3.81,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 1.39,
+        "window_direction": "falling"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "pitching",
+            "magnitude": 26.92,
+            "bet_angle": "Back pitching / fade offense",
+            "verdict": "OSI 43.7 vs opp Pitch 70.6 (gap -26.9) -- pitching edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Contact Floor",
+            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
+          },
+          {
+            "name": "Schedule context",
+            "direction": "hot",
+            "magnitude": 7.05,
+            "bet_angle": "Adjust expectations vs season norm",
+            "verdict": "Opponent OOR 63.2 vs HvP baseline 56.2 (\u0394+7.1) -- hotter than season profile."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 18.77,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 57.3 vs opp Pitch 38.5 (gap +18.8) -- offensive edge."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 3.0,
+          "direction": "pitching",
+          "is_play": false,
+          "fired": 3.0
+        },
+        "home": {
+          "count": 1.0,
+          "direction": "lineup",
+          "is_play": false,
+          "fired": 1.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "STL",
+      "home": "KCR",
+      "away_sp": "Matthew Liberatore",
+      "home_sp": "Noah Cameron",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 46.8,
+      "home_osi": 48.7,
+      "away_fip": 4.977639074056846,
+      "home_fip": 3.481277888161796,
+      "away_hr9": 1.78301887,
+      "home_hr9": 1.02857143,
+      "away_k": 21.172638,
+      "home_k": 21.694915,
+      "park_factor": 0.95,
+      "weather": {
+        "temp_f": 76.0,
+        "wind_mph": 3.0,
+        "wind_dir": "WNW",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 4.4,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 4.01,
+        "window_direction": "falling"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 12.25,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 46.8 vs opp Pitch 34.6 (gap +12.3) -- offensive edge."
+          },
+          {
+            "name": "OBR + BB%",
+            "direction": "low",
+            "magnitude": 11.16,
+            "bet_angle": "Under / pitcher control",
+            "verdict": "Stall risk: OBR 43.8 + SP BB% 5.8% -- limited free passes."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ],
+        "home": [
+          {
+            "name": "PP-Gap",
+            "direction": "process",
+            "magnitude": 17.43,
+            "bet_angle": "Process > production",
+            "verdict": "PP-Gap +17.4 (ABQ ahead of RCV) -- buy-low process signal."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 3.0,
+          "direction": "lineup",
+          "is_play": false,
+          "fired": 3.0
+        },
+        "home": {
+          "count": 3.0,
+          "direction": "process",
+          "is_play": false,
+          "fired": 2.0
+        }
+      },
+      "odds": []
+    },
+    {
+      "away": "LAA",
+      "home": "ATH",
+      "away_sp": "Jose Soriano",
+      "home_sp": "Gage Jump",
+      "away_hand": "R",
+      "home_hand": "R",
+      "away_osi": 38.2,
+      "home_osi": 53.2,
+      "away_fip": 4.117541624537838,
+      "home_fip": 2.495563602361796,
+      "away_hr9": 1.18681319,
+      "home_hr9": 0.0,
+      "away_k": 21.6,
+      "home_k": 20.212766,
+      "park_factor": 0.9,
+      "weather": {
+        "temp_f": 67.0,
+        "wind_mph": 13.0,
+        "wind_dir": "SSW",
+        "conditions": "clear",
+        "dome": false
+      },
+      "away_risk": {
+        "bullpen_era": 3.38,
+        "window_direction": "stable"
+      },
+      "home_risk": {
+        "bullpen_era": 4.35,
+        "window_direction": "stable"
+      },
+      "signals": {
+        "away": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 13.0,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 38.2 vs opp Pitch 25.2 (gap +13.0) -- offensive edge."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Cold Profile",
+            "verdict": "Cold Profile (Low/Low) -- Weak damage and weak on-base -- lowest offensive ceiling archetype."
+          }
+        ],
+        "home": [
+          {
+            "name": "OSI vs Pitching Score",
+            "direction": "lineup",
+            "magnitude": 15.73,
+            "bet_angle": "Fade weak pitching / back strong offense",
+            "verdict": "OSI 53.2 vs opp Pitch 37.5 (gap +15.7) -- offensive edge."
+          },
+          {
+            "name": "ABQ split gap + handedness",
+            "direction": "lineup",
+            "magnitude": 16.39,
+            "bet_angle": "Target RHP hitters vs RHP",
+            "verdict": "Platoon edge: ABQ gap 16.4 (RHP side) vs RHP -- handedness aligned."
+          },
+          {
+            "name": "RCV archetype",
+            "direction": "profile",
+            "magnitude": 1.0,
+            "bet_angle": "Contact Floor",
+            "verdict": "Contact Floor (Mid/Low) -- Modest contact quality with weak on-base -- limited run-scoring paths."
+          }
+        ]
+      },
+      "convergence": {
+        "away": {
+          "count": 2.0,
+          "direction": "lineup",
+          "is_play": false,
+          "fired": 2.0
+        },
+        "home": {
           "count": 3.0,
           "direction": "lineup",
           "is_play": false,
           "fired": 3.0
         }
       },
-      "odds": [
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-168"
-        },
-        {
-          "book": "fanduel",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "142"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "126"
-        },
-        {
-          "book": "fanduel",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-152"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-106"
-        },
-        {
-          "book": "fanduel",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-114"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-158"
-        },
-        {
-          "book": "lowvig",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "143"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "120"
-        },
-        {
-          "book": "lowvig",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-136"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-113"
-        },
-        {
-          "book": "lowvig",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-102"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-158"
-        },
-        {
-          "book": "betonlineag",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "143"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "118"
-        },
-        {
-          "book": "betonlineag",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-138"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betonlineag",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-105"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-170"
-        },
-        {
-          "book": "betmgm",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "140"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "120"
-        },
-        {
-          "book": "betmgm",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-145"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-110"
-        },
-        {
-          "book": "betmgm",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-110"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-167"
-        },
-        {
-          "book": "draftkings",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "138"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "123"
-        },
-        {
-          "book": "draftkings",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-148"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-108"
-        },
-        {
-          "book": "draftkings",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-111"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-158"
-        },
-        {
-          "book": "betus",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "141"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "120"
-        },
-        {
-          "book": "betus",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-140"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-110"
-        },
-        {
-          "book": "betus",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-110"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-159"
-        },
-        {
-          "book": "bovada",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "133"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "130"
-        },
-        {
-          "book": "bovada",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-150"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-105"
-        },
-        {
-          "book": "bovada",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-115"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-175"
-        },
-        {
-          "book": "betrivers",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "135"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "125"
-        },
-        {
-          "book": "betrivers",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-157"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-107"
-        },
-        {
-          "book": "betrivers",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-117"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "LAD",
-          "line": "",
-          "odds": "-164"
-        },
-        {
-          "book": "mybookieag",
-          "market": "ml",
-          "side": "TBR",
-          "line": "",
-          "odds": "139"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "LAD",
-          "line": "-1.5",
-          "odds": "119"
-        },
-        {
-          "book": "mybookieag",
-          "market": "runline",
-          "side": "TBR",
-          "line": "1.5",
-          "odds": "-140"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "over",
-          "line": "9.0",
-          "odds": "-107"
-        },
-        {
-          "book": "mybookieag",
-          "market": "total",
-          "side": "under",
-          "line": "9.0",
-          "odds": "-114"
-        }
-      ]
+      "odds": []
     }
   ]
 }
