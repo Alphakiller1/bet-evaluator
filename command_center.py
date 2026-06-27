@@ -192,44 +192,46 @@ def bet_eval_payload(qs: dict) -> dict:
 PAGE = """<!DOCTYPE html><html lang=en><head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>Chase Command Center</title><style>
-:root{--bg:#08090F;--panel:#12141D;--ink:#F5F6FA;--mut:#A4A8B6;--teal:#2DD4BF;--purple:#9A6BFF;--line:#262A38;--green:#3CCB7F;--red:#F2545B;--amber:#E8C24A}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",Segoe UI,system-ui,sans-serif;display:flex;height:100vh}
-#side{width:220px;background:#0c1422;border-right:1px solid var(--line);padding:16px 12px;flex-shrink:0;overflow:auto}
-#side h1{font-family:"Roboto Condensed",sans-serif;font-size:18px;margin:0 0 4px}
-#side .sub{color:var(--mut);font-size:11px;margin-bottom:14px}
-.navbtn{display:block;width:100%;text-align:left;background:#101a2c;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin:5px 0;cursor:pointer;font-size:13.5px}
-.navbtn:hover{border-color:var(--purple)}.navbtn.on{background:#1c2740;border-color:var(--purple)}
-#gamebox{display:flex;gap:5px;margin:10px 0}#gamebox input{flex:1;min-width:0;background:#101a2c;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:8px}
-#gamebox button{background:var(--purple);border:0;border-radius:8px;color:#fff;padding:0 12px;cursor:pointer}
-#main{flex:1;overflow:auto;padding:22px 26px}
-#bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.stat{background:#101a2c;border:1px solid var(--line);border-radius:10px;padding:8px 14px}
-.stat b{font-family:"Roboto Condensed";font-size:20px;color:var(--teal)}.stat span{display:block;color:var(--mut);font-size:11px}
-h2{font-family:"Roboto Condensed";font-weight:600;letter-spacing:.4px;margin:0 0 10px}
-pre{white-space:pre-wrap;font-family:"JetBrains Mono",Consolas,monospace;font-size:12.7px;line-height:1.55;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;overflow:auto}
-.tg{color:var(--green);font-weight:700}.tr{color:var(--red);font-weight:700}.ta{color:var(--amber);font-weight:700}.tp{color:var(--purple);font-weight:700}
-.glink{color:var(--teal);cursor:pointer;text-decoration:underline}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap');
+:root{--bg:#070b12;--band:#0c111c;--panel:#111827;--panel-2:#151d2c;--line:rgba(148,163,184,.18);--line-strong:rgba(196,181,253,.34);--ink:#f3f6fb;--mut:#94a3b8;--soft:#cbd5e1;--teal:#2dd4bf;--purple:#8b5cf6;--violet-2:#c4b5fd;--blue:#60a5fa;--green:#22c55e;--red:#fb7185;--amber:#f59e0b;--shadow:0 18px 60px rgba(0,0,0,.34)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:Inter,"DM Sans","Segoe UI",system-ui,sans-serif;display:flex;height:100vh;background:linear-gradient(rgba(148,163,184,.04) 1px,transparent 1px) 0 0/26px 26px,linear-gradient(90deg,rgba(148,163,184,.04) 1px,transparent 1px) 0 0/26px 26px,linear-gradient(180deg,#080c14 0%,#070b12 48%,#05070c 100%)}
+#side{width:232px;background:linear-gradient(160deg,rgba(17,24,39,.94),rgba(8,13,22,.96));border-right:1px solid var(--line);padding:20px 14px;flex-shrink:0;overflow:auto;backdrop-filter:blur(6px)}
+#side h1{font-size:17px;font-weight:700;letter-spacing:.3px;margin:0 0 2px;background:linear-gradient(90deg,var(--teal),var(--violet-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#side .sub{color:var(--mut);font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:16px}
+.navbtn{display:block;width:100%;text-align:left;background:rgba(17,24,39,.5);color:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer;font-size:13.5px;font-weight:500;transition:all .15s}
+.navbtn:hover{border-color:var(--line-strong);color:var(--ink);background:rgba(28,39,64,.6)}.navbtn.on{background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(45,212,191,.08));border-color:var(--line-strong);color:var(--ink)}
+#gamebox{display:flex;gap:6px;margin:12px 0}#gamebox input{flex:1;min-width:0;background:rgba(8,13,22,.7);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:9px}
+#gamebox button{background:linear-gradient(135deg,var(--purple),var(--teal));border:0;border-radius:9px;color:#fff;padding:0 14px;cursor:pointer;font-weight:600}
+#main{flex:1;overflow:auto;padding:26px 30px}
+#bar{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:18px}
+.stat{background:linear-gradient(160deg,rgba(17,24,39,.66),rgba(8,13,22,.72));border:1px solid var(--line);border-radius:12px;padding:10px 16px;box-shadow:var(--shadow)}
+.stat b{font-size:21px;font-weight:700;color:var(--teal)}.stat span{display:block;color:var(--mut);font-size:11px;letter-spacing:.3px}
+h2{font-weight:600;letter-spacing:.2px;margin:0 0 12px;font-size:18px}
+pre{white-space:pre-wrap;font-family:"JetBrains Mono",Consolas,monospace;font-size:12.7px;line-height:1.55;background:linear-gradient(160deg,rgba(15,23,42,.92),rgba(8,13,22,.94));border:1px solid var(--line);border-radius:14px;padding:18px;overflow:auto;box-shadow:var(--shadow)}
+.tg{color:var(--green);font-weight:700}.tr{color:var(--red);font-weight:700}.ta{color:var(--amber);font-weight:700}.tp{color:var(--violet-2);font-weight:700}
+.glink{color:var(--teal);cursor:pointer;text-decoration:none;border-bottom:1px dotted var(--teal)}
 .spin{color:var(--mut)}
-.betform{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
-.betform label{display:flex;flex-direction:column;font-size:11px;color:var(--mut);gap:4px}
-.betform input,.betform select{background:#101a2c;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:8px 10px;font-size:13px;min-width:92px}
+.betform{background:linear-gradient(160deg,rgba(17,24,39,.7),rgba(8,13,22,.8));border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:13px;align-items:flex-end;box-shadow:var(--shadow)}
+.betform label{display:flex;flex-direction:column;font-size:10.5px;color:var(--mut);gap:5px;text-transform:uppercase;letter-spacing:.3px}
+.betform input,.betform select{background:rgba(8,13,22,.7);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:9px 11px;font-size:13px;min-width:92px}
 .betform input::placeholder{color:#4a576e}
-.betform .go{background:var(--purple);border:0;color:#fff;padding:9px 20px;border-radius:8px;cursor:pointer;font-size:13.5px}
+.betform .go{background:linear-gradient(135deg,var(--purple),var(--teal));border:0;color:#fff;padding:10px 22px;border-radius:9px;cursor:pointer;font-size:13.5px;font-weight:600}
 .betform .hint{flex-basis:100%;color:var(--mut);font-size:11.5px;margin-top:-2px}
-.analysis{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 24px;font-size:14px;line-height:1.6}
-.analysis h2.vh{font-family:"Roboto Condensed";font-size:22px;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-.analysis h2.vh.play{color:var(--green)}.analysis h2.vh.pass{color:var(--red)}
-.analysis h3{font-family:"Roboto Condensed";font-size:14px;letter-spacing:.5px;text-transform:uppercase;color:var(--purple);margin:20px 0 8px}
+.analysis{background:linear-gradient(160deg,rgba(17,24,39,.72),rgba(8,13,22,.82));border:1px solid var(--line);border-radius:14px;padding:20px 26px;font-size:14px;line-height:1.6;box-shadow:var(--shadow)}
+.analysis h2.vh{font-size:22px;font-weight:700;margin:0 0 12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.analysis h2.vh.play{color:var(--teal)}.analysis h2.vh.pass{color:var(--red)}
+.analysis h3{font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--violet-2);margin:20px 0 8px}
 .analysis h4{font-size:13px;color:var(--mut);margin:14px 0 6px}
-.analysis blockquote{margin:0 0 14px;padding:12px 16px;background:#0c1422;border-left:3px solid var(--purple);border-radius:8px}
+.analysis blockquote{margin:0 0 14px;padding:13px 17px;background:rgba(45,212,191,.06);border-left:3px solid var(--teal);border-radius:9px}
 .analysis table{border-collapse:collapse;margin:8px 0 14px}
 .analysis td{border:1px solid var(--line);padding:6px 13px}.analysis tr:first-child td{color:var(--mut);font-size:12px}
 .analysis ul{margin:6px 0 14px;padding-left:20px}.analysis li{margin:3px 0}
 .analysis hr{border:0;border-top:1px solid var(--line);margin:16px 0}.analysis b{color:#fff}
-.berr{color:var(--red);padding:12px 16px;background:#1a0e12;border:1px solid #3a1a20;border-radius:10px}
+.berr{color:var(--red);padding:13px 17px;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.3);border-radius:11px}
 </style></head><body>
 <div id=side>
-  <h1>Chase</h1><div class=sub>Command Center</div>
+  <h1>Chase Analytics</h1><div class=sub>Command Center · MLB</div>
   <div id=gamebox><input id=gi placeholder="LAD@ARI" /><button onclick="game()">Go</button></div>
   <button class="navbtn" data-k=bet onclick="betForm(this)">★ Evaluate a Bet</button>
   <button class="navbtn on" data-k=value onclick="load('value',this)">Value Board</button>
